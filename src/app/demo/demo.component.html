@@ -1,0 +1,46 @@
+<div class="um-section">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" [routerLink]="['/']">
+      <i class="fa fa-angle-left"></i> Back
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link">Eyeglasses <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link">Sunglasses</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link">Collections</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">About us</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="row">
+      <div class="col-6">
+        <div class="d-flex align-items-center">
+          <img src="/assets/images/demo_glasses.jpg" alt="glasses" class="img-fluid">
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="d-flex align-items-center flex-column justify-content-around">
+          <h1 class="um-title">Model 1</h1>
+          <h2 class="um-subtitle">$100</h2>
+          <div class="um-section--buttons">
+            <button class="btn btn-dark">Buy</button>
+            <button class="btn btn-dark" (click)="showPopup()">Try it on!</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

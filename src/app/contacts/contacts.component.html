@@ -1,0 +1,85 @@
+<ng-template #registerModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Add new contact</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <form #registerForm='ngForm' (ngSubmit)="onFormSubmit()">
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="um-first-name">First Name</label>
+        <input type="text" class="form-control" id="um-first-name" name="firstName"
+               placeholder="First name" [(ngModel)]="contact.firstName" required>
+      </div>
+      <div class="form-group">
+        <label for="um-last-name">Last Name</label>
+        <input type="text" class="form-control" id="um-last-name" name="lastName"
+               placeholder="Last Name" [(ngModel)]="contact.lastName" required>
+      </div>
+      <div class="form-group">
+        <label for="um-email">Email address</label>
+        <input type="email" class="form-control" id="um-email" aria-describedby="emailHelp" name="email"
+               placeholder="Enter email" [(ngModel)]="contact.email" required>
+      </div>
+      <div class="form-group">
+        <label for="um-email-confirm">Confirm Email address</label>
+        <input type="email" class="form-control" id="um-email-confirm" aria-describedby="emailHelp"
+               name="emailConfirmation"
+               placeholder="Enter email" [(ngModel)]="formFieldEmailConfirmation" required>
+      </div>
+      <div class="form-group">
+        <label for="um-phone">Phone</label>
+        <input type="tel" class="form-control" id="um-phone" name="phone"
+               placeholder="Contact phone" [(ngModel)]="contact.phone" required>
+      </div>
+      <div class="form-group">
+        <label for="um-location">Location</label>
+        <input type="text" class="form-control" id="um-location" name="location"
+               placeholder="Location" [(ngModel)]="contact.location" required>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-light">Save</button>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #confirmationModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Delete client</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Are you sure you want to delete client <b>{{contact.firstName}} {{contact.lastName}}</b>?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+    <button type="button" class="btn btn-danger" (click)="deleteContact()">Delete</button>
+  </div>
+</ng-template>
+
+<div class="um-section">
+  <div class="container">
+    <ngb-alert *ngIf="isAlertOpen" type="success" (close)="isAlertOpen = false">{{ alertMessage }}</ngb-alert>
+    <button class="um-btn um-btn--submit btn" (click)="onAddContactModalOpen(registerModal)">Add Contact</button>
+    <div class="row">
+      <div *ngFor="let contact of contactList" class="um-contact col">
+        <div class="um-contact__btn-options btn">
+          <i class="fa fa-ellipsis-v"></i>
+          <ul class="um-contact__actions">
+            <li (click)="onDeleteContactModalOpen(confirmationModal, contact)">Delete</li>
+            <li (click)="onEditContactModalOpen(registerModal, contact)">Edit</li>
+          </ul>
+        </div>
+        <h1>{{contact.firstName}} {{contact.lastName}}</h1>
+        <h2>{{contact.location}}</h2>
+        <p>{{contact.phone}}</p>
+        <p>{{contact.email}}</p>
+      </div>
+
+    </div>
+  </div>
+</div>

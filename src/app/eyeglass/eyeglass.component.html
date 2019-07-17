@@ -1,0 +1,118 @@
+<ng-template #eyeglassModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Add new eyewear</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <form #eyeglassForm='ngForm' (ngSubmit)="onFormSubmit()">
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="um-model">Model Name</label>
+        <input type="text" class="form-control" id="um-model" name="model"
+               placeholder="Model Name" [(ngModel)]="eyeglass.model" required>
+      </div>
+      <div class="form-group">
+        <label for="um-size">Size</label>
+        <input type="text" class="form-control" id="um-size" name="size"
+               placeholder="Size" [(ngModel)]="eyeglass.size" required>
+      </div>
+      <div class="form-group">
+        <label for="um-colour">Colour</label>
+        <input type="text" class="form-control" id="um-colour" name="colour"
+               placeholder="Colour" [(ngModel)]="eyeglass.colour" required>
+      </div>
+      <div class="form-group">
+          <label for="um-colour">Other Info</label>
+          <input type="text" class="form-control" id="um-info" name="info"
+                 placeholder="Other info..." [(ngModel)]="eyeglass.info">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-light">Save</button>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #confirmationModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Delete eyeglass</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Are you sure you want to delete the eyeglass model <b>{{eyeglass.model}}</b>?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+    <button type="button" class="btn btn-danger" (click)="DeleteEyeglass()">Delete</button>
+  </div>
+</ng-template>
+
+<div class="um-section">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <ngb-alert *ngIf="isAlertOpen" type="success" (close)="isAlertOpen = false">{{ alertMessage }}</ngb-alert>
+        <button class="um-btn--add btn btn-outline-info" (click)="onAddEyeglassModalOpen(eyeglassModal)">Add eyeglass
+        </button>
+        <table class="table">
+          <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Model Name</th>
+            <th scope="col">size</th>
+            <th scope="col">colour</th>
+            <th scope="col">images</th>
+            <th scope="col">model</th>
+            <th scope="col">other info</th>
+            <th scope="col">actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let eyeglass of eyeglasses; index as i">
+            <th scope="row">{{i + 1}}</th>
+            <td>{{eyeglass.model}}</td>
+            <td>{{eyeglass.size}}</td>
+            <td>{{eyeglass.colour}}</td>
+            <td><a *ngIf="this.eyeglass.btnAct"
+                    [routerLink]="['/','profile', this.clientId, eyeglass.id,'image']">{{"check images"}}</a>
+                <p *ngIf="!this.eyeglass.btnAct">{{"check images"}}</p>
+            </td>
+            <td><a *ngIf="this.eyeglass.btnAct"
+                    [routerLink]="['/','profile', this.clientId, eyeglass.id,'image']">{{"check model"}}</a>
+                <p *ngIf="!this.eyeglass.btnAct">{{"check model"}}</p>
+            </td>
+            <td>{{eyeglass.info}}</td>
+            <td>
+              <button [disabled]="!this.eyeglass.btnAct"
+                      class="um-btn--action btn btn-outline-warning"
+                      (click)="onEditEyeglassModalOpen(eyeglass, eyeglassModal)">
+                <i class="fa fa-edit"></i>
+              </button>
+              <!-- Disable Btn -->
+              <button [disabled]="!this.eyeglass.btnAct"
+                      (click)="disableBtn(eyeglass)"
+                      class="um-btn--action btn btn-outline-info">
+                <i class="fa fa-eye-slash"></i>
+              </button>
+              <!-- Enable Btn -->
+              <button [disabled]="this.eyeglass.btnAct"
+                      (click)="disableBtn(eyeglass)"
+                      class="um-btn--action btn btn-outline-info">
+                <i class="fa fa-eye"></i>
+              </button>
+              <button [disabled]="!this.eyeglass.btnAct"
+                      class="um-btn--action btn btn-outline-danger"
+                      (click)="onDeleteEyeglassModalOpen(eyeglass, confirmationModal)">
+                <i class="fa fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

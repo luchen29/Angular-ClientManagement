@@ -1,0 +1,160 @@
+<nav class="navbar navbar-expand-lg navbar-light sticky-top" (scroll)="scrollMe($event)">
+  <a class="navbar-brand" href="#">
+    <img class="img-fluid" src="/assets/images/naik-ar-logo.png" alt="logo" [@scrollAnimation]="state">
+  </a>
+  <span class="um-header-text"> Making Virtual Fitting A Reality</span>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav um-navbar justify-content-end">
+      <li class="nav-item">
+        <a class="nav-link" [ngx-scroll-to]="about">About Us</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [ngx-scroll-to]="products">Products</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [ngx-scroll-to]="demo">Try it!</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [ngx-scroll-to]="contact">Contact Us</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['profile/login']">LogIn</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="um-section um-section--about" #about>
+  <div class="container">
+    <div class="row h-100">
+      <div class="col-12 col-md-6 d-flex flex-column justify-content-center align-items-center">
+        <div class="um-img--circle um-img--about-us"></div>
+      </div>
+      <div class="col-12 col-md-6 d-flex flex-column justify-content-center align-items-center">
+        <h1 class="um-title">About Us</h1>
+        <p class="um-text">
+          At Naik AR we are trying to utilize Augmented Reality and 3D modeling in order to enhance online shopping
+          experience for consumers. The developed technology is utilized for virtual fitting of products on ecommerce
+          websites. The web-based nature and its simple integration into existing e-commerce websites makes this
+          technology viable for enhancing the everyday online consumer behavior.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="um-section um-section--products" #products>
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-sm-6 d-flex flex-column align-items-center justify-content-center">
+        <h1 class="um-title">U - Model</h1>
+        <p class="um-text">
+          U-Model is a web-based platform that enables live fitting of eyewear on e-commerce websites using any device
+          (laptop, tablet and mobile). U-Model gives the experience of fitting and trying on glasses virtually while
+          shopping online.
+        </p>
+      </div>
+      <div class="col-12 col-sm-5 offset-md-1 d-flex flex-column align-items-center justify-content-center">
+        <div class="um-img--glasses"></div>
+      </div>
+    </div>
+    <div class="row um-section--products__info d-flex align-items-center">
+      <div class="col-12 col-sm-6">
+        <div class="um-box-container um-background--image-1">
+          <div class="um-box-container__title um-title">What?</div>
+          <div class="um-box-container__text um-text">
+            <ul>
+              <li>Enables live fitting of eyewear</li>
+              <li>Accessible through the e-commerce website</li>
+              <li>Web based platform</li>
+              <li>Connects directly to the e-commerce website</li>
+              <li>Option of uploading an image to fit on</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6">
+        <div class="um-box-container um-background--image-2">
+          <div class="um-box-container__title um-title">How?</div>
+          <div class="um-box-container__text um-text">
+            <ul>
+              <li>Simple incorporation of up to 8 lines of script in the existing website</li>
+              <li>Platform automatically accessed via a “Try On” button</li>
+              <li>Generates realistic 3D models of eyewear via images provided</li>
+              <li>Want to know more? Connect with us!</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 offset-sm-3">
+        <div class="um-box-container um-background--image-3">
+          <div class="um-box-container__title um-title">Why?</div>
+          <div class="um-box-container__text um-text">
+            <ul>
+              <li>To enhance the consumer experience</li>
+              <li>To incorporate innovative technology into online shopping, with minimal effort</li>
+              <li>To decrease the cost of returns due to lack of fitting capabilities</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<div class="um-section um-section--demo" #demo>
+  <div class="container">
+    <div class="row h-100">
+      <div class="col d-flex flex-column align-items-center justify-content-center">
+        <h1 class="um-title">
+          Try it yourself by visiting the demo website
+        </h1>
+        <a [routerLink]="['/demo']" class="um-btn">Try it</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="um-section um-section--contact" #contact>
+  <div class="um-background-layer">
+    <div class="container">
+      <h1 class="um-title">Contact us</h1>
+      <div class="row d-flex align-items-center justify-content-center">
+        <form class="col col-md-6" action="">
+          <div class="form-group">
+            <label for="um-contact-form__name">Name</label>
+            <input class="form-control" type="text" placeholder="Name" id="um-contact-form__name">
+          </div>
+          <div class="form-group">
+            <label for="um-contact-form__email">Email</label>
+            <input class="form-control" type="email" placeholder="Email" id="um-contact-form__email">
+          </div>
+          <div class="form-group">
+            <label for="um-contact-form__company">Company / Organization</label>
+            <input class="form-control" type="text" placeholder="Company / Organization" id="um-contact-form__company">
+          </div>
+          <div class="form-group">
+            <label for="um-contact-form__message">Message</label>
+            <textarea class="form-control" name="comment" cols="30" rows="10" id="um-contact-form__message"></textarea>
+          </div>
+          <input type="submit" class="form-control btn um-btn--submit" value="Send">
+        </form>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+<footer class="um-section um-section--footer">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        Rights reserved to Naik AR
+      </div>
+      <div class="col">
+      </div>
+    </div>
+  </div>
+</footer>

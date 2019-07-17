@@ -1,0 +1,114 @@
+<ng-template #imageModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Add new image</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <form #imageForm='ngForm' (ngSubmit)="onFormSubmit(imageForm)">
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="um-model">Image Name</label>
+          <input type="text" class="form-control" id="um-model" name="name"
+                 placeholder="Model Name" [(ngModel)]="image.imageName" required>
+        </div>
+        <br>
+        <div class="my-1">
+          <div class="center">
+            <div>
+              <button mat-button type="button" #chooseFileBtn (click)='filePicker.click()'>Pick Image</button>
+              <input type="file" class="form-control" #filePicker name="image"
+                (change)="onImagePicked($event)" required>
+                <!-- 这里删除了 [(ngModel)]="image.imagePreview"  -->
+            </div>
+
+            <div class="upload-table" #uploadedFile *ngIf="imagePreview !== '' && imagePreview">
+              <table class="table">
+                <thead>
+                <p>Uploaded files:</p>
+                </thead>
+                <tbody class="upload-name-style">
+                <tr *ngFor="let item of allFiles; let i=index">
+                  <td><strong>{{ item.name }}</strong>
+                    <div class='imagePreview' *ngIf="imagePreview !== '' && imagePreview" >
+                      <img #selectPreview [src]="imagePreview">
+                    </div>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-light">Save</button>
+      </div>
+    </form>
+  </ng-template>
+
+<ng-template #confirmationImage let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Delete image</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>Are you sure you want to delete this image <b>{{image.imageName}}</b>?</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+      <button type="button" class="btn btn-danger" (click)="DeleteImage()">Delete</button>
+    </div>
+  </ng-template>
+
+<div class="um-section">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <ngb-alert *ngIf="isAlertOpen" type="success" (close)="isAlertOpen = false">{{ alertMessage }}</ngb-alert>
+        <button class="um-btn--add btn btn-outline-info" (click)="onAddImageOpen(imageModal)">Upload Image</button>
+        <table class="table">
+          <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Image Name</th>
+            <th scope="col">Click to Preview Images</th>
+            <th scope="col">Actions</th>
+          </tr>
+          </thead>
+          <tbody *ngIf="images.length > 0">
+          <tr *ngFor="let image of images; index as i">
+            <th scope="row">{{i + 1}}</th>
+            <td>{{image.imageName}}</td>
+            <td>
+              <div>
+                  <img
+                  [lightbox]="i+1"
+                  [gallery]="'anotherLightbox'"
+                  [src]="image.imagePreview"
+                  id="inLinePreviewImg">
+              </div>
+            </td>
+            <td>
+              <button class="um-btn--action btn btn-outline-info"
+                      (click)="onDeleteImageOpen(image, confirmationImage)">
+                <i class="fa fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div *ngIf='images.length<=0' id="noImgNotice">
+      <h5>No image uploaded</h5>
+    </div>
+    <div>
+      <h5>preview 3d-model</h5>
+      <stl-model-viewer stlModel="src/assets/face.stl"></stl-model-viewer>
+    </div>
+  </div>
+</div>

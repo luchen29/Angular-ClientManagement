@@ -1,0 +1,138 @@
+<ng-template #registerModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Add new client</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <form #registerForm='ngForm' (ngSubmit)="onFormSubmit()">
+    <div class="modal-body">
+      <h5>Compamy Basic Info</h5>
+      <div class="form-group">
+        <label for="um-company-name">Company name</label>
+        <input type="text" class="form-control" id="um-company-name" name="companyName"
+               placeholder="Company name" [(ngModel)]="client.companyName" required>
+      </div>
+      <div class="form-group">
+        <label for="um-phone">Contract type</label>
+        <input type="tel" class="form-control" id="um-contract-type" name="phone"
+               placeholder="Contract type" [(ngModel)]="client.contractType" required>
+      </div>
+      <div class="form-group">
+        <label for="um-location">Office Location</label>
+        <input type="tel" class="form-control" id="um-location" name="location"
+               placeholder="Location" [(ngModel)]="client.location" required>
+      </div>
+
+      <div *ngIf="!isClientEdited">
+        <br>
+        <hr>
+        <h5>Compamy Admin Email</h5>
+        <div class="form-group">
+          <label for="um-email">Email address</label>
+          <input type="email" class="form-control" id="um-email"
+                  aria-describedby="emailHelp" name="email"
+                  placeholder="Enter email" [(ngModel)]="user.email"
+                  #iemail="ngModel"
+                  pattern="^[a-zA-Z0-9.!#$%&』*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
+                  required>
+        </div>
+        <div class="errors" *ngIf="iemail.errors">
+          <p *ngIf="iemail.errors.pattern">Email invalid</p>
+        </div>
+        <div class="form-group">
+          <label for="um-email-confirm">Confirm Email address</label>
+          <input type="email" class="form-control" id="um-email-confirm"
+                  aria-describedby="emailHelp" name="emailConfirmation"
+                  placeholder="Enter email again" [(ngModel)]="formFieldEmailConfirmation"
+                  required>
+        </div>
+        <br>
+        <hr>
+        <h5>Admin Contact Info</h5>
+        <div class="form-group">
+          <label for="um-contact-name">Name</label>
+          <input type="text" class="form-control" id="um-contact-name" name="contactName"
+                 placeholder="Contact name" [(ngModel)]="user.firstName" required>
+        </div>
+        <div class="form-group">
+          <label for="um-contact-last-name">Last name</label>
+          <input type="text" class="form-control" id="um-contact-last-name" name="contactLastName"
+                 placeholder="Contact name" [(ngModel)]="user.lastName" required>
+        </div>
+        <div class="form-group">
+          <label for="um-phone">Contact phone</label>
+          <input type="tel" class="form-control" id="um-phone" name="phone"
+                 placeholder="Contact phone" [(ngModel)]="user.phone" required>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-light">Save</button>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #confirmationModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Delete client</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Are you sure you want to delete client <b>{{client.companyName}}</b>?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+    <button type="button" class="btn btn-danger" (click)="onClientDelete(confirmationModal)">Delete</button>
+  </div>
+</ng-template>
+
+<div class="um-section">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <ngb-alert *ngIf="isAlertOpen" type="success" (close)="isAlertOpen = false">{{ successMessage }}</ngb-alert>
+        <button class="um-btn--add btn btn-outline-info" (click)="onAddClientModalOpen(registerModal)">Add Client
+        </button>
+        <table class="table">
+          <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Company Name</th>
+            <th scope="col">Contract</th>
+            <th scope="col">Member since</th>
+            <th scope="col">Location</th>
+            <th scope="col">My Models</th>
+            <th scope="col">Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let client of allClients; index as i">
+            <th scope="row">{{i + 1}}</th>
+            <td><a [routerLink]="['/','profile', client.id,'eyeglasses']"
+                    [queryParams]="{companyName:client.companyName}">{{client.companyName}}</a>
+            </td>
+            <td>{{client.contractType}}</td>
+            <td>{{client.memberSince.getFullYear()}}</td>
+            <td>{{client.location}}</td>
+            <td>{{client.eyeglasses.length + " Models"}}</td>
+            <td>
+              <button class="um-btn--action btn btn-outline-warning"
+                      (click)="onModalClientEditOpen(client, registerModal)">
+                <i class="fa fa-edit"></i>
+              </button>
+              <button class="um-btn--action btn btn-outline-danger"
+                      (click)="onModalClientDeleteOpen(client, confirmationModal)">
+                <i class="fa fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,135 @@
+import {Component, OnInit} from '@angular/core';
+import {APIService} from '../services/api.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {UploadEvent, UploadFile, FileSystemFileEntry, FileSystemDirectoryEntry} from 'ngx-file-drop';
+import {EyeglassModel} from './eyeglass.model';
+import {SessionService} from '../services/session.service';
+import {ActivatedRoute, Router, RouteConfigLoadEnd} from '@angular/router';
+import {el} from '@angular/platform-browser/testing/src/browser_util';
+import { ImageModel } from '../image/image.model';
+import { CodegenComponentFactoryResolver } from '@angular/core/src/linker/component_factory_resolver';
+import { ConnectableObservable } from 'rxjs';
+
+
+@Component({
+  selector: 'app-eyeglass',
+  templateUrl: './eyeglass.component.html',
+  styleUrls: ['./eyeglass.component.styl']
+})
+export class EyeglassComponent implements OnInit {
+
+  protected eyeglass: EyeglassModel;
+  protected eyeglasses: Array<EyeglassModel>;
+  protected isAlertOpen: boolean;
+  protected alertMessage: string;
+  private isEyeglassEdited: boolean;
+  protected disable = false;
+  protected btnState: boolean;
+
+  public files: UploadFile[] = [];
+  public clientId: string;
+  public eyeglassId: string;
+  public allFiles: FileList;
+
+  form: any;
+  imagePreview: string;
+
+  constructor(
+    private apiService: APIService,
+    private sessionService: SessionService,
+    private modalService: NgbModal,
+    private route: ActivatedRoute,
+  ) {}
+
+  ngOnInit() {
+    this.clientId = this.route.snapshot.params.client_id;
+    this.getEyeglassesList();
+  }
+
+  getEyeglassesList() {
+    this.eyeglasses = this.apiService.getEyeglasses(this.clientId);
+  }
+
+  getEyeglass() {
+    this.eyeglass = this.apiService.getEyeglass(this.eyeglassId);
+  }
+
+  onEditEyeglassModalOpen(eyeglass, modal) {
+    this.isEyeglassEdited = true;
+    this.eyeglass = eyeglass;
+    this.modalService.open(modal, {centered: true});
+  }
+
+  onDeleteEyeglassModalOpen(eyeglass, modal) {
+    this.eyeglass = eyeglass;
+    this.modalService.open(modal, {centered: true});
+  }
+
+  onAddEyeglassModalOpen(modal) {
+    this.isEyeglassEdited = false;
+    this.eyeglass = new EyeglassModel();
+    this.modalService.open(modal, {centered: true});
+  }
+
+  AddEyeglass() {
+    this.eyeglass.client = this.clientId;
+    this.eyeglass.btnAct = true;
+    this.apiService.addEyeglass(this.eyeglass).subscribe(
+      (eyeglass: any) => {
+        this.getEyeglassesList();
+        this.modalService.dismissAll();
+        this.eyeglassId = eyeglass._id;
+      }, error => {
+        console.error(error);
+      }
+    );
+    console.log(this.eyeglass);
+  }
+
+  EditEyeglass() {
+    this.apiService.updateEyeglass(this.eyeglass.id, this.eyeglass).subscribe(() => {
+      // this.eyeglassId = this.eyeglass.id;
+      this.showAlert(this.eyeglass.model + ' was edited successfully');
+      this.modalService.dismissAll();
+    }, error => {
+      console.error(error);
+      this.showAlert(error);
+    });
+  }
+
+  DeleteEyeglass() {
+    this.apiService.deleteEyeglass(this.eyeglass.id).subscribe(
+      (res) => {
+        console.log(res);
+        this.modalService.dismissAll();
+        this.showAlert('Eyeglass removed successfully');
+        this.eyeglasses.splice(this.eyeglasses.indexOf(this.eyeglass), 1);
+      }, error => {
+        console.error(error);
+      }
+    );
+  }
+
+  onFormSubmit(imageForm) {
+    if (this.isEyeglassEdited) {
+      this.EditEyeglass();
+    } else {
+      this.AddEyeglass();
+    }
+  }
+
+  showAlert(message) {
+    this.alertMessage = message;
+    this.isAlertOpen = true;
+    setTimeout(() => {
+      this.isAlertOpen = false;
+    }, 5000);
+  }
+
+  public disableBtn(eyeglass) {
+    this.eyeglass = eyeglass;
+    this.eyeglass.btnAct = !this.eyeglass.btnAct;
+    this.EditEyeglass();
+    this.modalService.dismissAll();
+  }
+}

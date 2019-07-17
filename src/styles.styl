@@ -1,0 +1,44 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700|Suranna');
+
+$naik-blue = #202d43
+$naik-yellow = #f3bd3c
+$naik-orange = #da4f35
+
+.um-section
+  display flex
+  padding 2em 3em
+  min-height 80vh
+
+.um-title
+  font-weight: 100;
+  letter-spacing: 5px;
+  font-size: 3em;
+
+.um-text
+  letter-spacing 1px
+  font-family 'Quicksand', sans-serif
+  font-weight 100
+  text-align justify
+
+.um-btn
+  &--submit
+    background transparent
+    border solid 1px darken($naik-yellow, 10)
+    color darken($naik-yellow, 10)
+    &:hover
+      background darken($naik-yellow, 10)
+      color #fafafa
+    &:disabled
+      &:hover
+        cursor not-allowed
+        background transparent
+        color $naik-yellow
+  &--add
+    margin 1em 0
+  &--action
+    border-radius 50%
+    height 40px
+    width 40px
+    &:not(:first-of-type)
+      margin-left .5em

@@ -1,0 +1,21 @@
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+  <a class="navbar-brand" routerLink="/">
+    <img class="img-fluid" src="/assets/images/naik-ar-logo.png" alt="logo">
+  </a>
+  <span class="um-header-text"> Making Virtual Fitting A Reality</span>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav um-navbar justify-content-end">
+      <li *ngFor="let item of navItems" class="nav-item">
+        <a class="nav-link" [routerLink]="item.link">{{item.name}}</a>
+      </li>
+      <li *ngIf="sessionService.hasLogin()" class="nav-item">
+        <a class="nav-link" (click)="logout()">Logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>
