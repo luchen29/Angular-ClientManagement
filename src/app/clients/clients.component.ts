@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {APIService} from '../services/api.service';
 import {ClientModel} from './client.model';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {NgForm} from '@angular/forms';
 import {Subject} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
@@ -13,7 +14,7 @@ import {UserModel} from '../user/user.model';
   styleUrls: ['./clients.component.styl']
 })
 export class ClientsComponent implements OnInit {
-
+  public validateForm: FormGroup;
   closeResult: string;
   protected allClients: Array<ClientModel>;
   protected client: ClientModel;
@@ -27,8 +28,21 @@ export class ClientsComponent implements OnInit {
 
   constructor(
     private apiService: APIService,
-    private modalService: NgbModal
-    ) {}
+    private modalService: NgbModal,
+    private fb: FormBuilder
+    ) {
+      this.validateForm = this.fb.group({
+        companyName: ['', [Validators.required]],
+        contractType: ['', [Validators.required]],
+        location: ['', [Validators.required]],
+        email: ['', [Validators.email, Validators.required]],
+        emailConfirmation: ['', [Validators.email, this.confirmValidator]],
+        contactName: ['', [Validators.required]],
+        contactLastName: ['', [Validators.required]],
+        phone: ['', [Validators.required]],
+        phoneNumberPrefix: ['+1'],
+      });
+    }
 
   ngOnInit() {
     this.getAllClients();
@@ -103,6 +117,15 @@ export class ClientsComponent implements OnInit {
       });
     this.modalService.dismissAll();
   }
+
+  confirmValidator = (control: FormControl): { [s: string]: boolean } => {
+    if (!control.value) {
+      return { required: true};
+    } else if (control.value !== this.validateForm.controls.email.value) {
+      return { confirm: true, error: true };
+    }
+    return {};
+  };
 
   showAlert(message) {
     this.successMessage = message;

@@ -3,15 +3,16 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgModule} from '@angular/core';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {FormsModule} from '@angular/forms';
-import {FileDropModule} from 'ngx-file-drop';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {ScrollToModule} from '@nicky-lenaers/ngx-scroll-to';
-// import { LightboxModule } from 'ngx-lightbox';
 import { GalleryModule } from '@ngx-gallery/core';
 import { LightboxModule, LIGHTBOX_CONFIG } from '@ngx-gallery/lightbox';
 import { Ng2ImgMaxModule } from 'ng2-img-max';
-import { OrbitControls } from 'orbit-controls-es6';
 import { StlModelViewerModule } from 'angular-stl-model-viewer';
+import { NgZorroAntdModule, NZ_I18N, en_US } from 'ng-zorro-antd';
+import { registerLocaleData } from '@angular/common';
+import en from '@angular/common/locales/en';
+registerLocaleData(en);
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -28,6 +29,7 @@ import {ProfileComponent} from './profile/profile.component';
 import {ContactsComponent} from './contacts/contacts.component';
 import {JwtInterceptor} from './services/jwt.interceptor';
 import {ErrorInterceptor} from './services/error.interceptor';
+
 
 
 @NgModule({
@@ -50,19 +52,21 @@ import {ErrorInterceptor} from './services/error.interceptor';
     HttpClientModule,
     FormsModule,
     NgbModule,
-    FileDropModule,
     ScrollToModule.forRoot(),
     LightboxModule,
     GalleryModule,
     Ng2ImgMaxModule,
-    StlModelViewerModule
+    StlModelViewerModule,
+    NgZorroAntdModule,
+    ReactiveFormsModule
   ],
   providers: [
     APIService,
     SessionService,
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
-    {provide: LIGHTBOX_CONFIG, useValue: { keyboardShortcuts: false }}
+    {provide: LIGHTBOX_CONFIG, useValue: { keyboardShortcuts: false }},
+    {provide: NZ_I18N, useValue: en_US},
   ],
   bootstrap: [AppComponent] // bootstrap array
 })

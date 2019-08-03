@@ -4,7 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import { ImageModel } from './image.model';
 import { APIService } from '../services/api.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { UploadFile, UploadEvent, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
+// import { UploadFile, UploadEvent, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
 import { EyeglassModel } from '../eyeglass/eyeglass.model';
 import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Lightbox, LightboxEvent, LIGHTBOX_EVENT  } from 'ngx-lightbox';

@@ -1,14 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {APIService} from '../services/api.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {UploadEvent, UploadFile, FileSystemFileEntry, FileSystemDirectoryEntry} from 'ngx-file-drop';
 import {EyeglassModel} from './eyeglass.model';
 import {SessionService} from '../services/session.service';
 import {ActivatedRoute, Router, RouteConfigLoadEnd} from '@angular/router';
-import {el} from '@angular/platform-browser/testing/src/browser_util';
 import { ImageModel } from '../image/image.model';
-import { CodegenComponentFactoryResolver } from '@angular/core/src/linker/component_factory_resolver';
 import { ConnectableObservable } from 'rxjs';
+// import {el} from '@angular/platform-browser/testing/src/browser_util';
+// import {UploadEvent, UploadFile, FileSystemFileEntry, FileSystemDirectoryEntry} from 'ngx-file-drop';
+// import { CodegenComponentFactoryResolver } from '@angular/core/src/linker/component_factory_resolver';
 
 
 @Component({
@@ -26,7 +26,7 @@ export class EyeglassComponent implements OnInit {
   protected disable = false;
   protected btnState: boolean;
 
-  public files: UploadFile[] = [];
+  // public files: UploadFile[] = [];
   public clientId: string;
   public eyeglassId: string;
   public allFiles: FileList;
