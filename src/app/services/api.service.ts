@@ -163,12 +163,13 @@ export class APIService {
 
   getTypes(clientId: string, eyeglassId: string) {
     const typeList: TypeModel[] = [];
-    this.http.get(this.URL_BASE + '/types/' + clientId + eyeglassId)
+    this.http.get(this.URL_BASE + '/types/' + clientId + '/' + eyeglassId)
       .subscribe(
         (data) => {
           // @ts-ignore
           data.forEach(type => {
             const newType = new TypeModel(type);
+            console.log('newtype:', newType);
             typeList.push(newType);
           });
         },
