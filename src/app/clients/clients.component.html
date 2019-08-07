@@ -9,11 +9,10 @@
   <form id="clientValidateForm" nz-form [formGroup]="validateForm" (ngSubmit)="onFormSubmit()">
     <div class="modal-body">
       <h5>Compamy Basic Info</h5>
-
       <nz-form-item>
         <nz-form-label nzFor="um-company-name" nzRequired>Company name</nz-form-label>
         <nz-form-control nzHasFeedback nzErrorTip="Please input company name">
-          <input nz-input id="um-company-name" 
+          <input nz-input id="um-company-name" [(ngModel)]="client.companyName"
             formControlName="companyName" placeholder="Company name" required/>
         </nz-form-control>
       </nz-form-item>
@@ -25,7 +24,7 @@
       <nz-form-item>
         <nz-form-label nzFor="um-contract-type" nzRequired>Contract type</nz-form-label>
         <nz-form-control nzHasFeedback nzErrorTip="Please input contract type">
-          <input nz-input id="um-contract-type"
+          <input nz-input id="um-contract-type" [(ngModel)]="client.contractType"
             formControlName="contractType" placeholder="Contract type" required/>
         </nz-form-control>
       </nz-form-item>
@@ -37,7 +36,7 @@
       <nz-form-item>
         <nz-form-label nzFor="um-location" nzRequired>Location</nz-form-label>
         <nz-form-control nzHasFeedback nzErrorTip="Please input company location">
-          <input nz-input id="um-location"
+          <input nz-input id="um-location" [(ngModel)]="client.location"
             formControlName="location" placeholder="Location" required/>
         </nz-form-control>
       </nz-form-item>
@@ -54,7 +53,7 @@
         <nz-form-item>
           <nz-form-label nzFor="um-email" nzRequired>E-mail</nz-form-label>
           <nz-form-control nzHasFeedback nzErrorTip="Please input a valid email address">
-            <input nz-input id="um-email" 
+            <input nz-input id="um-email"  [(ngModel)]="user.email"
               formControlName="email" placeholder="Enter email" required/>
           </nz-form-control>
         </nz-form-item>
@@ -74,7 +73,7 @@
         <nz-form-item>
           <nz-form-label nzRequired nzFor="um-email-confirm">E-mail address</nz-form-label>
           <nz-form-control nzHasFeedback nzErrorTip="The input is not valid">
-            <input nz-input id="um-email-confirm" 
+            <input nz-input id="um-email-confirm"  [(ngModel)]="formFieldEmailConfirmation"
               formControlName="emailConfirmation" placeholder="Enter email again" required/>
           </nz-form-control>
         </nz-form-item>
@@ -89,7 +88,7 @@
         <nz-form-item>
           <nz-form-label nzRequired nzFor="um-contact-name">First Name</nz-form-label>
           <nz-form-control nzHasFeedback nzErrorTip="Please input firstname">
-            <input nz-input id="um-contact-name" 
+            <input nz-input id="um-contact-name"  [(ngModel)]="user.firstName"
               formControlName="contactName" placeholder="firstName" required/>
           </nz-form-control>
         </nz-form-item>
@@ -101,7 +100,7 @@
         <nz-form-item>
           <nz-form-label nzRequired nzFor="um-contact-last-name">Last Name</nz-form-label>
           <nz-form-control nzHasFeedback nzErrorTip="Please input firstname">
-            <input nz-input id="um-contact-last-name" 
+            <input nz-input id="um-contact-last-name"  [(ngModel)]="user.lastName"
               formControlName="contactLastName" placeholder="lastName" required/>
           </nz-form-control>
         </nz-form-item>

@@ -5,28 +5,66 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <form #eyeglassForm='ngForm' (ngSubmit)="onFormSubmit()">
+
+  <form id="eyeglassValidateForm" nz-form [formGroup]="validateForm"  (ngSubmit)="onFormSubmit()">
     <div class="modal-body">
-      <div class="form-group">
+      <nz-form-item>
+        <nz-form-label nzFor="um-model" nzRequired>Model Name</nz-form-label>
+        <nz-form-control nzHasFeedback nzErrorTip="Please input model name">
+          <input nz-input id="um-model" [(ngModel)]="eyeglass.model"
+            formControlName="model" placeholder="Model Name" required/>
+        </nz-form-control>
+      </nz-form-item>
+
+      <!-- <div class="form-group">
         <label for="um-model">Model Name</label>
         <input type="text" class="form-control" id="um-model" name="model"
                placeholder="Model Name" [(ngModel)]="eyeglass.model" required>
-      </div>
-      <div class="form-group">
+      </div> -->
+
+      <nz-form-item>
+        <nz-form-label nzFor="um-upc" nzRequired>UPC</nz-form-label>
+        <nz-form-control nzHasFeedback nzErrorTip="Please input valid model UPC">
+          <input nz-input id="um-upc" [(ngModel)]="eyeglass.upc" maxlength="12" minlength="12"
+            formControlName="upc" placeholder="UPC#" required/>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label nzFor="um-brand" nzRequired>Brand</nz-form-label>
+        <nz-form-control nzHasFeedback nzErrorTip="Please input model brand">
+          <input nz-input id="um-brand" [(ngModel)]="eyeglass.brand"
+            formControlName="brand" placeholder="Model Brand" required/>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label nzFor="um-size" nzRequired>Model Size</nz-form-label>
+        <nz-form-control nzHasFeedback nzErrorTip="Please input model size">
+          <input type="text" nz-input id="um-size" 
+            [(ngModel)]="eyeglass.size" maxlength="9" minlength="9" min="0" max="9"
+            formControlName="size" placeholder="Size 7 digit number" required
+            (ngModelChange)="onChange($event)"/>
+        </nz-form-control>
+      </nz-form-item>
+
+      <!-- <div class="form-group">
         <label for="um-size">Size</label>
         <input type="text" class="form-control" id="um-size" name="size"
                placeholder="Size" [(ngModel)]="eyeglass.size" required>
-      </div>
-      <div class="form-group">
-        <label for="um-colour">Colour</label>
-        <input type="text" class="form-control" id="um-colour" name="colour"
-               placeholder="Colour" [(ngModel)]="eyeglass.colour" required>
-      </div>
-      <div class="form-group">
+      </div> -->
+
+      <nz-form-item>
+        <nz-form-label nzFor="um-info">Other Info</nz-form-label>
+          <input nz-input id="um-info" [(ngModel)]="eyeglass.info"
+            formControlName="info" placeholder="Other info..."/>
+      </nz-form-item>
+
+      <!-- <div class="form-group">
           <label for="um-colour">Other Info</label>
           <input type="text" class="form-control" id="um-info" name="info"
                  placeholder="Other info..." [(ngModel)]="eyeglass.info">
-      </div>
+      </div> -->
     </div>
     <div class="modal-footer">
       <button type="submit" class="btn btn-light">Save</button>
@@ -62,28 +100,30 @@
           <tr>
             <th scope="col">#</th>
             <th scope="col">Model Name</th>
-            <th scope="col">size</th>
-            <th scope="col">colour</th>
-            <th scope="col">images</th>
-            <th scope="col">model</th>
-            <th scope="col">other info</th>
-            <th scope="col">actions</th>
+            <th scope="col">UPC</th>
+            <th scope="col">Brand</th>
+            <th scope="col">Model Size</th>
+            <th scope="col">Others</th>
+            <th scope="col">Actions</th>
           </tr>
           </thead>
           <tbody>
           <tr *ngFor="let eyeglass of eyeglasses; index as i">
             <th scope="row">{{i + 1}}</th>
-            <td>{{eyeglass.model}}</td>
-            <td>{{eyeglass.size}}</td>
-            <td>{{eyeglass.colour}}</td>
-            <td><a *ngIf="this.eyeglass.btnAct"
+            <td><a [routerLink]="['/','profile', this.clientId, eyeglass.id, 'types']"
+                    [queryParams]="{upc:eyeglass.upc}">{{eyeglass.model}}</a>
+            </td>
+            <td>{{eyeglass.upc}}</td>
+            <td>{{eyeglass.brand}}</td>
+            <!-- <td><a *ngIf="this.eyeglass.btnAct"
                     [routerLink]="['/','profile', this.clientId, eyeglass.id,'image']">{{"check images"}}</a>
                 <p *ngIf="!this.eyeglass.btnAct">{{"check images"}}</p>
             </td>
             <td><a *ngIf="this.eyeglass.btnAct"
                     [routerLink]="['/','profile', this.clientId, eyeglass.id,'image']">{{"check model"}}</a>
                 <p *ngIf="!this.eyeglass.btnAct">{{"check model"}}</p>
-            </td>
+            </td> -->
+            <td>{{eyeglass.size}}</td>
             <td>{{eyeglass.info}}</td>
             <td>
               <button [disabled]="!this.eyeglass.btnAct"

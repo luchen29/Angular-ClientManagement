@@ -3,6 +3,7 @@ import {APIService} from '../services/api.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {EyeglassModel} from './eyeglass.model';
 import {SessionService} from '../services/session.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {ActivatedRoute, Router, RouteConfigLoadEnd} from '@angular/router';
 import { ImageModel } from '../image/image.model';
 import { ConnectableObservable } from 'rxjs';
@@ -18,6 +19,7 @@ import { ConnectableObservable } from 'rxjs';
 })
 export class EyeglassComponent implements OnInit {
 
+  public validateForm: FormGroup;
   protected eyeglass: EyeglassModel;
   protected eyeglasses: Array<EyeglassModel>;
   protected isAlertOpen: boolean;
@@ -39,7 +41,16 @@ export class EyeglassComponent implements OnInit {
     private sessionService: SessionService,
     private modalService: NgbModal,
     private route: ActivatedRoute,
-  ) {}
+    private fb: FormBuilder,
+  ) {
+    this.validateForm = this.fb.group({ 
+      model: ['', [Validators.required]],
+      upc: ['', [Validators.required]],
+      brand: ['', [Validators.required]],
+      size: ['', [Validators.required]],
+      info: ['']
+    })
+  }
 
   ngOnInit() {
     this.clientId = this.route.snapshot.params.client_id;
@@ -131,5 +142,20 @@ export class EyeglassComponent implements OnInit {
     this.eyeglass.btnAct = !this.eyeglass.btnAct;
     this.EditEyeglass();
     this.modalService.dismissAll();
+  }
+
+  public onChange(input) {
+    if (input) {
+      console.log('input:', input);
+      console.log(input.length);
+      if (input.length === 2) {
+        this.eyeglass.size = input + '-';
+        console.log(this.eyeglass.size);
+      } 
+      else if (input.length === 5) {
+        this.eyeglass.size = input + '-';
+        console.log(this.eyeglass.size);
+      }
+    }
   }
 }

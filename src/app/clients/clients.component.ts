@@ -64,7 +64,8 @@ export class ClientsComponent implements OnInit {
 
   onAddClient() {
     this.client.memberSince = new Date();
-    this.apiService.addClient(this.client).subscribe(
+    this.apiService.addClient(this.client)
+    .subscribe(
       (client: any) => {
         this.user.client = client._id;
         this.user.location = client.location;

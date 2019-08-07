@@ -29,8 +29,9 @@ export class NavbarComponent implements OnInit {
       this.companyName = this.route.snapshot.queryParams['companyName'];
       const url = this.route.snapshot.firstChild;
       this.currentLink = url.routeConfig.path;
+      console.log('current link: ', this.currentLink);
       switch (this.currentLink) {
-        case ':client_id/:eyeglass_id/image':
+        case ':client_id/:eyeglass_id':
           this.currentClient = url.params.client_id;
           this.currentEyeglass = url.params.eyeglass_id;
           this.navItems = [{

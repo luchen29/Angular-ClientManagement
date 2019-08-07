@@ -10,6 +10,7 @@ import {ProfileComponent} from './profile/profile.component';
 import {ContactsComponent} from './contacts/contacts.component';
 import {AuthGuard} from './services/auth.guard';
 import {Role} from './user/role';
+import { TypeComponent } from './type/type.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -22,7 +23,7 @@ const routes: Routes = [
       {path: 'clients', component: ClientsComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin]}},
       {path: ':client_id/contacts', component: ContactsComponent},
       {path: ':client_id/eyeglasses', component: EyeglassComponent},
-      {path: ':client_id/:eyeglass_id/image', component: ImageComponent},
+      {path: ':client_id/:eyeglass_id/types', component: TypeComponent},
     ]
   },
   {path: '**', component: HomeComponent}

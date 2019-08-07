@@ -1,0 +1,101 @@
+<ng-template #typeModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Add Type</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <form id="typeValidateForm" nz-form [formGroup]="validateForm"  (ngSubmit)="onFormSubmit()">
+        <div class="modal-body">
+        <nz-form-item>
+            <nz-form-label nzFor="um-colorupc" nzRequired>UPC</nz-form-label>
+            <nz-form-control nzHasFeedback nzErrorTip="Please input valid type UPC number">
+            <input nz-input id="um-colorupc" [(ngModel)]="type.colorupc" maxlength="12" minlength="12"
+                formControlName="colorupc" placeholder="UPC#" required/>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-label nzFor="um-color" nzRequired>Color</nz-form-label>
+            <nz-form-control nzHasFeedback nzErrorTip="Please input color">
+            <input nz-input id="um-color" [(ngModel)]="type.color"
+                formControlName="color" placeholder="Type color" required/>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-label nzFor="um-size" nzRequired>Model Size</nz-form-label>
+            <nz-form-control nzHasFeedback nzErrorTip="Please input valid model size">
+            <input type="text" nz-input id="um-size" 
+                [(ngModel)]="type.size" maxlength="9" minlength="9" min="0" max="9"
+                formControlName="size" placeholder="7 digit size" required
+                (ngModelChange)="onChange($event)"/>
+            </nz-form-control>
+        </nz-form-item>
+
+        </div>
+        <div class="modal-footer">
+        <button type="submit" class="btn btn-light">Save</button>
+        </div>
+    </form>
+    </ng-template>
+
+    <ng-template #confirmationModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Delete type</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p>Are you sure you want to delete the type model <b>{{type.colorupc}}</b>?</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+        <button type="button" class="btn btn-danger" (click)="DeleteType()">Delete</button>
+    </div>
+    </ng-template>
+
+    <div class="um-section">
+    <div class="container">
+        <div class="row">
+        <div class="col">
+            <ngb-alert *ngIf="isAlertOpen" type="success" (close)="isAlertOpen = false">{{ alertMessage }}</ngb-alert>
+            <button class="um-btn--add btn btn-outline-info" (click)="onAddTypeModalOpen(typeModal)">Add type</button>
+            <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">UPC</th>
+                <th scope="col">Color</th>
+                <th scope="col">Model Size</th>
+                <th scope="col">Images</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let type of types; index as i">
+                <th scope="row">{{i + 1}}</th>
+                <td>{{type.colorupc}}</td>
+                <td>{{type.color}}</td>
+                <td>{{type.size}}</td>
+                <td>{{type.images}}</td>
+                <td>
+                <button class="um-btn--action btn btn-outline-warning"
+                        (click)="onEditTypeModalOpen(type, typeModal)">
+                    <i class="fa fa-edit"></i>
+                </button>
+                <button class="um-btn--action btn btn-outline-danger"
+                        (click)="onDeleteTypeModalOpen(type, confirmationModal)">
+                    <i class="fa fa-trash"></i>
+                </button>
+                </td>
+            </tr>
+            </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+</div>
+      

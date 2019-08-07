@@ -4,26 +4,24 @@ import { ImageModel } from '../image/image.model';
 export class EyeglassModel {
   public id: string;
   public model: string;
-  public size: string;
-  public colour: string;
-  public filePath: string;
+  public upc: string;
   public brand: string;
-  public client: string;
-  // public images: Array<ImageModel>;
+  public size: string;
   public info: string;
+  public client: string;
+  public types: [];
   public btnAct: boolean;
 
   constructor(eyeglass?) {
     if (eyeglass) {
       this.id = eyeglass._id;
       this.model = eyeglass.model;
-      this.size = eyeglass.size;
-      this.colour = eyeglass.colour;
-      this.filePath = eyeglass.filePath;
+      this.upc = eyeglass.upc;
       this.brand = eyeglass.brand;
-      this.client = eyeglass.client;
-      // this.images = eyeglass.images;
+      this.size = eyeglass.size;
       this.info = eyeglass.info;
+      this.client = eyeglass.client;
+      this.types = eyeglass.types;
       this.btnAct = eyeglass.btnAct;
     }
   }

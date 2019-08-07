@@ -4,6 +4,8 @@ import {ClientModel} from '../clients/client.model';
 import {EyeglassModel} from '../eyeglass/eyeglass.model';
 import {ImageModel} from '../image/image.model';
 import {UserModel} from '../user/user.model';
+import { TypeModel } from '../type/type.model';
+// import { type } from 'os';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -55,6 +57,7 @@ export class APIService {
   }
 
   addClient(client: ClientModel) {
+    console.log('client model:', client);
     return this.http.post(this.URL_BASE + '/client', client);
   }
 
@@ -70,7 +73,7 @@ export class APIService {
   // eyeglasses
   getEyeglasses(clientId) {
     const eyeglassesList: EyeglassModel[] = [];
-    this.http.get(this.URL_BASE + '/' + clientId + '/eyeglasses')
+    this.http.get(this.URL_BASE + '/eyeglasses/' + clientId)
       .subscribe(
         (data) => {
           // @ts-ignore
@@ -84,12 +87,13 @@ export class APIService {
           console.log(err);
         }
       );
+    console.log('eyeglassesList:', eyeglassesList);
     return eyeglassesList;
   }
 
   getEyeglass(eyeglassId) {
     let eyeglass: EyeglassModel = null;
-    this.http.get(this.URL_BASE + '/' + '/eyeglass' + eyeglassId)
+    this.http.get(this.URL_BASE + '/eyeglasses/' + eyeglassId)
     .subscribe(
       data => {
         // @ts-ignore
@@ -101,18 +105,20 @@ export class APIService {
   }
 
   addEyeglass(eyeglass) {
-    return this.http.post(this.URL_BASE + '/eyeglass/', eyeglass);
+    console.log('eyeglass', eyeglass);
+    return this.http.post(this.URL_BASE + '/eyeglasses/' + eyeglass.client, eyeglass);
   }
 
   updateEyeglass(eyeglassId, eyeglass) {
-    return this.http.put(this.URL_BASE + '/eyeglass/' + eyeglassId, eyeglass);
+    return this.http.put(this.URL_BASE + '/eyeglasses/' + eyeglassId, eyeglass);
   }
 
   deleteEyeglass(eyeglassId: string) {
-    return this.http.delete(this.URL_BASE + '/eyeglass/' + eyeglassId, {responseType: 'text'});
+    return this.http.delete(this.URL_BASE + '/eyeglasses/' + eyeglassId, {responseType: 'text'});
   }
 
   addUser(user: UserModel) {
+    console.log('user',user);
     return this.http.post(this.URL_BASE + '/user/register', user);
   }
 
@@ -149,6 +155,55 @@ export class APIService {
     return this.http.delete(this.URL_BASE + '/contact/' + contactId);
   }
 
+//  types
+  addType(type) {
+    console.log('type: ', type);
+    return this.http.post(this.URL_BASE + '/types/' + type.client + '/' + type.eyeglass, type);
+  }
+
+  getTypes(clientId: string, eyeglassId: string) {
+    const typeList: TypeModel[] = [];
+    this.http.get(this.URL_BASE + '/types/' + clientId + eyeglassId)
+      .subscribe(
+        (data) => {
+          // @ts-ignore
+          data.forEach(type => {
+            const newType = new TypeModel(type);
+            typeList.push(newType);
+          });
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+    console.log('typeList:', typeList);
+    return typeList;
+  }
+  
+  getType(clientId: string, eyeglassId: string, colortupc: string) {
+    let type: TypeModel = null;
+    this.http.get(this.URL_BASE + '/types/'+ clientId + '/' + eyeglassId + '/' + colortupc)
+    .subscribe(
+      data => {
+        // @ts-ignore
+        type = data;
+      }, error => {
+        console.error(error);
+      });
+    console.log('type get form db:', type);
+    return type;
+  }
+
+  updateType(type: TypeModel) {
+    console.log('new type:', type);
+    return this.http.put(this.URL_BASE + '/types/' + type.client + '/' + type.eyeglass + '/' + type.colorupc, type);
+  }
+
+  deleteType(type: TypeModel) {
+    return this.http.delete(this.URL_BASE + '/types/' + type.client + '/' + type.eyeglass + '/' + type.colorupc);
+  }
+
+  // images 
   getImages(clientId: string, eyeglassId: string) {
     const imagesList: ImageModel[] = [];
     $.ajax({
