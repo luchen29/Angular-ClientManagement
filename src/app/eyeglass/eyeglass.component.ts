@@ -99,7 +99,6 @@ export class EyeglassComponent implements OnInit {
 
   EditEyeglass() {
     this.apiService.updateEyeglass(this.eyeglass.id, this.eyeglass).subscribe(() => {
-      // this.eyeglassId = this.eyeglass.id;
       this.showAlert(this.eyeglass.model + ' was edited successfully');
       this.modalService.dismissAll();
     }, error => {

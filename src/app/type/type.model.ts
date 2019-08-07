@@ -18,6 +18,7 @@ export class TypeModel {
       this.color = type.color;
       this.size = type.size;
       this.client = type.client;
+      this.eyeglass = type.eyeglass;
       this.images = type.images;
     }
   }

@@ -118,7 +118,6 @@ export class APIService {
   }
 
   addUser(user: UserModel) {
-    console.log('user',user);
     return this.http.post(this.URL_BASE + '/user/register', user);
   }
 
@@ -157,7 +156,6 @@ export class APIService {
 
 //  types
   addType(type) {
-    console.log('type: ', type);
     return this.http.post(this.URL_BASE + '/types/' + type.client + '/' + type.eyeglass, type);
   }
 
@@ -167,9 +165,9 @@ export class APIService {
       .subscribe(
         (data) => {
           // @ts-ignore
-          data.forEach(type => {
+            data.forEach(type => {
             const newType = new TypeModel(type);
-            console.log('newtype:', newType);
+            console.log('inside newtype:', newType);
             typeList.push(newType);
           });
         },
@@ -177,7 +175,6 @@ export class APIService {
           console.log(err);
         }
       );
-    console.log('typeList:', typeList);
     return typeList;
   }
   

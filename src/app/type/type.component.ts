@@ -7,6 +7,7 @@ import {ActivatedRoute, Router, RouteConfigLoadEnd} from '@angular/router';
 import { ImageModel } from '../image/image.model';
 import { ConnectableObservable, Observable } from 'rxjs';
 import { TypeModel } from './type.model';
+import { UploadFile } from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-type',
@@ -42,13 +43,21 @@ export class TypeComponent implements OnInit {
     })
   }
 
-
-//   subject.subscribe((data) => {
-//     console.log('Subscriber B:', data);
-//     });
-
-// subject.next(Math.random());
-// console.log(subject.value)
+  showUploadList = {
+    showPreviewIcon: true,
+    showRemoveIcon: true,
+    hidePreviewIconInNonImage: true
+  };
+  fileList = [
+    {
+      uid: -1,
+      name: 'xxx.png',
+      status: 'done',
+      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
+    }
+  ];
+  previewImage: string | undefined = '';
+  previewVisible = false;
 
   ngOnInit() {
     this.clientId = this.route.snapshot.params.client_id;
@@ -89,33 +98,33 @@ export class TypeComponent implements OnInit {
 
   getTypesList() {
     this.types = this.apiService.getTypes(this.clientId, this.eyeglassId);
+    console.log('what inside types: ', this.types);
   }
 
-  getType() {
-    this.type = this.apiService.getType(this.clientId, this.eyeglassId, this.type.colorupc);
-  }
+//   getType() {
+//     this.type = this.apiService.getType(this.clientId, this.eyeglassId, this.type.colorupc);
+//   }
 
   AddType() {
-    // we can get clientId and eyeglassId here
     this.type.client = this.clientId;
     this.type.eyeglass = this.eyeglassId;
+    console.log('what type to be add?', this.type);
     this.apiService.addType(this.type)
     .subscribe(
       (type: any) => {
         this.getTypesList();
         this.modalService.dismissAll();
-        
       }, error => {
         console.error(error);
       }
     );
-    console.log(this.type);
   }
 
   EditType() {
+    console.log('edit type:', this.type);
     this.apiService.updateType(this.type)
     .subscribe(() => {
-      this.showAlert('Edited successfully');
+      this.showAlert('Type Edited successfully');
       this.modalService.dismissAll();
     }, error => {
       console.error(error);
@@ -145,7 +154,30 @@ export class TypeComponent implements OnInit {
     }, 5000);
   }
 
+  handlePreview = (file: UploadFile) => {
+    this.previewImage = file.url || file.thumbUrl;
+    this.previewVisible = true;
+  };
 
+  upLoadChange(event, type) {
+      const file = event ? event.file : null; 
+      const datas = file && file.uid ? file : file.response && file.response.rlt === 0 && file.response.datas;
+      console.log('event: ', event);
+      console.log('datas: ', datas);
+      if (datas) {
+          if (event.type === 'success') {
+              console.log('need to add and images: ', type);
+              this.apiService.updateType(type)
+              .subscribe(() => {
+                  this.showAlert('image uploaded successfully');
+                  this.modalService.dismissAll();
+              }, error => {
+                  console.error(error);
+                  this.showAlert(error);
+              })
+          }
+      }
+  }
   public onChange(input) {
     if (input) {
       console.log('input:', input);

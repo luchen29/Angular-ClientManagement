@@ -80,7 +80,29 @@
                 <td>{{type.colorupc}}</td>
                 <td>{{type.color}}</td>
                 <td>{{type.size}}</td>
-                <td>{{type.images}}</td>
+                <td>
+                    <nz-upload
+                        nzAction="https://jsonplaceholder.typicode.com/posts/"
+                        nzListType="picture-card"
+                        [(nzFileList)]="fileList"
+                        [nzShowButton]="fileList.length < 4"
+                        [nzShowUploadList]="showUploadList"
+                        [nzPreview]="handlePreview"
+                        (nzChange)="upLoadChange($event)"
+                        >
+                        <i nz-icon nzType="plus"></i>
+                        <div class="ant-upload-text">Upload</div>
+                    </nz-upload>
+                    <nz-modal
+                        [nzVisible]="previewVisible"
+                        [nzContent]="modalContent"
+                        [nzFooter]="null"
+                        (nzOnCancel)="previewVisible = false">
+                    <ng-template #modalContent>
+                        <img [src]="previewImage" [ngStyle]="{ width: '100%' }" />
+                    </ng-template>
+                    </nz-modal>
+                </td>
                 <td>
                 <button class="um-btn--action btn btn-outline-warning"
                         (click)="onEditTypeModalOpen(type, typeModal)">

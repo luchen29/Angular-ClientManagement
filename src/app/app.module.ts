@@ -10,6 +10,7 @@ import { LightboxModule, LIGHTBOX_CONFIG } from '@ngx-gallery/lightbox';
 import { Ng2ImgMaxModule } from 'ng2-img-max';
 import { StlModelViewerModule } from 'angular-stl-model-viewer';
 import { NgZorroAntdModule, NZ_I18N, en_US } from 'ng-zorro-antd';
+import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 registerLocaleData(en);
@@ -60,7 +61,8 @@ import {ErrorInterceptor} from './services/error.interceptor';
     Ng2ImgMaxModule,
     StlModelViewerModule,
     NgZorroAntdModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NzUploadModule
   ],
   providers: [
     APIService,
