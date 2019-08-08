@@ -98,7 +98,7 @@ export class TypeComponent implements OnInit {
 
   getTypesList() {
     this.types = this.apiService.getTypes(this.clientId, this.eyeglassId);
-    console.log('what inside types: ', this.types);
+    console.log('type list: ', this.types);
   }
 
 //   getType() {
@@ -122,7 +122,7 @@ export class TypeComponent implements OnInit {
 
   EditType() {
     console.log('edit type:', this.type);
-    this.apiService.updateType(this.type)
+    this.apiService.updateType(this.type, null)
     .subscribe(() => {
       this.showAlert('Type Edited successfully');
       this.modalService.dismissAll();
@@ -133,6 +133,7 @@ export class TypeComponent implements OnInit {
   }
 
   DeleteType() {
+    console.log('im here to delet a type');
     this.apiService.deleteType(this.type)
     .subscribe(
       (res) => {
@@ -164,10 +165,19 @@ export class TypeComponent implements OnInit {
       const datas = file && file.uid ? file : file.response && file.response.rlt === 0 && file.response.datas;
       console.log('event: ', event);
       console.log('datas: ', datas);
+      console.log('type: ', type);
       if (datas) {
           if (event.type === 'success') {
-              console.log('need to add and images: ', type);
-              this.apiService.updateType(type)
+              const imageToBeUpload = new ImageModel;
+              imageToBeUpload.uid = datas.uid;
+              imageToBeUpload.thumbUrl = type.images[type.images.length-1].thumbUrl;
+              console.log('thumbUrl: ', event.fileList[event.fileList.length-1].thumbUrl);
+              imageToBeUpload.imageName = datas.name;
+              imageToBeUpload.client = this.clientId;
+              imageToBeUpload.eyeglass = this.eyeglassId;
+              imageToBeUpload.colorupc = type.colorupc;
+              console.log('image to be uploade: ', imageToBeUpload);
+              this.apiService.updateType(type, imageToBeUpload)
               .subscribe(() => {
                   this.showAlert('image uploaded successfully');
                   this.modalService.dismissAll();

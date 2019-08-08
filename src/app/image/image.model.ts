@@ -2,20 +2,22 @@
 
 export class ImageModel {
   id: string;
+  uid: string;
   client: string;
   eyeglass: string;
+  colorupc: string;
   imageName: string;
-  imagePath?: string;
-  imagePreview: string;
+  thumbUrl: string;
 
   constructor(image?) {
     if (image) {
       this.id = image._id;
       this.client = image.client;
       this.eyeglass = image.eyeglass;
+      this.colorupc = image.colorupc;
+      this.uid = image.uid;
       this.imageName = image.imageName;
-      this.imagePath = image.imagePath;
-      this.imagePreview = image.imagePreview;
+      this.thumbUrl = image.thumbUrl;
     }
   }
 }

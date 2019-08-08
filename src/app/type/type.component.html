@@ -52,7 +52,7 @@
         <p>Are you sure you want to delete the type model <b>{{type.colorupc}}</b>?</p>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Cancel</button>
         <button type="button" class="btn btn-danger" (click)="DeleteType()">Delete</button>
     </div>
     </ng-template>
@@ -82,13 +82,13 @@
                 <td>{{type.size}}</td>
                 <td>
                     <nz-upload
-                        nzAction="https://jsonplaceholder.typicode.com/posts/"
+                        nzAction="http://localhost:3000/api/images/{{type.client}}/{{type.eyeglass}}/{{type.colorupc}}"
                         nzListType="picture-card"
-                        [(nzFileList)]="fileList"
-                        [nzShowButton]="fileList.length < 4"
+                        [(nzFileList)]="type.images"
+                        [nzShowButton]="type.images.length < 4"
                         [nzShowUploadList]="showUploadList"
                         [nzPreview]="handlePreview"
-                        (nzChange)="upLoadChange($event)"
+                        (nzChange)="upLoadChange($event, type)"
                         >
                         <i nz-icon nzType="plus"></i>
                         <div class="ant-upload-text">Upload</div>

@@ -2,9 +2,9 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ClientModel} from '../clients/client.model';
 import {EyeglassModel} from '../eyeglass/eyeglass.model';
-import {ImageModel} from '../image/image.model';
 import {UserModel} from '../user/user.model';
 import { TypeModel } from '../type/type.model';
+import { ImageModel } from '../image/image.model';
 // import { type } from 'os';
 
 const httpOptions = {
@@ -168,6 +168,8 @@ export class APIService {
             data.forEach(type => {
             const newType = new TypeModel(type);
             console.log('inside newtype:', newType);
+            const typeImgs = newType.images;
+            console.log('inside type images', typeImgs);
             typeList.push(newType);
           });
         },
@@ -192,50 +194,54 @@ export class APIService {
     return type;
   }
 
-  updateType(type: TypeModel) {
-    console.log('new type:', type);
+  updateType(type: TypeModel, image: ImageModel) {
+    // type.images.push()
     return this.http.put(this.URL_BASE + '/types/' + type.client + '/' + type.eyeglass + '/' + type.colorupc, type);
   }
 
   deleteType(type: TypeModel) {
-    return this.http.delete(this.URL_BASE + '/types/' + type.client + '/' + type.eyeglass + '/' + type.colorupc);
+    console.log('type to be delete:', type);
+    return this.http.delete(this.URL_BASE + '/types/' + type.client + '/' + type.eyeglass + '/' + type.colorupc, {responseType: 'text'});
   }
 
   // images 
-  getImages(clientId: string, eyeglassId: string) {
-    const imagesList: ImageModel[] = [];
-    $.ajax({
-      url: this.URL_BASE + '/' + clientId + '/' + eyeglassId + '/image/',
-      type: 'get',
-      async: false,
-      success: (data) => {
-        // @ts-ignore
-        data.forEach (image => { imagesList.push(new ImageModel(image)); });
-      }
-    });
-    return imagesList;
-  }
+  // getImages(clientId: string, eyeglassId: string) {
+
+  // }
+  // getImages(clientId: string, eyeglassId: string) {
+  //   const imagesList: ImageModel[] = [];
+  //   $.ajax({
+  //     url: this.URL_BASE + '/' + clientId + '/' + eyeglassId + '/image/',
+  //     type: 'get',
+  //     async: false,
+  //     success: (data) => {
+  //       // @ts-ignore
+  //       data.forEach (image => { imagesList.push(new ImageModel(image)); });
+  //     }
+  //   });
+  //   return imagesList;
+  // }
 
   // post image model
-  addImages(clientId, eyeglassId, image: ImageModel) {
-    return this.http.post(this.URL_BASE + '/' + clientId + '/' + eyeglassId + '/image/', image);
-  }
+  // addImages(clientId, eyeglassId, image: ImageModel) {
+  //   return this.http.post(this.URL_BASE + '/' + clientId + '/' + eyeglassId + '/image/', image);
+  // }
 
   // post image file
-  postImage(client: string, eyeglass: string, image: File) {
-    const postData = new FormData();
-    postData.append('client', client);
-    postData.append('eyeglass', eyeglass);
-    postData.append('image', image, image.name);
-    return this.http.post(this.URL_BASE + '/' + client + '/' + eyeglass + '/image/', image);
-  }
+  // postImage(client: string, eyeglass: string, image: File) {
+  //   const postData = new FormData();
+  //   postData.append('client', client);
+  //   postData.append('eyeglass', eyeglass);
+  //   postData.append('image', image, image.name);
+  //   return this.http.post(this.URL_BASE + '/' + client + '/' + eyeglass + '/image/', image);
+  // }
 
-  updateImage(clientId, eyeglassId, imageId, image: ImageModel) {
-    return this.http.put(this.URL_BASE + '/' + clientId + '/' + eyeglassId + '/' + imageId, image);
-  }
+  // updateImage(clientId, eyeglassId, imageId, image: ImageModel) {
+  //   return this.http.put(this.URL_BASE + '/' + clientId + '/' + eyeglassId + '/' + imageId, image);
+  // }
 
-  deleteImage(clientId, eyeglassId, imageId) {
-    return this.http.delete(this.URL_BASE + '/' + clientId + '/' + eyeglassId + '/' + imageId);
-  }
+  // deleteImage(clientId, eyeglassId, imageId) {
+  //   return this.http.delete(this.URL_BASE + '/' + clientId + '/' + eyeglassId + '/' + imageId);
+  // }
 
 }
