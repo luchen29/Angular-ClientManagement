@@ -46,12 +46,13 @@ export class ClientsComponent implements OnInit {
 
   ngOnInit() {
     this.getAllClients();
-    this.client = new ClientModel();
+    // this.client = new ClientModel();
     this.user = new UserModel();
   }
 
   getAllClients() {
     this.allClients = this.apiService.getClients();
+    console.log(this.allClients);
   }
 
   onFormSubmit() {
@@ -64,6 +65,9 @@ export class ClientsComponent implements OnInit {
 
   onAddClient() {
     this.client.memberSince = new Date();
+    this.client.eyeglasses = [];
+    this.client.contacts = [];
+    console.log(this.client);
     this.apiService.addClient(this.client)
     .subscribe(
       (client: any) => {

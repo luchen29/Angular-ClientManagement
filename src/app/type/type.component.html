@@ -82,13 +82,15 @@
                 <td>{{type.size}}</td>
                 <td>
                     <nz-upload
-                        nzAction="http://localhost:3000/api/images/{{type.client}}/{{type.eyeglass}}/{{type.colorupc}}"
+                        nzAction="https://jsonplaceholder.typicode.com/posts/"
                         nzListType="picture-card"
                         [(nzFileList)]="type.images"
                         [nzShowButton]="type.images.length < 4"
                         [nzShowUploadList]="showUploadList"
                         [nzPreview]="handlePreview"
+                        [nzRemove]="handleRemove"
                         (nzChange)="upLoadChange($event, type)"
+                        (click) = "onEditTypeModalOpen(type)"
                         >
                         <i nz-icon nzType="plus"></i>
                         <div class="ant-upload-text">Upload</div>
@@ -104,10 +106,6 @@
                     </nz-modal>
                 </td>
                 <td>
-                <button class="um-btn--action btn btn-outline-warning"
-                        (click)="onEditTypeModalOpen(type, typeModal)">
-                    <i class="fa fa-edit"></i>
-                </button>
                 <button class="um-btn--action btn btn-outline-danger"
                         (click)="onDeleteTypeModalOpen(type, confirmationModal)">
                     <i class="fa fa-trash"></i>

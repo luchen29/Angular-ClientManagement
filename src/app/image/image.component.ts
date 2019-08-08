@@ -38,7 +38,6 @@ export class ImageComponent implements OnInit {
   protected items: GalleryItem[] = [];
   // protected items: Array<GalleryItem>;
 
-
   constructor(
     private apiService: APIService,
     private modalService: NgbModal,

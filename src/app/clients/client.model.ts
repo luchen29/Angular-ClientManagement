@@ -7,8 +7,10 @@ export class ClientModel {
   public contractType: string;
   public memberSince: Date;
   public location: string;
-  public eyeglasses: Array<EyeglassModel>;
-  public contacts: Array<UserModel>;
+  public eyeglasses: [];
+  public contacts: [];
+  // public eyeglasses: Array<EyeglassModel>;
+  // public contacts: Array<UserModel>;
 
   constructor(client?) {
     if (client) {

@@ -42,7 +42,7 @@ export class APIService {
 
   getClient(clientId: string) {
     let client: ClientModel = null;
-    this.http.get(this.URL_BASE + '/client/' + clientId)
+    this.http.get(this.URL_BASE + '/clients/' + clientId)
       .subscribe(
         data => {
           // @ts-ignore
@@ -58,15 +58,15 @@ export class APIService {
 
   addClient(client: ClientModel) {
     console.log('client model:', client);
-    return this.http.post(this.URL_BASE + '/client', client);
+    return this.http.post(this.URL_BASE + '/clients', client);
   }
 
   updateClient(clientId: string, client: ClientModel) {
-    return this.http.put(this.URL_BASE + '/client/' + client.id, client);
+    return this.http.put(this.URL_BASE + '/clients/' + clientId, client);
   }
 
   deleteClient(clientId: string) {
-    return this.http.delete(this.URL_BASE + '/client/' + clientId);
+    return this.http.delete(this.URL_BASE + '/clients/' + clientId);
   }
 
 
@@ -167,9 +167,6 @@ export class APIService {
           // @ts-ignore
             data.forEach(type => {
             const newType = new TypeModel(type);
-            console.log('inside newtype:', newType);
-            const typeImgs = newType.images;
-            console.log('inside type images', typeImgs);
             typeList.push(newType);
           });
         },
@@ -190,13 +187,12 @@ export class APIService {
       }, error => {
         console.error(error);
       });
-    console.log('type get form db:', type);
+    console.log('type got form db:', type);
     return type;
   }
 
-  updateType(type: TypeModel, image: ImageModel) {
-    // type.images.push()
-    return this.http.put(this.URL_BASE + '/types/' + type.client + '/' + type.eyeglass + '/' + type.colorupc, type);
+  updateType(clientId: string, eyeglassId: string, colortupc: string, type) {
+    return this.http.put(this.URL_BASE + '/types/' + clientId + '/' + eyeglassId + '/' + colortupc, type);
   }
 
   deleteType(type: TypeModel) {
@@ -228,13 +224,18 @@ export class APIService {
   // }
 
   // post image file
-  // postImage(client: string, eyeglass: string, image: File) {
-  //   const postData = new FormData();
-  //   postData.append('client', client);
-  //   postData.append('eyeglass', eyeglass);
-  //   postData.append('image', image, image.name);
-  //   return this.http.post(this.URL_BASE + '/' + client + '/' + eyeglass + '/image/', image);
-  // }
+  postImage(clientId, eyegalssId, colorupc, datas) {
+    console.log('datas got in API: ', datas);
+    const newImage = new ImageModel();
+    newImage.uid = datas.uid;
+    newImage.thumbUrl = datas.thumbUrl;
+    newImage.imageName = datas.name;
+    newImage.colorupc = colorupc;
+    newImage.client = clientId;
+    newImage.eyeglass = eyegalssId;
+    console.log('new constructed image: ', newImage);
+    return this.http.post(this.URL_BASE + '/images/' + clientId + '/' + eyegalssId + '/' + colorupc, newImage);
+  }
 
   // updateImage(clientId, eyeglassId, imageId, image: ImageModel) {
   //   return this.http.put(this.URL_BASE + '/' + clientId + '/' + eyeglassId + '/' + imageId, image);
