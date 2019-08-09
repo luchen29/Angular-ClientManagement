@@ -73,6 +73,7 @@ export class ClientsComponent implements OnInit {
       (client: any) => {
         this.user.client = client._id;
         this.user.location = client.location;
+        console.log(this.user);
         this.apiService.addUser(this.user).subscribe(
           () => {
             this.showAlert('Client added successfully');

@@ -61,10 +61,7 @@ export class NavbarComponent implements OnInit {
             this.navItems.push({
               name: 'Clients',
               link: ['/', 'profile', 'clients']
-            }, {
-              name: this.companyName
-            }
-            );
+            });
           }
           break;
         case 'login':

@@ -29,6 +29,7 @@ export class TypeComponent implements OnInit {
 
   public clientId: string;
   public eyeglassId: string;
+  public upc: string;
   protected previewImage: string | undefined = '';
   protected previewVisible = false;
 
@@ -57,6 +58,7 @@ export class TypeComponent implements OnInit {
     this.route.params.subscribe((data)=>{
         this.eyeglassId = data.eyeglass_id;
     });
+    this.upc = this.route.snapshot.queryParams['upc']
     this.getTypesList();
   }
   

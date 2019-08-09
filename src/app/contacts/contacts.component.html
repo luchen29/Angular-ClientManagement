@@ -5,45 +5,184 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <form #registerForm='ngForm' (ngSubmit)="onFormSubmit()">
+
+  <form id="contactValidateForm" nz-form [formGroup]="validateForm" (ngSubmit)="onFormSubmit()">
     <div class="modal-body">
-      <div class="form-group">
-        <label for="um-first-name">First Name</label>
-        <input type="text" class="form-control" id="um-first-name" name="firstName"
-               placeholder="First name" [(ngModel)]="contact.firstName" required>
-      </div>
-      <div class="form-group">
-        <label for="um-last-name">Last Name</label>
-        <input type="text" class="form-control" id="um-last-name" name="lastName"
-               placeholder="Last Name" [(ngModel)]="contact.lastName" required>
-      </div>
-      <div class="form-group">
-        <label for="um-email">Email address</label>
-        <input type="email" class="form-control" id="um-email" aria-describedby="emailHelp" name="email"
-               placeholder="Enter email" [(ngModel)]="contact.email" required>
-      </div>
-      <div class="form-group">
-        <label for="um-email-confirm">Confirm Email address</label>
-        <input type="email" class="form-control" id="um-email-confirm" aria-describedby="emailHelp"
-               name="emailConfirmation"
-               placeholder="Enter email" [(ngModel)]="formFieldEmailConfirmation" required>
-      </div>
-      <div class="form-group">
-        <label for="um-phone">Phone</label>
-        <input type="tel" class="form-control" id="um-phone" name="phone"
-               placeholder="Contact phone" [(ngModel)]="contact.phone" required>
-      </div>
-      <div class="form-group">
-        <label for="um-location">Location</label>
-        <input type="text" class="form-control" id="um-location" name="location"
-               placeholder="Location" [(ngModel)]="contact.location" required>
-      </div>
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="um-first-name">First Name</nz-form-label>
+        <nz-form-control nzHasFeedback nzErrorTip="Please input firstname">
+          <input nz-input id="um-first-name"  [(ngModel)]="contact.firstName"
+            formControlName="firstName" placeholder="First name" required/>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="um-last-name">Last Name</nz-form-label>
+        <nz-form-control nzHasFeedback nzErrorTip="Please input lastname">
+          <input nz-input id="um-last-name"  [(ngModel)]="contact.lastName"
+            formControlName="lastName" placeholder="Last Name" required/>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzFor="um-email" nzRequired>Email Address</nz-form-label>
+        <nz-form-control nzHasFeedback nzErrorTip="Please input a valid email address">
+          <input nz-input id="um-email"  [(ngModel)]="contact.email"
+            formControlName="email" placeholder="Enter email" required/>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="um-email-confirm">Confirm Email address</nz-form-label>
+        <nz-form-control nzHasFeedback nzErrorTip="The input email is not valid">
+          <input nz-input id="um-email-confirm"  [(ngModel)]="formFieldEmailConfirmation"
+            formControlName="emailConfirmation" placeholder="Enter email again" required/>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label  nzFor="um-phone" nzRequired>Phone Number</nz-form-label>
+        <nz-form-control 
+          nzHasFeedback
+          [nzValidateStatus]="validateForm.controls['phone']"
+          nzErrorTip="Please input contact phone number">
+          <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate">
+            <input nz-input formControlName="phone" id="um-phone" minlength=10 maxlength=10
+              placeholder="Contact phone" [(ngModel)]="contact.phone" required/>
+            <ng-template #addOnBeforeTemplate>
+              <nz-select formControlName="phoneNumberPrefix" class="phone-select">
+                <nz-option nzLabel="+1" nzValue="+1"></nz-option>
+              </nz-select>
+            </ng-template>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="um-location">Location</nz-form-label>
+        <nz-form-control nzHasFeedback nzErrorTip="Please input location">
+          <input nz-input id="um-location"  [(ngModel)]="contact.location"
+            formControlName="location" placeholder="Location" required/>
+        </nz-form-control>
+      </nz-form-item>
+
     </div>
     <div class="modal-footer">
       <button type="submit" class="btn btn-light">Save</button>
     </div>
   </form>
 </ng-template>
+
+
+<ng-template #billingModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Add Billing Information</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <form id="billingValidateForm" nz-form [formGroup]="billingValidateForm" (ngSubmit)="onBillingFormSubmit()">
+      <div class="modal-body">
+        <nz-form-item>
+          <nz-form-label nzRequired nzFor="um-billing-type">Billing Type</nz-form-label>
+          <nz-form-control nzHasFeedback nzErrorTip="Please input your billing type">
+            <input nz-input id="um-billing-type"  [(ngModel)]="billing.billingType"
+              formControlName="billingType" placeholder="Billing Type" required/>
+          </nz-form-control>
+        </nz-form-item>
+        <h4>Account Receivables Information</h4>
+        <nz-form-item>
+            <nz-form-label nzRequired nzFor="um-first-name-rec">First Name</nz-form-label>
+            <nz-form-control nzHasFeedback nzErrorTip="Please input receivables firstname">
+              <input nz-input id="um-first-name-rec"  [(ngModel)]="billing.firstNameRec"
+                formControlName="firstNameRec" placeholder="Receivables First Name" required/>
+            </nz-form-control>
+          </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzRequired nzFor="um-last-name-rec">Last Name</nz-form-label>
+          <nz-form-control nzHasFeedback nzErrorTip="Please input receivables lastname">
+            <input nz-input id="um-last-name-rec"  [(ngModel)]="billing.lastNameRec"
+              formControlName="lastNameRec" placeholder="Receivables Last Name" required/>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzFor="um-email-rec" nzRequired>Email Address</nz-form-label>
+          <nz-form-control nzHasFeedback nzErrorTip="Please input a valid email address">
+            <input nz-input id="um-email-rec"  [(ngModel)]="billing.emailRec"
+              formControlName="emailRec" placeholder="Receivables Email" required/>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzRequired nzFor="um-email-confirm-rec">Confirm Email address</nz-form-label>
+          <nz-form-control nzHasFeedback nzErrorTip="The input email is not valid">
+            <input nz-input id="um-email-confirm-rec"  [(ngModel)]="formFieldEmailConfirmationRec"
+              formControlName="emailConfirmationRec" placeholder="Enter Receivables Email Again" required/>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label  nzFor="um-phone-rec" nzRequired>Receivables Phone Number</nz-form-label>
+          <nz-form-control 
+            nzHasFeedback
+            [nzValidateStatus]="billingValidateForm.controls['phoneRec']"
+            nzErrorTip="Please input receivables phone number">
+            <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate">
+              <input nz-input formControlName="phoneRec" id="um-phone-rec" minlength=10 maxlength=10
+                placeholder="Receivables phone" [(ngModel)]="billing.phoneRec" required/>
+              <ng-template #addOnBeforeTemplate>
+                <nz-select formControlName="phoneNumberPrefixRec" class="phone-select">
+                  <nz-option nzLabel="+1" nzValue="+1"></nz-option>
+                </nz-select>
+              </ng-template>
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <h4>Account Payables Information</h4>
+        <nz-form-item>
+            <nz-form-label nzRequired nzFor="um-first-name-pay">First Name</nz-form-label>
+            <nz-form-control nzHasFeedback nzErrorTip="Please input payables firstname">
+              <input nz-input id="um-first-name-pay"  [(ngModel)]="billing.firstNamePay"
+                formControlName="firstNamePay" placeholder="Payables First Name" required/>
+            </nz-form-control>
+          </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzRequired nzFor="um-last-name-pay">Last Name</nz-form-label>
+          <nz-form-control nzHasFeedback nzErrorTip="Please input payables lastname">
+            <input nz-input id="um-last-name-pay"  [(ngModel)]="billing.lastNamePay"
+              formControlName="lastNamePay" placeholder="Payables Last Name" required/>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzFor="um-email-pay" nzRequired>Email Address</nz-form-label>
+          <nz-form-control nzHasFeedback nzErrorTip="Please input a valid email address">
+            <input nz-input id="um-email-pay"  [(ngModel)]="billing.emailPay"
+              formControlName="emailPay" placeholder="Payables Email" required/>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzRequired nzFor="um-email-confirm-pay">Confirm Email address</nz-form-label>
+          <nz-form-control nzHasFeedback nzErrorTip="The input email is not valid">
+            <input nz-input id="um-email-confirm-pay"  [(ngModel)]="formFieldEmailConfirmationPay"
+              formControlName="emailConfirmationPay" placeholder="Enter Payables Email Again" required/>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label  nzFor="um-phone-pay" nzRequired>Payables Phone Number</nz-form-label>
+          <nz-form-control 
+            nzHasFeedback
+            [nzValidateStatus]="billingValidateForm.controls['phonePay']"
+            nzErrorTip="Please input payables phone number">
+            <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate">
+              <input nz-input formControlName="phonePay" id="um-phone-pay" minlength=10 maxlength=10
+                placeholder="Payables phone" [(ngModel)]="billing.phonePay" required/>
+              <ng-template #addOnBeforeTemplate>
+                <nz-select formControlName="phoneNumberPrefixPay" class="phone-select">
+                  <nz-option nzLabel="+1" nzValue="+1"></nz-option>
+                </nz-select>
+              </ng-template>
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-light">Save</button>
+      </div>
+    </form>
+  </ng-template>
 
 <ng-template #confirmationModal let-modal>
   <div class="modal-header">
@@ -61,10 +200,32 @@
   </div>
 </ng-template>
 
+<ng-template #billingConfirmationModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Delete billing information</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>Are you sure you want to delete the billing information?</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+      <button type="button" class="btn btn-danger" (click)="deleteBilling()">Delete</button>
+    </div>
+  </ng-template>
+
+
 <div class="um-section">
   <div class="container">
     <ngb-alert *ngIf="isAlertOpen" type="success" (close)="isAlertOpen = false">{{ alertMessage }}</ngb-alert>
-    <button class="um-btn um-btn--submit btn" (click)="onAddContactModalOpen(registerModal)">Add Contact</button>
+
+    <button class="um-btn um-btn--submit btn" (click)="onAddContactModalOpen(registerModal)">Add Contacts</button>
+    <button [disabled]="!this.btnAct"
+            class="um-btn um-btn--submit btn" 
+            (click)="onAddBillingModalOpen(billingModal)">Add Billing Information</button>
+    
     <div class="row">
       <div *ngFor="let contact of contactList" class="um-contact col">
         <div class="um-contact__btn-options btn">
@@ -79,6 +240,25 @@
         <p>{{contact.phone}}</p>
         <p>{{contact.email}}</p>
       </div>
+
+      <div *ngFor="let billing of billingList" class="um-billing col">
+          <div class="um-billing__btn-options btn">
+            <i class="fa fa-ellipsis-v"></i>
+            <ul class="um-billing__actions">
+              <li (click)="onDeleteBillingModalOpen(billingConfirmationModal, billing)">Delete</li>
+              <li (click)="onEditBillingModalOpen(billingModal, billing)">Edit</li>
+            </ul>
+          </div>
+          <h2>Billing Info</h2>
+          <h3>Payables</h3>
+          <p>{{billing.firstNamePay}} {{billing.lastNamePay}}</p>
+          <p>{{billing.phonePay}}</p>
+          <p>{{billing.emailPay}}</p>
+          <h3>Receivables</h3>
+          <p>{{billing.firstNameRec}} {{billing.lastNameRec}}</p>
+          <p>{{billing.phoneRec}}</p>
+          <p>{{billing.emailRec}}</p>
+        </div>
 
     </div>
   </div>

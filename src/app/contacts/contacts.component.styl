@@ -49,3 +49,40 @@ $naik-orange = #da4f35
 
 .um-btn
   margin-bottom 1rem
+
+
+.um-billing
+  padding 1rem
+  border-radius 5px
+  border solid 2px $naik-blue
+  max-width 30%
+  position relative
+  margin-right .5rem
+
+  &__actions
+    position absolute
+    border 1px solid black
+    border-bottom none
+    right 1rem
+    top 1rem
+    display none
+    list-style: none
+    padding 0
+    li
+      padding .5rem 1rem
+      text-align center
+      border-bottom 1px solid black
+      &:hover
+        cursor pointer
+        color white
+        background $naik-orange
+
+  &__btn-options
+    position absolute
+    right 0
+    top 0
+    .fa
+      color $naik-orange
+    &:hover
+      .um-billing__actions
+        display block

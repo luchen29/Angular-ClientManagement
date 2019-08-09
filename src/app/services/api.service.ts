@@ -5,6 +5,7 @@ import {EyeglassModel} from '../eyeglass/eyeglass.model';
 import {UserModel} from '../user/user.model';
 import { TypeModel } from '../type/type.model';
 import { ImageModel } from '../image/image.model';
+import { BillingModel } from '../contacts/billing.model';
 // import { type } from 'os';
 
 const httpOptions = {
@@ -152,6 +153,39 @@ export class APIService {
 
   deleteContact(contactId: string) {
     return this.http.delete(this.URL_BASE + '/contact/' + contactId);
+  }
+
+// billings
+  addBilling(billing: BillingModel) {
+    return this.http.post(this.URL_BASE + '/billing', billing);
+  }
+
+  getBillings(clientId: string) {
+    const billings: Array<BillingModel> = new Array<BillingModel>();
+    this.http.get(this.URL_BASE + '/billing/' + clientId)
+    .subscribe(
+      data => {
+        // @ts-ignore
+        data.forEach( billing => {
+          billings.push(new BillingModel(billing));
+        })
+      }, 
+      err => {
+        console.error(err);
+      },
+      () => {
+        console.log('Success obtaining billings');
+      }
+    )
+    return billings;
+  }
+
+  updateBilling(billing: BillingModel) {
+    return this.http.put(this.URL_BASE + '/billing/' + billing.id, billing);
+  }
+
+  deleteBilling(billing: BillingModel) {
+    return this.http.delete(this.URL_BASE + '/billing/' + billing.id);
   }
 
 //  types

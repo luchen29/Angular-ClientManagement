@@ -62,6 +62,7 @@
         <div class="row">
         <div class="col">
             <ngb-alert *ngIf="isAlertOpen" type="success" (close)="isAlertOpen = false">{{ alertMessage }}</ngb-alert>
+            <h3>{{this.upc}}</h3>
             <button class="um-btn--add btn btn-outline-info" (click)="onAddTypeModalOpen(typeModal)">Add type</button>
             <table class="table">
             <thead class="thead-dark">

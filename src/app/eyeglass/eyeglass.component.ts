@@ -31,6 +31,7 @@ export class EyeglassComponent implements OnInit {
   // public files: UploadFile[] = [];
   public clientId: string;
   public eyeglassId: string;
+  public companyName: string;
   public allFiles: FileList;
 
   form: any;
@@ -54,6 +55,7 @@ export class EyeglassComponent implements OnInit {
 
   ngOnInit() {
     this.clientId = this.route.snapshot.params.client_id;
+    this.companyName = this.route.snapshot.queryParams['companyName']
     this.getEyeglassesList();
   }
 
