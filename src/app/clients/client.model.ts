@@ -9,6 +9,7 @@ export class ClientModel {
   public location: string;
   public eyeglasses: [];
   public contacts: [];
+  public billings: [];
   // public eyeglasses: Array<EyeglassModel>;
   // public contacts: Array<UserModel>;
 
@@ -21,6 +22,7 @@ export class ClientModel {
       this.location = client.location;
       this.eyeglasses = client.eyeglasses;
       this.contacts = client.contacts;
+      this.billings = client.billings;
     }
   }
 }

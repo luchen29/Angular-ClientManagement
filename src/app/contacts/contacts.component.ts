@@ -66,6 +66,7 @@ export class ContactsComponent implements OnInit {
     this.clientId = this.route.snapshot.params.client_id;
     this.getContacts();
     this.getBillings();
+    this.btnAct = true;
   }
 
   getContacts() {
@@ -146,7 +147,6 @@ export class ContactsComponent implements OnInit {
         this.getBillings();
         this.showAlert('Billing information updated successfully!');
       }, error => {
-        console.error(error);
         this.showAlert(error);
       }
     );
@@ -154,12 +154,12 @@ export class ContactsComponent implements OnInit {
 
   deleteContact() {
     this.modalService.dismissAll();
-    this.apiService.deleteContact(this.contact.id).subscribe(
+    this.apiService.deleteContact(this.contact.id)
+    .subscribe(
       () => {
         this.getContacts();
-        this.showAlert(this.contact.firstName + ' ' + this.contact.lastName + 'contact deleted.');
+        this.showAlert(this.contact.firstName + ' ' + this.contact.lastName + ' contact deleted.');
       }, error => {
-        console.error(error);
         this.showAlert(error);
       }
     );
@@ -167,13 +167,13 @@ export class ContactsComponent implements OnInit {
 
   deleteBilling() {
     this.modalService.dismissAll();
+    console.log(this.billing);
     this.apiService.deleteBilling(this.billing)
     .subscribe(
       () => {
         this.getBillings();
         this.showAlert('Billing information deleted, please add again.');
       }, error => {
-        console.error(error);
         this.showAlert(error);
       }
     );
@@ -182,9 +182,9 @@ export class ContactsComponent implements OnInit {
 
   addContact() {
     this.contact.client = this.clientId;
-    this.apiService.addContact(this.contact).subscribe(
+    this.apiService.addContact(this.contact)
+    .subscribe(
       (data) => {
-        console.log(data);
         this.modalService.dismissAll();
         this.showAlert('Contact added successfully');
         this.getContacts();
@@ -196,6 +196,7 @@ export class ContactsComponent implements OnInit {
 
   addBilling() {
     this.billing.client = this.clientId;
+    this.billing.btnAct = false;
     this.apiService.addBilling(this.billing)
     .subscribe(
       (data) => {
