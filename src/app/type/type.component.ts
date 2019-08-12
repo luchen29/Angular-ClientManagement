@@ -63,10 +63,6 @@ export class TypeComponent implements OnInit {
   }
   
   onEditTypeModalOpen(type) {
-    console.log('open')
-    // this.isTypeEdited = true;
-    // this.type = type;
-    // this.modalService.open(modal, {centered: true});
   }
 
   // get the type and delete it
@@ -93,19 +89,16 @@ export class TypeComponent implements OnInit {
 
   getTypesList() {
     this.types = this.apiService.getTypes(this.clientId, this.eyeglassId);
-    console.log('type list: ', this.types);
   }
 
   getType() {
     this.currentType = this.apiService.getType(this.clientId, this.eyeglassId, this.type.colorupc);
-    console.log('type got from api: ', this.type);
     return this.currentType
   }
 
   AddType() {
     this.type.client = this.clientId;
     this.type.eyeglass = this.eyeglassId;
-    console.log('what type to be add?', this.type);
     this.apiService.addType(this.type)
     .subscribe(
       (type: any) => {
@@ -118,7 +111,6 @@ export class TypeComponent implements OnInit {
   }
 
   EditType() {
-    console.log('edit type:', this.type);
     this.apiService.updateType(this.clientId, this.eyeglassId, this.type.colorupc, this.type)
     .subscribe(() => {
       this.showAlert('Type Edited successfully');
@@ -158,14 +150,9 @@ export class TypeComponent implements OnInit {
   upLoadChange(event, type) {
       const file = event ? event.file : null; 
       const datas = file && file.uid ? file : file.response && file.response.rlt === 0 && file.response.datas;
-      console.log(event);
       if (datas) {
         if (event.type === 'success') {
-            console.log('type: ', type);
-            console.log('datas: ', datas);
-            console.log('file: ', file);
             type.eventType = 'add';
-            console.log(type);
             this.apiService.updateType(type.client, type.eyeglass, type.colorupc, type)
                 .subscribe(() => {
                     this.showAlert('image uploaded successfully');
@@ -183,7 +170,6 @@ export class TypeComponent implements OnInit {
         } 
         else if (event.type === 'removed') {
           event.file.eventType = 'remove';
-          console.log('which file to remove: ', event.file)
           this.apiService.updateType(type.client, type.eyeglass, type.colorupc, event.file)
                 .subscribe(() => {
                     this.showAlert('image deleted successfully');

@@ -66,9 +66,6 @@ export class ContactsComponent implements OnInit {
     this.clientId = this.route.snapshot.params.client_id;
     this.getContacts();
     this.getBillings()
-    if (this.billingList[0] !== null) {
-      console.log(this.billingList);
-    }
   }
 
   getContacts() {
@@ -169,7 +166,6 @@ export class ContactsComponent implements OnInit {
 
   deleteBilling() {
     this.modalService.dismissAll();
-    console.log(this.billing);
     this.apiService.deleteBilling(this.billing)
     .subscribe(
       () => {

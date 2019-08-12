@@ -96,7 +96,6 @@ export class EyeglassComponent implements OnInit {
         console.error(error);
       }
     );
-    console.log(this.eyeglass);
   }
 
   EditEyeglass() {
@@ -112,7 +111,6 @@ export class EyeglassComponent implements OnInit {
   DeleteEyeglass() {
     this.apiService.deleteEyeglass(this.eyeglass.id).subscribe(
       (res) => {
-        console.log(res);
         this.modalService.dismissAll();
         this.showAlert('Eyeglass removed successfully');
         this.eyeglasses.splice(this.eyeglasses.indexOf(this.eyeglass), 1);

@@ -29,7 +29,6 @@ export class NavbarComponent implements OnInit {
       this.companyName = this.route.snapshot.queryParams['companyName'];
       const url = this.route.snapshot.firstChild;
       this.currentLink = url.routeConfig.path;
-      console.log('current link: ', this.currentLink);
       switch (this.currentLink) {
         case ':client_id/:eyeglass_id':
           this.currentClient = url.params.client_id;
@@ -70,6 +69,20 @@ export class NavbarComponent implements OnInit {
           this.navItems = [];
           break;
         default:
+            this.currentClient = url.params.client_id;
+            this.navItems = [{
+              name: 'Models',
+              link: ['/', 'profile', this.currentClient, 'eyeglasses']
+            }, {
+              name: 'Contacts',
+              link: ['/', 'profile', this.currentClient, 'contacts']
+            }];
+            if (this.sessionService.getUser().role === 'admin') {
+              this.navItems.push({
+                name: 'Clients',
+                link: ['/', 'profile', 'clients']
+              });
+            }
           break;
       }
     });
@@ -81,7 +94,6 @@ export class NavbarComponent implements OnInit {
   }
 
   onItemClicked(itemIndex) {
-    console.log(this.navItems[itemIndex]);
     this.router.navigate(this.navItems[itemIndex].link);
   }
 

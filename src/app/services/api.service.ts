@@ -53,12 +53,10 @@ export class APIService {
           console.error(error);
         }
       );
-    console.log(client);
     return client;
   }
 
   addClient(client: ClientModel) {
-    console.log('client model:', client);
     return this.http.post(this.URL_BASE + '/clients', client);
   }
 
@@ -88,7 +86,6 @@ export class APIService {
           console.log(err);
         }
       );
-    console.log('eyeglassesList:', eyeglassesList);
     return eyeglassesList;
   }
 
@@ -106,7 +103,6 @@ export class APIService {
   }
 
   addEyeglass(eyeglass) {
-    console.log('eyeglass', eyeglass);
     return this.http.post(this.URL_BASE + '/eyeglasses/' + eyeglass.client, eyeglass);
   }
 
@@ -221,7 +217,6 @@ export class APIService {
       }, error => {
         console.error(error);
       });
-    console.log('type got form db:', type);
     return type;
   }
 
@@ -230,7 +225,6 @@ export class APIService {
   }
 
   deleteType(type: TypeModel) {
-    console.log('type to be delete:', type);
     return this.http.delete(this.URL_BASE + '/types/' + type.client + '/' + type.eyeglass + '/' + type.colorupc, {responseType: 'text'});
   }
 
@@ -259,7 +253,6 @@ export class APIService {
 
   // post image file
   postImage(clientId, eyegalssId, colorupc, datas) {
-    console.log('datas got in API: ', datas);
     const newImage = new ImageModel();
     newImage.uid = datas.uid;
     newImage.thumbUrl = datas.thumbUrl;
@@ -267,7 +260,6 @@ export class APIService {
     newImage.colorupc = colorupc;
     newImage.client = clientId;
     newImage.eyeglass = eyegalssId;
-    console.log('new constructed image: ', newImage);
     return this.http.post(this.URL_BASE + '/images/' + clientId + '/' + eyegalssId + '/' + colorupc, newImage);
   }
 

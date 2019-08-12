@@ -52,7 +52,6 @@ export class ClientsComponent implements OnInit {
 
   getAllClients() {
     this.allClients = this.apiService.getClients();
-    console.log(this.allClients);
   }
 
   onFormSubmit() {
@@ -67,13 +66,11 @@ export class ClientsComponent implements OnInit {
     this.client.memberSince = new Date();
     this.client.eyeglasses = [];
     this.client.contacts = [];
-    console.log(this.client);
     this.apiService.addClient(this.client)
     .subscribe(
       (client: any) => {
         this.user.client = client._id;
         this.user.location = client.location;
-        console.log(this.user);
         this.apiService.addUser(this.user).subscribe(
           () => {
             this.showAlert('Client added successfully');

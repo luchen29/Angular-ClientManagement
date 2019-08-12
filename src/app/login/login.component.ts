@@ -28,7 +28,6 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     if (this.sessionService.hasLogin()) {
       const userSession = this.sessionService.getUser();
-      console.log(userSession.role);
       if (userSession.role === 'admin') {
         this.router.navigate(['/profile/clients']);
       } else {
@@ -44,9 +43,7 @@ export class LoginComponent implements OnInit {
   onLogin() {
     this.sessionService.logIn(this.user).subscribe((data: any) => {
       const userSession = new UserModel(data.user);
-      console.log(data.user);
       this.sessionService.setUser(userSession);
-      console.log(this.sessionService.getUser().role);
       if (userSession.role === 'admin') {
         this.router.navigate(['/profile/clients']);
       } else {
