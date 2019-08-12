@@ -1,16 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {SessionService} from '../services/session.service';
-import {Router, ActivatedRoute, ParamMap} from '@angular/router';
-import {switchMap} from 'rxjs/operators';
-import {ClientModel} from '../clients/client.model';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {UserModel} from '../user/user.model';
+import { Component, OnInit } from '@angular/core';
+import { SessionService } from '../services/session.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { UserModel } from '../user/user.model';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.styl']
 })
+
 export class LoginComponent implements OnInit {
 
   constructor(

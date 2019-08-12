@@ -29,7 +29,7 @@
             <nz-form-control nzHasFeedback nzErrorTip="Please input valid model size">
             <input type="text" nz-input id="um-size" 
                 [(ngModel)]="type.size" maxlength="9" minlength="9" min="0" max="9"
-                formControlName="size" placeholder="7 digit size" required
+                formControlName="size" placeholder="Size: please input 7 digit number" required
                 (ngModelChange)="onChange($event)"/>
             </nz-form-control>
         </nz-form-item>
@@ -43,7 +43,7 @@
 
     <ng-template #confirmationModal let-modal>
     <div class="modal-header">
-        <h4 class="modal-title">Delete type</h4>
+        <h4 class="modal-title">Delete Color Type</h4>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
         </button>
@@ -63,7 +63,7 @@
         <div class="col">
             <ngb-alert *ngIf="isAlertOpen" type="success" (close)="isAlertOpen = false">{{ alertMessage }}</ngb-alert>
             <h3>{{this.upc}}</h3>
-            <button class="um-btn--add btn btn-outline-info" (click)="onAddTypeModalOpen(typeModal)">Add type</button>
+            <button class="um-btn--add btn btn-outline-info" (click)="onAddTypeModalOpen(typeModal)">Add Type</button>
             <table class="table">
             <thead class="thead-dark">
             <tr>

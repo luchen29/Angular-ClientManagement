@@ -3,9 +3,6 @@ import {APIService} from '../services/api.service';
 import {ClientModel} from './client.model';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import {NgForm} from '@angular/forms';
-import {Subject} from 'rxjs';
-import {debounceTime} from 'rxjs/operators';
 import {UserModel} from '../user/user.model';
 
 @Component({
@@ -13,6 +10,7 @@ import {UserModel} from '../user/user.model';
   templateUrl: './clients.component.html',
   styleUrls: ['./clients.component.styl']
 })
+
 export class ClientsComponent implements OnInit {
   public validateForm: FormGroup;
   closeResult: string;
@@ -46,7 +44,6 @@ export class ClientsComponent implements OnInit {
 
   ngOnInit() {
     this.getAllClients();
-    // this.client = new ClientModel();
     this.user = new UserModel();
   }
 
@@ -76,7 +73,6 @@ export class ClientsComponent implements OnInit {
             this.showAlert('Client added successfully');
             this.getAllClients();
           }, error => console.error(error));
-
       },
       (err) => {
         console.error(err);

@@ -1,12 +1,11 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {ClientModel} from '../clients/client.model';
-import {EyeglassModel} from '../eyeglass/eyeglass.model';
-import {UserModel} from '../user/user.model';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ClientModel } from '../clients/client.model';
+import { EyeglassModel } from '../eyeglass/eyeglass.model';
+import { UserModel } from '../user/user.model';
 import { TypeModel } from '../type/type.model';
 import { ImageModel } from '../image/image.model';
 import { BillingModel } from '../contacts/billing.model';
-// import { type } from 'os';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -19,10 +18,8 @@ export class APIService {
 
   constructor(private http: HttpClient) {}
 
-  // provide a get path-to-server.
   getClients() {
     const clients: Array<ClientModel> = new Array<ClientModel>();
-    // it won't do anything until we listen to it by using subscribe.
     this.http.get(this.URL_BASE + '/clients')
       .subscribe(
         data => {
@@ -228,30 +225,7 @@ export class APIService {
     return this.http.delete(this.URL_BASE + '/types/' + type.client + '/' + type.eyeglass + '/' + type.colorupc, {responseType: 'text'});
   }
 
-  // images 
-  // getImages(clientId: string, eyeglassId: string) {
-
-  // }
-  // getImages(clientId: string, eyeglassId: string) {
-  //   const imagesList: ImageModel[] = [];
-  //   $.ajax({
-  //     url: this.URL_BASE + '/' + clientId + '/' + eyeglassId + '/image/',
-  //     type: 'get',
-  //     async: false,
-  //     success: (data) => {
-  //       // @ts-ignore
-  //       data.forEach (image => { imagesList.push(new ImageModel(image)); });
-  //     }
-  //   });
-  //   return imagesList;
-  // }
-
-  // post image model
-  // addImages(clientId, eyeglassId, image: ImageModel) {
-  //   return this.http.post(this.URL_BASE + '/' + clientId + '/' + eyeglassId + '/image/', image);
-  // }
-
-  // post image file
+  // image
   postImage(clientId, eyegalssId, colorupc, datas) {
     const newImage = new ImageModel();
     newImage.uid = datas.uid;

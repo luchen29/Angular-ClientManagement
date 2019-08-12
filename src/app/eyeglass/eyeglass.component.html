@@ -1,27 +1,19 @@
 <ng-template #eyeglassModal let-modal>
   <div class="modal-header">
-    <h4 class="modal-title">Add new eyewear</h4>
+    <h4 class="modal-title">Add New Eyewear Model</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-
   <form id="eyeglassValidateForm" nz-form [formGroup]="validateForm"  (ngSubmit)="onFormSubmit()">
     <div class="modal-body">
       <nz-form-item>
         <nz-form-label nzFor="um-model" nzRequired>Model Name</nz-form-label>
         <nz-form-control nzHasFeedback nzErrorTip="Please input model name">
           <input nz-input id="um-model" [(ngModel)]="eyeglass.model"
-            formControlName="model" placeholder="Model Name" required/>
+            formControlName="model" placeholder="Model name" required/>
         </nz-form-control>
       </nz-form-item>
-
-      <!-- <div class="form-group">
-        <label for="um-model">Model Name</label>
-        <input type="text" class="form-control" id="um-model" name="model"
-               placeholder="Model Name" [(ngModel)]="eyeglass.model" required>
-      </div> -->
-
       <nz-form-item>
         <nz-form-label nzFor="um-upc" nzRequired>UPC</nz-form-label>
         <nz-form-control nzHasFeedback nzErrorTip="Please input valid model UPC">
@@ -29,42 +21,27 @@
             formControlName="upc" placeholder="UPC#" required/>
         </nz-form-control>
       </nz-form-item>
-
       <nz-form-item>
         <nz-form-label nzFor="um-brand" nzRequired>Brand</nz-form-label>
         <nz-form-control nzHasFeedback nzErrorTip="Please input model brand">
           <input nz-input id="um-brand" [(ngModel)]="eyeglass.brand"
-            formControlName="brand" placeholder="Model Brand" required/>
+            formControlName="brand" placeholder="Model brand" required/>
         </nz-form-control>
       </nz-form-item>
-
       <nz-form-item>
         <nz-form-label nzFor="um-size" nzRequired>Model Size</nz-form-label>
         <nz-form-control nzHasFeedback nzErrorTip="Please input model size">
           <input type="text" nz-input id="um-size" 
             maxlength="9" minlength="9" min="0" max="9" [(ngModel)]="eyeglass.size"
-            formControlName="size" placeholder="Size 7 digit number" required
+            formControlName="size" placeholder="Size: please input 7 digit number" required
             (ngModelChange)="onChange($event)"/>
         </nz-form-control>
       </nz-form-item>
-
-      <!-- <div class="form-group">
-        <label for="um-size">Size</label>
-        <input type="text" class="form-control" id="um-size" name="size"
-               placeholder="Size" [(ngModel)]="eyeglass.size" required>
-      </div> -->
-
       <nz-form-item>
         <nz-form-label nzFor="um-info">Other Info</nz-form-label>
           <input nz-input id="um-info" [(ngModel)]="eyeglass.info"
             formControlName="info" placeholder="Other info..."/>
       </nz-form-item>
-
-      <!-- <div class="form-group">
-          <label for="um-colour">Other Info</label>
-          <input type="text" class="form-control" id="um-info" name="info"
-                 placeholder="Other info..." [(ngModel)]="eyeglass.info">
-      </div> -->
     </div>
     <div class="modal-footer">
       <button type="submit" class="btn btn-light">Save</button>
@@ -72,9 +49,60 @@
   </form>
 </ng-template>
 
+<ng-template #editEyeglassModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Edit Eyewear Model</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <form id="eyeglassValidateForm" nz-form [formGroup]="validateForm"  (ngSubmit)="onFormSubmit()">
+      <div class="modal-body">
+        <nz-form-item>
+          <nz-form-label nzFor="um-model" nzRequired>Model Name</nz-form-label>
+          <nz-form-control nzHasFeedback nzErrorTip="Please input model name">
+            <input nz-input id="um-model" [(ngModel)]="eyeglass.model"
+              formControlName="model" placeholder="Model name" required/>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzFor="um-upc" nzRequired>UPC</nz-form-label>
+          <nz-form-control nzHasFeedback nzErrorTip="Please input valid model UPC">
+            <input nz-input id="um-upc" [(ngModel)]="eyeglass.upc" maxlength="12" minlength="12"
+              formControlName="upc" placeholder="UPC#" required/>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzFor="um-brand" nzRequired>Brand</nz-form-label>
+          <nz-form-control nzHasFeedback nzErrorTip="Please input model brand">
+            <input nz-input id="um-brand" [(ngModel)]="eyeglass.brand"
+              formControlName="brand" placeholder="Model brand" required/>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzFor="um-size" nzRequired>Model Size</nz-form-label>
+          <nz-form-control nzHasFeedback nzErrorTip="Please input model size">
+            <input type="text" nz-input id="um-size" 
+              maxlength="9" minlength="9" min="0" max="9" [(ngModel)]="eyeglass.size"
+              formControlName="size" placeholder="Size: please input 7 digit number" required
+              (ngModelChange)="onChange($event)"/>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzFor="um-info">Other Info</nz-form-label>
+            <input nz-input id="um-info" [(ngModel)]="eyeglass.info"
+              formControlName="info" placeholder="Other info..."/>
+        </nz-form-item>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-light">Save</button>
+      </div>
+    </form>
+  </ng-template>
+
 <ng-template #confirmationModal let-modal>
   <div class="modal-header">
-    <h4 class="modal-title">Delete eyeglass</h4>
+    <h4 class="modal-title">Delete Eyeglass Model</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -83,7 +111,7 @@
     <p>Are you sure you want to delete the eyeglass model <b>{{eyeglass.model}}</b>?</p>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Cancel</button>
     <button type="button" class="btn btn-danger" (click)="DeleteEyeglass()">Delete</button>
   </div>
 </ng-template>
@@ -94,8 +122,7 @@
       <div class="col">
         <ngb-alert *ngIf="isAlertOpen" type="success" (close)="isAlertOpen = false">{{ alertMessage }}</ngb-alert>
         <h3>{{this.companyName}}</h3>
-        <button class="um-btn--add btn btn-outline-info" (click)="onAddEyeglassModalOpen(eyeglassModal)">Add eyeglass
-        </button>
+        <button class="um-btn--add btn btn-outline-info" (click)="onAddEyeglassModalOpen(eyeglassModal)">Add Eyeglass</button>
         <table class="table">
           <thead class="thead-dark">
           <tr>
@@ -116,29 +143,19 @@
             </td>
             <td>{{eyeglass.upc}}</td>
             <td>{{eyeglass.brand}}</td>
-            <!-- <td><a *ngIf="this.eyeglass.btnAct"
-                    [routerLink]="['/','profile', this.clientId, eyeglass.id,'image']">{{"check images"}}</a>
-                <p *ngIf="!this.eyeglass.btnAct">{{"check images"}}</p>
-            </td>
-            <td><a *ngIf="this.eyeglass.btnAct"
-                    [routerLink]="['/','profile', this.clientId, eyeglass.id,'image']">{{"check model"}}</a>
-                <p *ngIf="!this.eyeglass.btnAct">{{"check model"}}</p>
-            </td> -->
             <td>{{eyeglass.size}}</td>
             <td>{{eyeglass.info}}</td>
             <td>
               <button [disabled]="!this.eyeglass.btnAct"
                       class="um-btn--action btn btn-outline-warning"
-                      (click)="onEditEyeglassModalOpen(eyeglass, eyeglassModal)">
+                      (click)="onEditEyeglassModalOpen(eyeglass, editEyeglassModal)">
                 <i class="fa fa-edit"></i>
               </button>
-              <!-- Disable Btn -->
               <button [disabled]="!this.eyeglass.btnAct"
                       (click)="disableBtn(eyeglass)"
                       class="um-btn--action btn btn-outline-info">
                 <i class="fa fa-eye-slash"></i>
               </button>
-              <!-- Enable Btn -->
               <button [disabled]="this.eyeglass.btnAct"
                       (click)="disableBtn(eyeglass)"
                       class="um-btn--action btn btn-outline-info">

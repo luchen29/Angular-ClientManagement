@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from '@ngx-gallery/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import { Gallery, GalleryItem } from '@ngx-gallery/core';
+import { ActivatedRoute } from '@angular/router';
 import { ImageModel } from './image.model';
-import { APIService } from '../services/api.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EyeglassModel } from '../eyeglass/eyeglass.model';
 import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Ng2ImgMaxService } from 'ng2-img-max';
+import { FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-image',
@@ -35,12 +32,8 @@ export class ImageComponent implements OnInit {
   protected items: GalleryItem[] = [];
 
   constructor(
-    private apiService: APIService,
-    private modalService: NgbModal,
-    private router: Router,
     private route: ActivatedRoute,
     public gallery: Gallery,
-    private ng2ImgMax: Ng2ImgMaxService
   ) {}
 
   ngOnInit() {

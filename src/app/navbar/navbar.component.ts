@@ -1,7 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {Router, ActivatedRoute, RouterEvent, UrlSegment} from '@angular/router';
-import {SessionService} from '../services/session.service';
-import { ClientModel } from '../clients/client.model';
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { SessionService } from '../services/session.service';
 import { APIService } from '../services/api.service';
 
 @Component({
@@ -9,9 +8,8 @@ import { APIService } from '../services/api.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.styl']
 })
+
 export class NavbarComponent implements OnInit {
-
-
   protected currentLink: string;
   protected currentClient: string;
   protected companyName: string;

@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {UserModel} from '../user/user.model';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {APIService} from '../services/api.service';
-import {ActivatedRoute} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { UserModel } from '../user/user.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { APIService } from '../services/api.service';
+import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { BillingModel } from './billing.model';
 
@@ -58,7 +58,6 @@ export class ContactsComponent implements OnInit {
         emailConfirmationPay: ['', [Validators.email, this.billingPayConfirmValidator]],
         phonePay: ['', [Validators.required]],
         phoneNumberPrefixPay: ['+1'],
-
       })
     }
 

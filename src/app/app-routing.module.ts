@@ -1,15 +1,14 @@
-import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
-import {HomeComponent} from './home/home.component';
-import {LoginComponent} from './login/login.component';
-import {DemoComponent} from './demo/demo.component';
-import {ClientsComponent} from './clients/clients.component';
-import {EyeglassComponent} from './eyeglass/eyeglass.component';
-import {ImageComponent} from './image/image.component';
-import {ProfileComponent} from './profile/profile.component';
-import {ContactsComponent} from './contacts/contacts.component';
-import {AuthGuard} from './services/auth.guard';
-import {Role} from './user/role';
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
+import { DemoComponent } from './demo/demo.component';
+import { ClientsComponent } from './clients/clients.component';
+import { EyeglassComponent } from './eyeglass/eyeglass.component';
+import { ProfileComponent } from './profile/profile.component';
+import { ContactsComponent } from './contacts/contacts.component';
+import { AuthGuard } from './services/auth.guard';
+import { Role } from './user/role';
 import { TypeComponent } from './type/type.component';
 
 const routes: Routes = [

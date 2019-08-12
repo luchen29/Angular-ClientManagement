@@ -1,22 +1,16 @@
-import {Component, OnInit} from '@angular/core';
-import {APIService} from '../services/api.service';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {EyeglassModel} from './eyeglass.model';
-import {SessionService} from '../services/session.service';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import {ActivatedRoute, Router, RouteConfigLoadEnd} from '@angular/router';
-import { ImageModel } from '../image/image.model';
-import { ConnectableObservable } from 'rxjs';
-// import {el} from '@angular/platform-browser/testing/src/browser_util';
-// import {UploadEvent, UploadFile, FileSystemFileEntry, FileSystemDirectoryEntry} from 'ngx-file-drop';
-// import { CodegenComponentFactoryResolver } from '@angular/core/src/linker/component_factory_resolver';
-
+import { Component, OnInit } from '@angular/core';
+import { APIService } from '../services/api.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { EyeglassModel } from './eyeglass.model';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-eyeglass',
   templateUrl: './eyeglass.component.html',
   styleUrls: ['./eyeglass.component.styl']
 })
+
 export class EyeglassComponent implements OnInit {
 
   public validateForm: FormGroup;
@@ -39,7 +33,6 @@ export class EyeglassComponent implements OnInit {
 
   constructor(
     private apiService: APIService,
-    private sessionService: SessionService,
     private modalService: NgbModal,
     private route: ActivatedRoute,
     private fb: FormBuilder,

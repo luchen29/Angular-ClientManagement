@@ -1,11 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {APIService} from '../services/api.service';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {SessionService} from '../services/session.service';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import {ActivatedRoute, Router, RouteConfigLoadEnd} from '@angular/router';
-import { ImageModel } from '../image/image.model';
-import { ConnectableObservable, Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { APIService } from '../services/api.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SessionService } from '../services/session.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { TypeModel } from './type.model';
 import { UploadFile } from 'ng-zorro-antd';
 
@@ -14,6 +12,7 @@ import { UploadFile } from 'ng-zorro-antd';
   templateUrl: './type.component.html',
   styleUrls: ['./type.component.styl']
 })
+
 export class TypeComponent implements OnInit {
 
   public validateForm: FormGroup;
@@ -65,20 +64,17 @@ export class TypeComponent implements OnInit {
   onEditTypeModalOpen(type) {
   }
 
-  // get the type and delete it
   onDeleteTypeModalOpen(type, modal) {
     this.type = type;
     this.modalService.open(modal, {centered: true});
   }
 
-  // first define this.type here   
   onAddTypeModalOpen(modal) {
     this.isTypeEdited = false;
     this.type = new TypeModel();
     this.modalService.open(modal, {centered: true});
   }
 
-  //  call whether edit or add 
   onFormSubmit() {
     if (this.isTypeEdited) {
       this.EditType();

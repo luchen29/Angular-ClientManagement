@@ -1,38 +1,27 @@
 <ng-template #registerModal let-modal>
   <div class="modal-header">
-    <h4 class="modal-title">Add new client</h4>
+    <h4 class="modal-title">Add New Client</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-
   <form id="clientValidateForm" nz-form [formGroup]="validateForm" (ngSubmit)="onFormSubmit()">
     <div class="modal-body">
-      <h5>Compamy Basic Info</h5>
+      <h5>Compamy Information</h5>
       <nz-form-item>
-        <nz-form-label nzFor="um-company-name" nzRequired>Company name</nz-form-label>
+        <nz-form-label nzFor="um-company-name" nzRequired>Company Name</nz-form-label>
         <nz-form-control nzHasFeedback nzErrorTip="Please input company name">
           <input nz-input id="um-company-name" [(ngModel)]="client.companyName"
             formControlName="companyName" placeholder="Company name" required/>
         </nz-form-control>
       </nz-form-item>
-      <!-- <div class="form-group">
-        <label for="um-company-name">Company name</label>
-        <input type="text" class="form-control" id="um-company-name" name="companyName"
-               placeholder="Company name" [(ngModel)]="client.companyName" required>
-      </div> -->
       <nz-form-item>
-        <nz-form-label nzFor="um-contract-type" nzRequired>Contract type</nz-form-label>
+        <nz-form-label nzFor="um-contract-type" nzRequired>Contract Type</nz-form-label>
         <nz-form-control nzHasFeedback nzErrorTip="Please input contract type">
           <input nz-input id="um-contract-type" [(ngModel)]="client.contractType"
             formControlName="contractType" placeholder="Contract type" required/>
         </nz-form-control>
       </nz-form-item>
-      <!-- <div class="form-group">
-        <label nzFor="um-phone">Contract type</label>
-        <input  class="form-control" id="um-contract-type" name="phone"
-               placeholder="Contract type" [(ngModel)]="client.contractType" required>
-      </div> -->
       <nz-form-item>
         <nz-form-label nzFor="um-location" nzRequired>Location</nz-form-label>
         <nz-form-control nzHasFeedback nzErrorTip="Please input company location">
@@ -40,75 +29,39 @@
             formControlName="location" placeholder="Location" required/>
         </nz-form-control>
       </nz-form-item>
-      <!-- <div class="form-group">
-        <label for="um-location">Office Location</label>
-        <input type="tel" class="form-control" id="um-location" name="location"
-               placeholder="Location" [(ngModel)]="client.location" required>
-      </div> -->
-
       <div *ngIf="!isClientEdited">
         <br>
         <hr>
         <h5>Compamy Admin Email</h5>
         <nz-form-item>
-          <nz-form-label nzFor="um-email" nzRequired>E-mail</nz-form-label>
+          <nz-form-label nzFor="um-email" nzRequired>Email</nz-form-label>
           <nz-form-control nzHasFeedback nzErrorTip="Please input a valid email address">
             <input nz-input id="um-email"  [(ngModel)]="user.email"
               formControlName="email" placeholder="Enter email" required/>
           </nz-form-control>
-        </nz-form-item>
-        <!-- <div class="form-group">
-          <label for="um-email">Email address</label>
-          <input type="email" class="form-control" id="um-email"
-                  aria-describedby="emailHelp" name="email"
-                  placeholder="Enter email" [(ngModel)]="user.email"
-                  #iemail="ngModel"
-                  pattern="^[a-zA-Z0-9.!#$%&』*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
-                  required>
-        </div> -->
-
-        <!-- <div class="errors" *ngIf="iemail.errors">
-          <p *ngIf="iemail.errors.pattern">Email invalid</p>
-        </div> -->
+        </nz-form-item>  
         <nz-form-item>
-          <nz-form-label nzRequired nzFor="um-email-confirm">E-mail address</nz-form-label>
+          <nz-form-label nzRequired nzFor="um-email-confirm">Confirm Email Address</nz-form-label>
           <nz-form-control nzHasFeedback nzErrorTip="The input is not valid">
             <input nz-input id="um-email-confirm"  [(ngModel)]="formFieldEmailConfirmation"
               formControlName="emailConfirmation" placeholder="Enter email again" required/>
           </nz-form-control>
         </nz-form-item>
-        <!-- <div class="form-group">
-          <label for="um-email-confirm">Confirm Email address</label>
-          <input type="email" class="form-control" id="um-email-confirm"
-                  aria-describedby="emailHelp" name="emailConfirmation"
-                  placeholder="Enter email again" [(ngModel)]="formFieldEmailConfirmation"
-                  required>
-        </div> -->
         <h5>Contact Information</h5>
         <nz-form-item>
           <nz-form-label nzRequired nzFor="um-contact-name">First Name</nz-form-label>
           <nz-form-control nzHasFeedback nzErrorTip="Please input firstname">
             <input nz-input id="um-contact-name"  [(ngModel)]="user.firstName"
-              formControlName="contactName" placeholder="firstName" required/>
+              formControlName="contactName" placeholder="First name" required/>
           </nz-form-control>
         </nz-form-item>
-        <!-- <div class="form-group">
-          <label for="um-contact-name">Name</label>
-          <input type="text" class="form-control" id="um-contact-name" name="contactName"
-                 placeholder="Contact name" [(ngModel)]="user.firstName" required>
-        </div> -->
         <nz-form-item>
           <nz-form-label nzRequired nzFor="um-contact-last-name">Last Name</nz-form-label>
           <nz-form-control nzHasFeedback nzErrorTip="Please input lastname">
             <input nz-input id="um-contact-last-name"  [(ngModel)]="user.lastName"
-              formControlName="contactLastName" placeholder="lastName" required/>
+              formControlName="contactLastName" placeholder="Last name" required/>
           </nz-form-control>
         </nz-form-item>
-        <!-- <div class="form-group">
-          <label for="um-contact-last-name">Last name</label>
-          <input type="text" class="form-control" id="um-contact-last-name" name="contactLastName"
-                 placeholder="Contact name" [(ngModel)]="user.lastName" required>
-        </div> -->
         <nz-form-item>
           <nz-form-label  nzFor="phone" nzRequired>Phone Number</nz-form-label>
           <nz-form-control 
@@ -126,11 +79,6 @@
             </nz-input-group>
           </nz-form-control>
         </nz-form-item>
-        <!-- <div class="form-group">
-          <label for="um-phone">Contact phone</label>
-          <input type="tel" class="form-control" id="um-phone" name="phone"
-                 placeholder="Contact phone" [(ngModel)]="user.phone" required>
-        </div> -->
       </div>
     </div>
     <div class="modal-footer">
@@ -139,9 +87,98 @@
   </form>
 </ng-template>
 
+<ng-template #editModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Edit Client Information</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <form id="clientValidateForm" nz-form [formGroup]="validateForm" (ngSubmit)="onFormSubmit()">
+      <div class="modal-body">
+        <h5>Compamy Information</h5>
+        <nz-form-item>
+          <nz-form-label nzFor="um-company-name" nzRequired>Company Name</nz-form-label>
+          <nz-form-control nzHasFeedback nzErrorTip="Please input company name">
+            <input nz-input id="um-company-name" [(ngModel)]="client.companyName"
+              formControlName="companyName" placeholder="Company name" required/>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzFor="um-contract-type" nzRequired>Contract Type</nz-form-label>
+          <nz-form-control nzHasFeedback nzErrorTip="Please input contract type">
+            <input nz-input id="um-contract-type" [(ngModel)]="client.contractType"
+              formControlName="contractType" placeholder="Contract type" required/>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzFor="um-location" nzRequired>Location</nz-form-label>
+          <nz-form-control nzHasFeedback nzErrorTip="Please input company location">
+            <input nz-input id="um-location" [(ngModel)]="client.location"
+              formControlName="location" placeholder="Location" required/>
+          </nz-form-control>
+        </nz-form-item>
+        <div *ngIf="!isClientEdited">
+          <br>
+          <hr>
+          <h5>Compamy Admin Email</h5>
+          <nz-form-item>
+            <nz-form-label nzFor="um-email" nzRequired>Email</nz-form-label>
+            <nz-form-control nzHasFeedback nzErrorTip="Please input a valid email address">
+              <input nz-input id="um-email"  [(ngModel)]="user.email"
+                formControlName="email" placeholder="Enter email" required/>
+            </nz-form-control>
+          </nz-form-item>  
+          <nz-form-item>
+            <nz-form-label nzRequired nzFor="um-email-confirm">Confirm Email Address</nz-form-label>
+            <nz-form-control nzHasFeedback nzErrorTip="The input is not valid">
+              <input nz-input id="um-email-confirm"  [(ngModel)]="formFieldEmailConfirmation"
+                formControlName="emailConfirmation" placeholder="Enter email again" required/>
+            </nz-form-control>
+          </nz-form-item>
+          <h5>Contact Information</h5>
+          <nz-form-item>
+            <nz-form-label nzRequired nzFor="um-contact-name">First Name</nz-form-label>
+            <nz-form-control nzHasFeedback nzErrorTip="Please input firstname">
+              <input nz-input id="um-contact-name"  [(ngModel)]="user.firstName"
+                formControlName="contactName" placeholder="First name" required/>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label nzRequired nzFor="um-contact-last-name">Last Name</nz-form-label>
+            <nz-form-control nzHasFeedback nzErrorTip="Please input lastname">
+              <input nz-input id="um-contact-last-name"  [(ngModel)]="user.lastName"
+                formControlName="contactLastName" placeholder="Last name" required/>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label  nzFor="phone" nzRequired>Phone Number</nz-form-label>
+            <nz-form-control 
+              nzHasFeedback
+              [nzValidateStatus]="validateForm.controls['phone']"
+              nzErrorTip="Please input contact phone number">
+              <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate">
+                <input nz-input formControlName="phone" id="um-phone" minlength=10 maxlength=10
+                  placeholder="Contact phone" [(ngModel)]="user.phone" required/>
+                <ng-template #addOnBeforeTemplate>
+                  <nz-select formControlName="phoneNumberPrefix" class="phone-select">
+                    <nz-option nzLabel="+1" nzValue="+1"></nz-option>
+                  </nz-select>
+                </ng-template>
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-light">Save</button>
+      </div>
+    </form>
+  </ng-template>
+
 <ng-template #confirmationModal let-modal>
   <div class="modal-header">
-    <h4 class="modal-title">Delete client</h4>
+    <h4 class="modal-title">Delete Client</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -150,7 +187,7 @@
     <p>Are you sure you want to delete client <b>{{client.companyName}}</b>?</p>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Cancel</button>
     <button type="button" class="btn btn-danger" (click)="onClientDelete(confirmationModal)">Delete</button>
   </div>
 </ng-template>
@@ -160,17 +197,16 @@
     <div class="row">
       <div class="col">
         <ngb-alert *ngIf="isAlertOpen" type="success" (close)="isAlertOpen = false">{{ successMessage }}</ngb-alert>
-        <button class="um-btn--add btn btn-outline-info" (click)="onAddClientModalOpen(registerModal)">Add Client
-        </button>
+        <button class="um-btn--add btn btn-outline-info" (click)="onAddClientModalOpen(registerModal)">Add Client</button>
         <table class="table">
           <thead class="thead-dark">
           <tr>
             <th scope="col">#</th>
             <th scope="col">Company Name</th>
             <th scope="col">Contract</th>
-            <th scope="col">Member since</th>
+            <th scope="col">Member Since</th>
             <th scope="col">Location</th>
-            <th scope="col">My Models</th>
+            <th scope="col">Models</th>
             <th scope="col">Actions</th>
           </tr>
           </thead>
@@ -186,7 +222,7 @@
             <td>{{client.eyeglasses.length + " Models"}}</td>
             <td>
               <button class="um-btn--action btn btn-outline-warning"
-                      (click)="onModalClientEditOpen(client, registerModal)">
+                      (click)="onModalClientEditOpen(client, editModal)">
                 <i class="fa fa-edit"></i>
               </button>
               <button class="um-btn--action btn btn-outline-danger"
@@ -197,7 +233,6 @@
           </tr>
           </tbody>
         </table>
-
       </div>
     </div>
   </div>
