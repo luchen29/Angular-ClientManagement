@@ -147,15 +147,18 @@ export class EyeglassComponent implements OnInit {
 
   public onChange(input) {
     if (input) {
-      console.log('input:', input);
-      console.log(input.length);
       if (input.length === 2) {
         this.eyeglass.size = input + '-';
-        console.log(this.eyeglass.size);
-      } 
-      else if (input.length === 5) {
+      } else if (input.length === 3 && input.substr(2,1) !== '-') {
+        const lastCharacter = input.substr(2,1);
+        const firstCharacters = input.substr(0,2);
+        this.eyeglass.size = firstCharacters + '-' + lastCharacter;
+      } else if (input.length === 5) {
         this.eyeglass.size = input + '-';
-        console.log(this.eyeglass.size);
+      } else if (input.length === 6 && input.substr(5,1) !== '-') {
+        const lastCharacter = input.substr(5,1);
+        const firstCharacters = input.substr(0,5);
+        this.eyeglass.size = firstCharacters + '-' + lastCharacter;
       }
     }
   }

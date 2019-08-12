@@ -42,7 +42,7 @@
         <nz-form-label nzFor="um-size" nzRequired>Model Size</nz-form-label>
         <nz-form-control nzHasFeedback nzErrorTip="Please input model size">
           <input type="text" nz-input id="um-size" 
-            [(ngModel)]="eyeglass.size" maxlength="9" minlength="9" min="0" max="9"
+            maxlength="9" minlength="9" min="0" max="9" [(ngModel)]="eyeglass.size"
             formControlName="size" placeholder="Size 7 digit number" required
             (ngModelChange)="onChange($event)"/>
         </nz-form-control>

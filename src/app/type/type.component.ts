@@ -20,7 +20,7 @@ export class TypeComponent implements OnInit {
   protected type: TypeModel;
   protected currentType: TypeModel;
   protected types: Array<TypeModel>;
-//   protected types: Observable <TypeModel[]>;
+
   protected isAlertOpen: boolean;
   protected alertMessage: string;
   private isTypeEdited: boolean;
@@ -155,25 +155,6 @@ export class TypeComponent implements OnInit {
     this.previewVisible = true;
   };
 
-  handleRemove = (file: UploadFile) => {
-    console.log('file to remove:', file)
-    console.log('client', this.clientId);
-    console.log('eyeglass', this.eyeglassId);
-    // const currentType = this.getType();
-    // console.log(this.currentType);
-
-    //   console.log('colorupc', this.colorupc);
-    //   this.apiService.updateType(this.type.client, this.type.eyeglass, this.type.colorupc, file)
-    //     .subscribe(() => {
-    //         this.showAlert('image uploaded successfully');
-    //         this.modalService.dismissAll();
-    //     }, error => {
-    //         console.error(error);
-    //         this.showAlert(error);
-    //     });
-      return true
-    }
-
   upLoadChange(event, type) {
       const file = event ? event.file : null; 
       const datas = file && file.uid ? file : file.response && file.response.rlt === 0 && file.response.datas;
@@ -183,6 +164,8 @@ export class TypeComponent implements OnInit {
             console.log('type: ', type);
             console.log('datas: ', datas);
             console.log('file: ', file);
+            type.eventType = 'add';
+            console.log(type);
             this.apiService.updateType(type.client, type.eyeglass, type.colorupc, type)
                 .subscribe(() => {
                     this.showAlert('image uploaded successfully');
@@ -198,12 +181,21 @@ export class TypeComponent implements OnInit {
                     console.log(error)
                 });         
         } 
-        // else if (event.type === 'removed') {
-        //     console.log('here here')
-        //     this.currentType = type.colorupc;
-        // }
+        else if (event.type === 'removed') {
+          event.file.eventType = 'remove';
+          console.log('which file to remove: ', event.file)
+          this.apiService.updateType(type.client, type.eyeglass, type.colorupc, event.file)
+                .subscribe(() => {
+                    this.showAlert('image deleted successfully');
+                    this.modalService.dismissAll();
+                }, error => {
+                    console.error(error);
+                    this.showAlert(error);
+                });
+        }
       } 
     }
+    
   public onChange(input) {
     if (input) {
       console.log('input:', input);
@@ -219,13 +211,3 @@ export class TypeComponent implements OnInit {
     }
   }
 }
-
-
- //   const imageToBeUpload = new ImageModel;
-            //   imageToBeUpload.uid = datas.uid;
-            //   imageToBeUpload.thumbUrl = type.images[type.images.length-1].thumbUrl;
-            //   imageToBeUpload.imageName = datas.name;
-            //   imageToBeUpload.client = this.clientId;
-            //   imageToBeUpload.eyeglass = this.eyeglassId;
-            //   imageToBeUpload.colorupc = type.colorupc;
-            //   console.log('image to be uploade: ', imageToBeUpload);

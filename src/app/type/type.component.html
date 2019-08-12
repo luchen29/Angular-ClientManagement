@@ -89,9 +89,7 @@
                         [nzShowButton]="type.images.length < 4"
                         [nzShowUploadList]="showUploadList"
                         [nzPreview]="handlePreview"
-                        [nzRemove]="handleRemove"
                         (nzChange)="upLoadChange($event, type)"
-                        (click) = "onEditTypeModalOpen(type)"
                         >
                         <i nz-icon nzType="plus"></i>
                         <div class="ant-upload-text">Upload</div>
