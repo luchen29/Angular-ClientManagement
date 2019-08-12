@@ -29,6 +29,7 @@ export class TypeComponent implements OnInit {
   public clientId: string;
   public eyeglassId: string;
   public upc: string;
+  public modelName: string;
   protected previewImage: string | undefined = '';
   protected previewVisible = false;
 
@@ -57,7 +58,9 @@ export class TypeComponent implements OnInit {
     this.route.params.subscribe((data)=>{
         this.eyeglassId = data.eyeglass_id;
     });
-    this.upc = this.route.snapshot.queryParams['upc']
+    this.modelName = this.route.snapshot.queryParams['model'];
+    this.upc = this.route.snapshot.queryParams['upc'];
+    console.log(this.route.snapshot.queryParams);
     this.getTypesList();
   }
   
@@ -67,6 +70,14 @@ export class TypeComponent implements OnInit {
   onDeleteTypeModalOpen(type, modal) {
     this.type = type;
     this.modalService.open(modal, {centered: true});
+  }
+
+  onDownloadTypeImagesOpen() {
+    console.log('download images');
+  }
+
+  onDownloadTypeModelOpen() {
+    console.log('download types');
   }
 
   onAddTypeModalOpen(modal) {

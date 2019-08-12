@@ -221,11 +221,13 @@
             <td>{{client.location}}</td>
             <td>{{client.eyeglasses.length + " Models"}}</td>
             <td>
-              <button class="um-btn--action btn btn-outline-warning"
+              <button nzTitle="Edit" nz-button nz-tooltip
+                      class="um-btn--action btn btn-outline-warning"
                       (click)="onModalClientEditOpen(client, editModal)">
                 <i class="fa fa-edit"></i>
               </button>
-              <button class="um-btn--action btn btn-outline-danger"
+              <button nzTitle="Delete" nz-button nz-tooltip
+                      class="um-btn--action btn btn-outline-danger"
                       (click)="onModalClientDeleteOpen(client, confirmationModal)">
                 <i class="fa fa-trash"></i>
               </button>

@@ -107,10 +107,21 @@
                 </td>
                 <td>{{'preview model'}}</td>
                 <td>
-                <button class="um-btn--action btn btn-outline-danger"
-                        (click)="onDeleteTypeModalOpen(type, confirmationModal)">
-                    <i class="fa fa-trash"></i>
-                </button>
+                    <button nzTitle="Download Images" nz-button nz-tooltip
+                        class="um-btn--action btn btn-outline-danger"
+                        (click)="onDownloadTypeImagesOpen(type)">
+                        <i class="fa fa-download"></i>
+                    </button>
+                    <button nzTitle="Download Model" nz-button nz-tooltip
+                            class="um-btn--action btn btn-outline-danger"
+                            (click)="onDownloadTypeModelOpen(type)">
+                        <i class="fa fa-download"></i>
+                    </button>
+                    <button nzTitle="Delete" nz-button nz-tooltip
+                            class="um-btn--action btn btn-outline-danger"
+                            (click)="onDeleteTypeModalOpen(type, confirmationModal)">
+                        <i class="fa fa-trash"></i>
+                    </button>
                 </td>
             </tr>
             </tbody>

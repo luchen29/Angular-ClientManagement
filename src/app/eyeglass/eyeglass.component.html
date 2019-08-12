@@ -146,22 +146,26 @@
             <td>{{eyeglass.size}}</td>
             <td>{{eyeglass.info}}</td>
             <td>
-              <button [disabled]="!this.eyeglass.btnAct"
+              <button nzTitle="Edit" nz-button nz-tooltip
+                      [disabled]="!this.eyeglass.btnAct"
                       class="um-btn--action btn btn-outline-warning"
                       (click)="onEditEyeglassModalOpen(eyeglass, editEyeglassModal)">
                 <i class="fa fa-edit"></i>
               </button>
-              <button [disabled]="!this.eyeglass.btnAct"
+              <button nzTitle="Deactivate" nz-button nz-tooltip
+                      [disabled]="!this.eyeglass.btnAct"
                       (click)="disableBtn(eyeglass)"
                       class="um-btn--action btn btn-outline-info">
                 <i class="fa fa-eye-slash"></i>
               </button>
-              <button [disabled]="this.eyeglass.btnAct"
+              <button nzTitle="Activate" nz-button nz-tooltip
+                      [disabled]="this.eyeglass.btnAct"
                       (click)="disableBtn(eyeglass)"
                       class="um-btn--action btn btn-outline-info">
                 <i class="fa fa-eye"></i>
               </button>
-              <button [disabled]="!this.eyeglass.btnAct"
+              <button nzTitle="Delete" nz-button nz-tooltip
+                      [disabled]="!this.eyeglass.btnAct"
                       class="um-btn--action btn btn-outline-danger"
                       (click)="onDeleteEyeglassModalOpen(eyeglass, confirmationModal)">
                 <i class="fa fa-trash"></i>
