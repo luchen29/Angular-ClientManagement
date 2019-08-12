@@ -65,8 +65,10 @@ export class ContactsComponent implements OnInit {
   ngOnInit() {
     this.clientId = this.route.snapshot.params.client_id;
     this.getContacts();
-    this.getBillings();
-    this.btnAct = true;
+    this.getBillings()
+    if (this.billingList[0] !== null) {
+      console.log(this.billingList);
+    }
   }
 
   getContacts() {
@@ -196,7 +198,6 @@ export class ContactsComponent implements OnInit {
 
   addBilling() {
     this.billing.client = this.clientId;
-    this.billing.btnAct = false;
     this.apiService.addBilling(this.billing)
     .subscribe(
       (data) => {

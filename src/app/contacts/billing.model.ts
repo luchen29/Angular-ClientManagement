@@ -11,7 +11,6 @@ export class BillingModel {
   lastNamePay: string;
   emailPay: string;
   phonePay: string;
-  btnAct: boolean;
 
   constructor(billing?: any) {
     if (billing) {
@@ -26,7 +25,6 @@ export class BillingModel {
       this.lastNamePay = billing.lastNamePay;
       this.emailPay = billing.emailPay;
       this.phonePay = billing.phonePay;
-      this.btnAct = billing.btnAct;
     }
   }
 }

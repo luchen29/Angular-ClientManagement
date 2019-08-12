@@ -219,47 +219,47 @@
 
 <div class="um-section">
   <div class="container">
-    <ngb-alert *ngIf="isAlertOpen" type="success" (close)="isAlertOpen = false">{{ alertMessage }}</ngb-alert>
-
-    <button class="um-btn um-btn--submit btn" (click)="onAddContactModalOpen(registerModal)">Add Contacts</button>
-    <button [disabled]="!this.btnAct"
+    <ngb-alert *ngIf="isAlertOpen" type="success" (close)="isAlertOpen = false">{{ alertMessage }}</ngb-alert>    
+    <button class="um-btn um-btn--submit btn" 
+            (click)="onAddContactModalOpen(registerModal)">Add Contacts</button>
+    <button *ngIf="billingList.length == 0"
             class="um-btn um-btn--submit btn" 
             (click)="onAddBillingModalOpen(billingModal)">Add Billing Information</button>
-    
+
     <div class="row">
-      <div *ngFor="let contact of contactList" class="um-contact col">
-        <div class="um-contact__btn-options btn">
-          <i class="fa fa-ellipsis-v"></i>
-          <ul class="um-contact__actions">
-            <li (click)="onDeleteContactModalOpen(confirmationModal, contact)">Delete</li>
-            <li (click)="onEditContactModalOpen(registerModal, contact)">Edit</li>
-          </ul>
-        </div>
-        <h1>{{contact.firstName}} {{contact.lastName}}</h1>
-        <h2>{{contact.location}}</h2>
-        <p>{{contact.phone}}</p>
-        <p>{{contact.email}}</p>
+      <div *ngFor="let contact of contactList" >
+        <nz-card style="width:300px;" [nzActions]="[actionEdit, actionDelete]" class="contact-card">
+            <h3>{{contact.firstName}} {{contact.lastName}}</h3>
+            <p>{{contact.location}}</p>
+            <p>{{contact.phone}} | {{contact.email}}</p>
+          </nz-card>
+          <ng-template #actionEdit>
+            <i nz-icon nzType="edit"
+                (click)="onEditContactModalOpen(registerModal, contact)"></i>
+          </ng-template>
+          <ng-template #actionDelete>
+            <i nz-icon nzType="delete"
+                (click)="onDeleteContactModalOpen(confirmationModal, contact)"></i>
+          </ng-template>
       </div>
 
-      <div *ngFor="let billing of billingList" class="um-billing col">
-          <div class="um-billing__btn-options btn">
-            <i class="fa fa-ellipsis-v"></i>
-            <ul class="um-billing__actions">
-              <li (click)="onDeleteBillingModalOpen(billingConfirmationModal, billing)">Delete</li>
-              <li (click)="onEditBillingModalOpen(billingModal, billing)">Edit</li>
-            </ul>
-          </div>
-          <h2>Billing Info</h2>
-          <h3>Payables</h3>
-          <p>{{billing.firstNamePay}} {{billing.lastNamePay}}</p>
-          <p>{{billing.phonePay}}</p>
-          <p>{{billing.emailPay}}</p>
-          <h3>Receivables</h3>
-          <p>{{billing.firstNameRec}} {{billing.lastNameRec}}</p>
-          <p>{{billing.phoneRec}}</p>
-          <p>{{billing.emailRec}}</p>
-        </div>
-
+      <div *ngFor="let billing of billingList" >
+          <nz-card style="width:300px;" [nzActions]="[actionEdit, actionDelete]" class="billing-card">
+              <h3>Billing Information</h3>
+              <p>Payables: {{billing.firstNamePay}} {{billing.lastNamePay}}</p>
+              <p>{{billing.phonePay}} | {{billing.emailPay}}</p>
+              <p>Receivables: {{billing.firstNameRec}} {{billing.lastNameRec}} </p>
+              <p>{{billing.phoneRec}} | {{billing.emailRec}}</p>
+          </nz-card>
+          <ng-template #actionEdit>
+              <i nz-icon nzType="edit"
+                  (click)="onEditBillingModalOpen(billingModal, billing)"></i>
+            </ng-template>
+            <ng-template #actionDelete>
+              <i nz-icon nzType="delete"
+                  (click)="onDeleteBillingModalOpen(billingConfirmationModal, billing)"></i>
+            </ng-template>
+      </div>
     </div>
   </div>
 </div>
