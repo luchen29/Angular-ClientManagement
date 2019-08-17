@@ -39,9 +39,9 @@
         <button type="submit" class="btn btn-light">Save</button>
         </div>
     </form>
-    </ng-template>
+</ng-template>
 
-    <ng-template #confirmationModal let-modal>
+<ng-template #confirmationModal let-modal>
     <div class="modal-header">
         <h4 class="modal-title">Delete Color Type</h4>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
@@ -55,9 +55,10 @@
         <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Cancel</button>
         <button type="button" class="btn btn-danger" (click)="DeleteType()">Delete</button>
     </div>
-    </ng-template>
+</ng-template>
 
-    <div class="um-section">
+
+<div class="um-section">
     <div class="container">
         <div class="row">
         <div class="col">
@@ -84,14 +85,14 @@
                 <td>{{type.size}}</td>
                 <td>
                     <nz-upload
-                        nzAction="https://jsonplaceholder.typicode.com/posts/"
+                        nzName="abc"
+                        nzAction="http://localhost:3000/api/gcs/{{type.client}}/{{type.eyeglass}}/{{type.colorupc}}"
                         nzListType="picture-card"
                         [(nzFileList)]="type.images"
                         [nzShowButton]="type.images.length < 4"
                         [nzShowUploadList]="showUploadList"
                         [nzPreview]="handlePreview"
-                        (nzChange)="upLoadChange($event, type)"
-                        >
+                        (nzChange)="upLoadChange($event, type)">
                         <i nz-icon nzType="plus"></i>
                         <div class="ant-upload-text">Upload</div>
                     </nz-upload>
@@ -100,16 +101,16 @@
                         [nzContent]="modalContent"
                         [nzFooter]="null"
                         (nzOnCancel)="previewVisible = false">
-                    <ng-template #modalContent>
-                        <img [src]="previewImage" [ngStyle]="{ width: '100%' }" />
-                    </ng-template>
-                    </nz-modal>
+                        <ng-template #modalContent>
+                            <img [src]="previewImage" [ngStyle]="{ width: '100%' }" />
+                        </ng-template>
+                    </nz-modal>        
                 </td>
                 <td>{{'preview model'}}</td>
                 <td>
                     <button nzTitle="Download Images" nz-button nz-tooltip
-                        class="um-btn--action btn btn-outline-danger"
-                        (click)="onDownloadTypeImagesOpen(type)">
+                            class="um-btn--action btn btn-outline-danger"
+                            (click)="onDownloadTypeImagesOpen(type)">
                         <i class="fa fa-download"></i>
                     </button>
                     <button nzTitle="Download Model" nz-button nz-tooltip

@@ -8,6 +8,7 @@ export class ImageModel {
   colorupc: string;
   imageName: string;
   thumbUrl: string;
+  postUrl: string;
 
   constructor(image?) {
     if (image) {
@@ -18,6 +19,7 @@ export class ImageModel {
       this.uid = image.uid;
       this.imageName = image.imageName;
       this.thumbUrl = image.thumbUrl;
+      this.postUrl = image.postUrl;
     }
   }
 }

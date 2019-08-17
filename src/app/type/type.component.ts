@@ -154,7 +154,24 @@ export class TypeComponent implements OnInit {
     this.previewVisible = true;
   };
 
+  // handelRemove = (file: UploadFile) => {
+  //   console.log(file);
+  //   return true;
+  // }
+
+  onImagePicked(event: Event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    console.log(file);
+    this.apiService.postImage("5d519c2eb174d281df9660b9", "5d519c4ab174d281df9660bb", "222222222222", file)
+    .subscribe(() => {
+        this.modalService.dismissAll();
+    }, error => {
+        console.log(error)
+    });         
+  }
+
   upLoadChange(event, type) {
+      console.log('event: ', event);
       const file = event ? event.file : null; 
       const datas = file && file.uid ? file : file.response && file.response.rlt === 0 && file.response.datas;
       if (datas) {
@@ -162,6 +179,7 @@ export class TypeComponent implements OnInit {
             type.eventType = 'add';
             this.apiService.updateType(type.client, type.eyeglass, type.colorupc, type)
                 .subscribe(() => {
+                    console.log('type updated!');
                     this.showAlert('image uploaded successfully');
                     this.modalService.dismissAll();
                 }, error => {
@@ -170,10 +188,11 @@ export class TypeComponent implements OnInit {
                 });
             this.apiService.postImage(type.client, type.eyeglass, type.colorupc, datas)
                 .subscribe(() => {
+                    console.log('image posted!');
                     this.modalService.dismissAll();
                 }, error => {
                     console.log(error)
-                });         
+                });       
         } 
         else if (event.type === 'removed') {
           event.file.eventType = 'remove';

@@ -13,6 +13,7 @@ import { NgZorroAntdModule, NZ_I18N, en_US } from 'ng-zorro-antd';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 registerLocaleData(en);
 
 import {AppRoutingModule} from './app-routing.module';
@@ -71,6 +72,7 @@ import {ErrorInterceptor} from './services/error.interceptor';
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
     {provide: LIGHTBOX_CONFIG, useValue: { keyboardShortcuts: false }},
     {provide: NZ_I18N, useValue: en_US},
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
   ],
   bootstrap: [AppComponent] // bootstrap array
 })

@@ -227,6 +227,7 @@ export class APIService {
 
   // image
   postImage(clientId, eyegalssId, colorupc, datas) {
+    console.log('newImage before: ',datas);
     const newImage = new ImageModel();
     newImage.uid = datas.uid;
     newImage.thumbUrl = datas.thumbUrl;
@@ -234,6 +235,8 @@ export class APIService {
     newImage.colorupc = colorupc;
     newImage.client = clientId;
     newImage.eyeglass = eyegalssId;
+    newImage.postUrl = 'www';
+    console.log('newImage after: ', newImage);
     return this.http.post(this.URL_BASE + '/images/' + clientId + '/' + eyegalssId + '/' + colorupc, newImage);
   }
 
