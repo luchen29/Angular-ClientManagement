@@ -10,6 +10,7 @@ export class TypeModel {
   public client: string;
   public eyeglass: string;
   public images: [];
+  public models: [];
 
   constructor(type?) {
     if (type) {
@@ -20,6 +21,7 @@ export class TypeModel {
       this.client = type.client;
       this.eyeglass = type.eyeglass;
       this.images = type.images;
+      this.models = type.models;
     }
   }
 }

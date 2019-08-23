@@ -10,6 +10,7 @@ import { ContactsComponent } from './contacts/contacts.component';
 import { AuthGuard } from './services/auth.guard';
 import { Role } from './user/role';
 import { TypeComponent } from './type/type.component';
+import { ModelComponent } from './model/model.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -19,6 +20,7 @@ const routes: Routes = [
     children: [
       {path: '', component: HomeComponent},
       {path: 'login', component: LoginComponent},
+      {path: 'test', component: ModelComponent},
       {path: 'clients', component: ClientsComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin]}},
       {path: ':client_id/contacts', component: ContactsComponent},
       {path: ':client_id/eyeglasses', component: EyeglassComponent},

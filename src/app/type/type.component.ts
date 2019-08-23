@@ -33,10 +33,25 @@ export class TypeComponent implements OnInit {
   protected previewImage: string | undefined = '';
   protected previewVisible = false;
 
+  dummyFileList = [
+    {
+      uid: -1,
+      name: 'xxx.png',
+      status: 'done',
+      url: 'https://storage.cloud.google.com/model-images/1566342712999-5d519c2eb174d281df9660b9-glasses.obj?authuser=2&orgonly=true&supportedpurview=project'
+    }
+  ];
+
   showUploadList = {
     showPreviewIcon: true,
     showRemoveIcon: true,
     hidePreviewIconInNonImage: true
+  };
+
+  showUploadListModel = {
+    showPreviewIcon: true,
+    showRemoveIcon: true,
+    hidePreviewIconInNonImage: false
   };
 
   constructor(
@@ -72,8 +87,8 @@ export class TypeComponent implements OnInit {
     this.modalService.open(modal, {centered: true});
   }
 
-  onDownloadTypeImagesOpen() {
-    console.log('download images');
+  onDownloadTypeImagesOpen(type) {
+    this.apiService.downloadTypeImages(this.clientId, this.eyeglassId, type.colorupc);
   }
 
   onDownloadTypeModelOpen() {
@@ -154,6 +169,12 @@ export class TypeComponent implements OnInit {
     this.previewVisible = true;
   };
 
+  handlePreviewModel = (file: UploadFile) => {
+    console.log('what inside uploaded file:', file);
+    // this.previewImage = file.url || file.thumbUrl;
+    this.previewVisible = true;
+  };
+
   // handelRemove = (file: UploadFile) => {
   //   console.log(file);
   //   return true;
@@ -175,7 +196,7 @@ export class TypeComponent implements OnInit {
       const file = event ? event.file : null; 
       const datas = file && file.uid ? file : file.response && file.response.rlt === 0 && file.response.datas;
       if (datas) {
-        if (event.type === 'success') {
+        if (event.type === 'success' && event.file.type === "image/png") {
             type.eventType = 'add';
             this.apiService.updateType(type.client, type.eyeglass, type.colorupc, type)
                 .subscribe(() => {
@@ -193,8 +214,25 @@ export class TypeComponent implements OnInit {
                 }, error => {
                     console.log(error)
                 });       
-        } 
-        else if (event.type === 'removed') {
+        } else if (event.type === 'success' && event.file.type === "") {
+            type.eventType = 'add';
+            this.apiService.updateType(type.client, type.eyeglass, type.colorupc, type)
+                .subscribe(() => {
+                    console.log('type updated!');
+                    this.showAlert('image uploaded successfully');
+                    this.modalService.dismissAll();
+                }, error => {
+                    console.error(error);
+                    this.showAlert(error);
+                });
+            this.apiService.postModel(type.client, type.eyeglass, type.colorupc, datas)
+                .subscribe(() => {
+                    console.log('model posted!');
+                    this.modalService.dismissAll();
+                }, error => {
+                    console.log(error)
+                })
+        } else if (event.type === 'removed') {
           event.file.eventType = 'remove';
           this.apiService.updateType(type.client, type.eyeglass, type.colorupc, event.file)
                 .subscribe(() => {

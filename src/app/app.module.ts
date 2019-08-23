@@ -25,6 +25,7 @@ import {ClientsComponent} from './clients/clients.component';
 import {EyeglassComponent} from './eyeglass/eyeglass.component';
 import {TypeComponent} from './type/type.component';
 import {ImageComponent} from './image/image.component';
+import {ModelComponent} from './model/model.component';
 import {APIService} from './services/api.service';
 import {SessionService} from './services/session.service';
 import {NavbarComponent} from './navbar/navbar.component';
@@ -45,6 +46,7 @@ import {ErrorInterceptor} from './services/error.interceptor';
     TypeComponent,
     EyeglassComponent,
     ImageComponent,
+    ModelComponent,
     NavbarComponent,
     ProfileComponent,
     ContactsComponent,

@@ -5,6 +5,7 @@ import { EyeglassModel } from '../eyeglass/eyeglass.model';
 import { UserModel } from '../user/user.model';
 import { TypeModel } from '../type/type.model';
 import { ImageModel } from '../image/image.model';
+import { ModelModel } from '../model/model.model';
 import { BillingModel } from '../contacts/billing.model';
 
 const httpOptions = {
@@ -227,7 +228,7 @@ export class APIService {
 
   // image
   postImage(clientId, eyegalssId, colorupc, datas) {
-    console.log('newImage before: ',datas);
+    console.log('newImage before: ', datas);
     const newImage = new ImageModel();
     newImage.uid = datas.uid;
     newImage.thumbUrl = datas.thumbUrl;
@@ -239,6 +240,40 @@ export class APIService {
     console.log('newImage after: ', newImage);
     return this.http.post(this.URL_BASE + '/images/' + clientId + '/' + eyegalssId + '/' + colorupc, newImage);
   }
+
+  postModel(clientId, eyegalssId, colorupc, datas) {
+    console.log('newModel before: ', datas);
+    const newModel = new ModelModel();
+    newModel.uid = datas.uid;
+    newModel.thumbUrl = datas.thumbUrl;
+    newModel.modelName = datas.name;
+    newModel.colorupc = colorupc;
+    newModel.client = clientId;
+    newModel.eyeglass = eyegalssId;
+    newModel.postUrl = 'www';
+    console.log('newModel after: ', newModel);
+    return this.http.post(this.URL_BASE + '/models/' + clientId + '/' + eyegalssId + '/' + colorupc, newModel);
+  }
+
+  downloadTypeImages(clientId, eyegalssId, colorupc) {
+    console.log('downloading images from gcs...');
+    let downloadedFile: any;
+    this.http.get(this.URL_BASE + '/gcs/' + clientId + '/' + eyegalssId + '/' + colorupc)
+    .subscribe(
+      data => {
+        // @ts-ignore
+        downloadedFile = data;
+      }, error => {
+        console.error(error);
+      });
+    return downloadedFile;
+  }
+
+  downloadTypeModel() {
+    console.log('downloading type model from gcs...');
+    
+  }
+  
 
   // updateImage(clientId, eyeglassId, imageId, image: ImageModel) {
   //   return this.http.put(this.URL_BASE + '/' + clientId + '/' + eyeglassId + '/' + imageId, image);

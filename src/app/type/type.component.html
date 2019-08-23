@@ -106,7 +106,30 @@
                         </ng-template>
                     </nz-modal>        
                 </td>
-                <td>{{'preview model'}}</td>
+                <td>
+                    <nz-upload
+                        nzName="def"
+                        nzAction="https://jsonplaceholder.typicode.com/posts/"
+                        nzListType="picture-card"
+                        [(nzFileList)]="dummyFileList"
+                        [nzShowButton]="dummyFileList.length < 2"
+                        [nzShowUploadList]="showUploadListModel"
+                        [nzPreview]="handlePreviewModel"
+                        (nzChange)="upLoadChange($event, type)">
+                        <i nz-icon nzType="plus"></i>
+                        <div class="ant-upload-text">Upload</div>
+                    </nz-upload>
+                    <nz-modal
+                        [nzVisible]="previewVisible"
+                        [nzContent]="modalContent3d"
+                        [nzFooter]="null"
+                        (nzOnCancel)="previewVisible = false">
+                        <ng-template #modalContent3d>
+                            <stl-model-viewer stlModel="https://storage.cloud.google.com/model-images/1566342712999-5d519c2eb174d281df9660b9-glasses.obj?authuser=2&orgonly=true&supportedpurview=project"></stl-model-viewer>
+                        </ng-template>
+                    </nz-modal>  
+                    <!-- {{'preview model'}} -->
+                </td>
                 <td>
                     <button nzTitle="Download Images" nz-button nz-tooltip
                             class="um-btn--action btn btn-outline-danger"
