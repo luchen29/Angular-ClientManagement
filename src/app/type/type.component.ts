@@ -172,25 +172,8 @@ export class TypeComponent implements OnInit {
 
   handlePreviewModel = (file) => {
     console.log('what inside uploaded file:', file);
-    // this.previewImage = file.url || file.thumbUrl;
     this.previewVisible = true;
   };
-
-  // handelRemove = (file: UploadFile) => {
-  //   console.log(file);
-  //   return true;
-  // }
-
-  // onImagePicked(event: Event) {
-  //   const file = (event.target as HTMLInputElement).files[0];
-  //   console.log(file);
-  //   this.apiService.postImage("5d519c2eb174d281df9660b9", "5d519c4ab174d281df9660bb", "222222222222", file)
-  //   .subscribe(() => {
-  //       this.modalService.dismissAll();
-  //   }, error => {
-  //       console.log(error)
-  //   });         
-  // }
 
   upLoadChange(event, type) {
       console.log('event: ', event);

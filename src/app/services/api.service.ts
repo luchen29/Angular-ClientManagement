@@ -228,7 +228,6 @@ export class APIService {
 
   // image
   postImage(clientId, eyegalssId, colorupc, datas) {
-    console.log('newImage before: ', datas);
     const newImage = new ImageModel();
     newImage.uid = datas.uid;
     newImage.thumbUrl = datas.thumbUrl;
@@ -237,12 +236,10 @@ export class APIService {
     newImage.client = clientId;
     newImage.eyeglass = eyegalssId;
     newImage.postUrl = 'www';
-    console.log('newImage after: ', newImage);
     return this.http.post(this.URL_BASE + '/images/' + clientId + '/' + eyegalssId + '/' + colorupc, newImage);
   }
 
   postModel(clientId, eyegalssId, colorupc, datas) {
-    console.log('newModel before: ', datas);
     const newModel = new ModelModel();
     newModel.uid = datas.uid;
     newModel.thumbUrl = datas.thumbUrl;
@@ -251,7 +248,6 @@ export class APIService {
     newModel.client = clientId;
     newModel.eyeglass = eyegalssId;
     newModel.postUrl = 'www';
-    console.log('newModel after: ', newModel);
     return this.http.post(this.URL_BASE + '/models/' + clientId + '/' + eyegalssId + '/' + colorupc, newModel);
   }
 
@@ -273,14 +269,4 @@ export class APIService {
     console.log('downloading type model from gcs...');
     
   }
-  
-
-  // updateImage(clientId, eyeglassId, imageId, image: ImageModel) {
-  //   return this.http.put(this.URL_BASE + '/' + clientId + '/' + eyeglassId + '/' + imageId, image);
-  // }
-
-  // deleteImage(clientId, eyeglassId, imageId) {
-  //   return this.http.delete(this.URL_BASE + '/' + clientId + '/' + eyeglassId + '/' + imageId);
-  // }
-
 }

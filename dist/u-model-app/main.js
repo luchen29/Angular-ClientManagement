@@ -88,6 +88,17 @@ module.exports = "<div class=\"um-section\">\n  <div class=\"container\">\n    <
 
 /***/ }),
 
+/***/ "./node_modules/raw-loader/index.js!./src/app/model/model.component.html":
+/*!**********************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/model/model.component.html ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<canvas #canvas (mousedown)=\"onMouseDown($event)\" (mouseup)=\"onMouseUp($event)\">\n</canvas>"
+
+/***/ }),
+
 /***/ "./node_modules/raw-loader/index.js!./src/app/navbar/navbar.component.html":
 /*!************************************************************************!*\
   !*** ./node_modules/raw-loader!./src/app/navbar/navbar.component.html ***!
@@ -117,7 +128,7 @@ module.exports = "<app-navbar></app-navbar>\n<router-outlet></router-outlet>\n"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ng-template #typeModal let-modal>\n    <div class=\"modal-header\">\n        <h4 class=\"modal-title\">Add Type</h4>\n        <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"modal.dismiss('Cross click')\">\n        <span aria-hidden=\"true\">&times;</span>\n        </button>\n    </div>\n\n    <form id=\"typeValidateForm\" nz-form [formGroup]=\"validateForm\"  (ngSubmit)=\"onFormSubmit()\">\n        <div class=\"modal-body\">\n        <nz-form-item>\n            <nz-form-label nzFor=\"um-colorupc\" nzRequired>UPC</nz-form-label>\n            <nz-form-control nzHasFeedback nzErrorTip=\"Please input valid type UPC number\">\n            <input nz-input id=\"um-colorupc\" [(ngModel)]=\"type.colorupc\" maxlength=\"12\" minlength=\"12\"\n                formControlName=\"colorupc\" placeholder=\"UPC#\" required/>\n            </nz-form-control>\n        </nz-form-item>\n\n        <nz-form-item>\n            <nz-form-label nzFor=\"um-color\" nzRequired>Color</nz-form-label>\n            <nz-form-control nzHasFeedback nzErrorTip=\"Please input color\">\n            <input nz-input id=\"um-color\" [(ngModel)]=\"type.color\"\n                formControlName=\"color\" placeholder=\"Type color\" required/>\n            </nz-form-control>\n        </nz-form-item>\n\n        <nz-form-item>\n            <nz-form-label nzFor=\"um-size\" nzRequired>Model Size</nz-form-label>\n            <nz-form-control nzHasFeedback nzErrorTip=\"Please input valid model size\">\n            <input type=\"text\" nz-input id=\"um-size\" \n                [(ngModel)]=\"type.size\" maxlength=\"9\" minlength=\"9\" min=\"0\" max=\"9\"\n                formControlName=\"size\" placeholder=\"Size: please input 7 digit number\" required\n                (ngModelChange)=\"onChange($event)\"/>\n            </nz-form-control>\n        </nz-form-item>\n\n        </div>\n        <div class=\"modal-footer\">\n        <button type=\"submit\" class=\"btn btn-light\">Save</button>\n        </div>\n    </form>\n</ng-template>\n\n<ng-template #confirmationModal let-modal>\n    <div class=\"modal-header\">\n        <h4 class=\"modal-title\">Delete Color Type</h4>\n        <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"modal.dismiss('Cross click')\">\n        <span aria-hidden=\"true\">&times;</span>\n        </button>\n    </div>\n    <div class=\"modal-body\">\n        <p>Are you sure you want to delete the type model <b>{{type.colorupc}}</b>?</p>\n    </div>\n    <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-light\" (click)=\"modal.close('Close click')\">Cancel</button>\n        <button type=\"button\" class=\"btn btn-danger\" (click)=\"DeleteType()\">Delete</button>\n    </div>\n</ng-template>\n\n\n<div class=\"um-section\">\n    <div class=\"container\">\n        <div class=\"row\">\n        <div class=\"col\">\n            <ngb-alert *ngIf=\"isAlertOpen\" type=\"success\" (close)=\"isAlertOpen = false\">{{ alertMessage }}</ngb-alert>\n            <h3>{{this.upc}}</h3>\n            <button class=\"um-btn--add btn btn-outline-info\" (click)=\"onAddTypeModalOpen(typeModal)\">Add Type</button>\n            <table class=\"table\">\n            <thead class=\"thead-dark\">\n            <tr>\n                <th scope=\"col\">#</th>\n                <th scope=\"col\">UPC</th>\n                <th scope=\"col\">Color</th>\n                <th scope=\"col\">Model Size</th>\n                <th scope=\"col\">Images</th>\n                <th scope=\"col\">3D Model</th>\n                <th scope=\"col\">Actions</th>\n            </tr>\n            </thead>\n            <tbody>\n            <tr *ngFor=\"let type of types; index as i\">\n                <th scope=\"row\">{{i + 1}}</th>\n                <td>{{type.colorupc}}</td>\n                <td>{{type.color}}</td>\n                <td>{{type.size}}</td>\n                <td>\n                    <nz-upload\n                        nzName=\"abc\"\n                        nzAction=\"http://localhost:3000/api/gcs/{{type.client}}/{{type.eyeglass}}/{{type.colorupc}}\"\n                        nzListType=\"picture-card\"\n                        [(nzFileList)]=\"type.images\"\n                        [nzShowButton]=\"type.images.length < 4\"\n                        [nzShowUploadList]=\"showUploadList\"\n                        [nzPreview]=\"handlePreview\"\n                        (nzChange)=\"upLoadChange($event, type)\">\n                        <i nz-icon nzType=\"plus\"></i>\n                        <div class=\"ant-upload-text\">Upload</div>\n                    </nz-upload>\n                    <nz-modal\n                        [nzVisible]=\"previewVisible\"\n                        [nzContent]=\"modalContent\"\n                        [nzFooter]=\"null\"\n                        (nzOnCancel)=\"previewVisible = false\">\n                        <ng-template #modalContent>\n                            <img [src]=\"previewImage\" [ngStyle]=\"{ width: '100%' }\" />\n                        </ng-template>\n                    </nz-modal>        \n                </td>\n                <td>{{'preview model'}}</td>\n                <td>\n                    <button nzTitle=\"Download Images\" nz-button nz-tooltip\n                            class=\"um-btn--action btn btn-outline-danger\"\n                            (click)=\"onDownloadTypeImagesOpen(type)\">\n                        <i class=\"fa fa-download\"></i>\n                    </button>\n                    <button nzTitle=\"Download Model\" nz-button nz-tooltip\n                            class=\"um-btn--action btn btn-outline-danger\"\n                            (click)=\"onDownloadTypeModelOpen(type)\">\n                        <i class=\"fa fa-download\"></i>\n                    </button>\n                    <button nzTitle=\"Delete\" nz-button nz-tooltip\n                            class=\"um-btn--action btn btn-outline-danger\"\n                            (click)=\"onDeleteTypeModalOpen(type, confirmationModal)\">\n                        <i class=\"fa fa-trash\"></i>\n                    </button>\n                </td>\n            </tr>\n            </tbody>\n            </table>\n        </div>\n        </div>\n    </div>\n</div>\n      "
+module.exports = "<ng-template #typeModal let-modal>\n    <div class=\"modal-header\">\n        <h4 class=\"modal-title\">Add Type</h4>\n        <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"modal.dismiss('Cross click')\">\n        <span aria-hidden=\"true\">&times;</span>\n        </button>\n    </div>\n\n    <form id=\"typeValidateForm\" nz-form [formGroup]=\"validateForm\"  (ngSubmit)=\"onFormSubmit()\">\n        <div class=\"modal-body\">\n        <nz-form-item>\n            <nz-form-label nzFor=\"um-colorupc\" nzRequired>UPC</nz-form-label>\n            <nz-form-control nzHasFeedback nzErrorTip=\"Please input valid type UPC number\">\n            <input nz-input id=\"um-colorupc\" [(ngModel)]=\"type.colorupc\" maxlength=\"12\" minlength=\"12\"\n                formControlName=\"colorupc\" placeholder=\"UPC#\" required/>\n            </nz-form-control>\n        </nz-form-item>\n\n        <nz-form-item>\n            <nz-form-label nzFor=\"um-color\" nzRequired>Color</nz-form-label>\n            <nz-form-control nzHasFeedback nzErrorTip=\"Please input color\">\n            <input nz-input id=\"um-color\" [(ngModel)]=\"type.color\"\n                formControlName=\"color\" placeholder=\"Type color\" required/>\n            </nz-form-control>\n        </nz-form-item>\n\n        <nz-form-item>\n            <nz-form-label nzFor=\"um-size\" nzRequired>Model Size</nz-form-label>\n            <nz-form-control nzHasFeedback nzErrorTip=\"Please input valid model size\">\n            <input type=\"text\" nz-input id=\"um-size\" \n                [(ngModel)]=\"type.size\" maxlength=\"9\" minlength=\"9\" min=\"0\" max=\"9\"\n                formControlName=\"size\" placeholder=\"Size: please input 7 digit number\" required\n                (ngModelChange)=\"onChange($event)\"/>\n            </nz-form-control>\n        </nz-form-item>\n\n        </div>\n        <div class=\"modal-footer\">\n        <button type=\"submit\" class=\"btn btn-light\">Save</button>\n        </div>\n    </form>\n</ng-template>\n\n<ng-template #confirmationModal let-modal>\n    <div class=\"modal-header\">\n        <h4 class=\"modal-title\">Delete Color Type</h4>\n        <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"modal.dismiss('Cross click')\">\n        <span aria-hidden=\"true\">&times;</span>\n        </button>\n    </div>\n    <div class=\"modal-body\">\n        <p>Are you sure you want to delete the type model <b>{{type.colorupc}}</b>?</p>\n    </div>\n    <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-light\" (click)=\"modal.close('Close click')\">Cancel</button>\n        <button type=\"button\" class=\"btn btn-danger\" (click)=\"DeleteType()\">Delete</button>\n    </div>\n</ng-template>\n\n\n<div class=\"um-section\">\n    <div class=\"container\">\n        <div class=\"row\">\n        <div class=\"col\">\n            <ngb-alert *ngIf=\"isAlertOpen\" type=\"success\" (close)=\"isAlertOpen = false\">{{ alertMessage }}</ngb-alert>\n            <h3>{{this.upc}}</h3>\n            <button class=\"um-btn--add btn btn-outline-info\" (click)=\"onAddTypeModalOpen(typeModal)\">Add Type</button>\n            <table class=\"table\">\n            <thead class=\"thead-dark\">\n            <tr>\n                <th scope=\"col\">#</th>\n                <th scope=\"col\">UPC</th>\n                <th scope=\"col\">Color</th>\n                <th scope=\"col\">Model Size</th>\n                <th scope=\"col\">Images</th>\n                <th scope=\"col\">3D Model</th>\n                <th scope=\"col\">Actions</th>\n            </tr>\n            </thead>\n            <tbody>\n            <tr *ngFor=\"let type of types; index as i\">\n                <th scope=\"row\">{{i + 1}}</th>\n                <td>{{type.colorupc}}</td>\n                <td>{{type.color}}</td>\n                <td>{{type.size}}</td>\n                <td>\n                    <nz-upload\n                        nzName=\"abc\"\n                        nzAction=\"http://localhost:3000/api/gcs/{{type.client}}/{{type.eyeglass}}/{{type.colorupc}}\"\n                        nzListType=\"picture-card\"\n                        [(nzFileList)]=\"type.images\"\n                        [nzShowButton]=\"type.images.length < 4\"\n                        [nzShowUploadList]=\"showUploadList\"\n                        [nzPreview]=\"handlePreview\"\n                        (nzChange)=\"upLoadChange($event, type)\">\n                        <i nz-icon nzType=\"plus\"></i>\n                        <div class=\"ant-upload-text\">Upload</div>\n                    </nz-upload>\n                    <nz-modal\n                        [nzVisible]=\"previewVisible\"\n                        [nzContent]=\"modalContent\"\n                        [nzFooter]=\"null\"\n                        (nzOnCancel)=\"previewVisible = false\">\n                        <ng-template #modalContent>\n                            <img [src]=\"previewImage\" [ngStyle]=\"{ width: '100%' }\" />\n                        </ng-template>\n                    </nz-modal>        \n                </td>\n                <td>\n                    <nz-upload\n                        nzName=\"def\"\n                        nzAction=\"https://jsonplaceholder.typicode.com/posts/\"\n                        nzListType=\"picture-card\"\n                        [(nzFileList)]=\"dummyFileList\"\n                        [nzShowButton]=\"dummyFileList.length < 2\"\n                        [nzShowUploadList]=\"showUploadListModel\"\n                        [nzPreview]=\"handlePreviewModel\"\n                        (nzChange)=\"upLoadChangeModel($event, type)\">\n                        <i nz-icon nzType=\"plus\"></i>\n                        <div class=\"ant-upload-text\">Upload</div>\n                    </nz-upload>\n                    <nz-modal\n                        [nzVisible]=\"previewVisibleModel\"\n                        [nzContent]=\"modalContent3d\"\n                        [nzFooter]=\"null\"\n                        (nzOnCancel)=\"previewVisibleModel = false\">\n                        <ng-template #modalContent3d>\n                            <stl-model-viewer stlModel=\"https://storage.cloud.google.com/model-images/1566342712999-5d519c2eb174d281df9660b9-glasses.obj?authuser=2&orgonly=true&supportedpurview=project\"></stl-model-viewer>\n                        </ng-template>\n                    </nz-modal>  \n                    <!-- {{'preview model'}} -->\n                </td>\n                <td>\n                    <button nzTitle=\"Download Images\" nz-button nz-tooltip\n                            class=\"um-btn--action btn btn-outline-danger\"\n                            (click)=\"onDownloadTypeImagesOpen(type)\">\n                        <i class=\"fa fa-download\"></i>\n                    </button>\n                    <button nzTitle=\"Download Model\" nz-button nz-tooltip\n                            class=\"um-btn--action btn btn-outline-danger\"\n                            (click)=\"onDownloadTypeModelOpen(type)\">\n                        <i class=\"fa fa-download\"></i>\n                    </button>\n                    <button nzTitle=\"Delete\" nz-button nz-tooltip\n                            class=\"um-btn--action btn btn-outline-danger\"\n                            (click)=\"onDeleteTypeModalOpen(type, confirmationModal)\">\n                        <i class=\"fa fa-trash\"></i>\n                    </button>\n                </td>\n            </tr>\n            </tbody>\n            </table>\n        </div>\n        </div>\n    </div>\n</div>\n      "
 
 /***/ }),
 
@@ -167,6 +178,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_auth_guard__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./services/auth.guard */ "./src/app/services/auth.guard.ts");
 /* harmony import */ var _user_role__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./user/role */ "./src/app/user/role.ts");
 /* harmony import */ var _type_type_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./type/type.component */ "./src/app/type/type.component.ts");
+/* harmony import */ var _model_model_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./model/model.component */ "./src/app/model/model.component.ts");
+
 
 
 
@@ -188,6 +201,7 @@ var routes = [
         children: [
             { path: '', component: _home_home_component__WEBPACK_IMPORTED_MODULE_3__["HomeComponent"] },
             { path: 'login', component: _login_login_component__WEBPACK_IMPORTED_MODULE_4__["LoginComponent"] },
+            { path: 'test', component: _model_model_component__WEBPACK_IMPORTED_MODULE_13__["ModelComponent"] },
             { path: 'clients', component: _clients_clients_component__WEBPACK_IMPORTED_MODULE_6__["ClientsComponent"], canActivate: [_services_auth_guard__WEBPACK_IMPORTED_MODULE_10__["AuthGuard"]], data: { roles: [_user_role__WEBPACK_IMPORTED_MODULE_11__["Role"].Admin] } },
             { path: ':client_id/contacts', component: _contacts_contacts_component__WEBPACK_IMPORTED_MODULE_9__["ContactsComponent"] },
             { path: ':client_id/eyeglasses', component: _eyeglass_eyeglass_component__WEBPACK_IMPORTED_MODULE_7__["EyeglassComponent"] },
@@ -239,7 +253,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var AppComponent = /** @class */ (function () {
     function AppComponent() {
-        this.title = 'u-model-app';
+        this.title = 'you-model-app';
     }
     AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -291,13 +305,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _eyeglass_eyeglass_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./eyeglass/eyeglass.component */ "./src/app/eyeglass/eyeglass.component.ts");
 /* harmony import */ var _type_type_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./type/type.component */ "./src/app/type/type.component.ts");
 /* harmony import */ var _image_image_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./image/image.component */ "./src/app/image/image.component.ts");
-/* harmony import */ var _services_api_service__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./services/api.service */ "./src/app/services/api.service.ts");
-/* harmony import */ var _services_session_service__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./services/session.service */ "./src/app/services/session.service.ts");
-/* harmony import */ var _navbar_navbar_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./navbar/navbar.component */ "./src/app/navbar/navbar.component.ts");
-/* harmony import */ var _profile_profile_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./profile/profile.component */ "./src/app/profile/profile.component.ts");
-/* harmony import */ var _contacts_contacts_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./contacts/contacts.component */ "./src/app/contacts/contacts.component.ts");
-/* harmony import */ var _services_jwt_interceptor__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./services/jwt.interceptor */ "./src/app/services/jwt.interceptor.ts");
-/* harmony import */ var _services_error_interceptor__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./services/error.interceptor */ "./src/app/services/error.interceptor.ts");
+/* harmony import */ var _model_model_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./model/model.component */ "./src/app/model/model.component.ts");
+/* harmony import */ var _services_api_service__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./services/api.service */ "./src/app/services/api.service.ts");
+/* harmony import */ var _services_session_service__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./services/session.service */ "./src/app/services/session.service.ts");
+/* harmony import */ var _navbar_navbar_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./navbar/navbar.component */ "./src/app/navbar/navbar.component.ts");
+/* harmony import */ var _profile_profile_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./profile/profile.component */ "./src/app/profile/profile.component.ts");
+/* harmony import */ var _contacts_contacts_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./contacts/contacts.component */ "./src/app/contacts/contacts.component.ts");
+/* harmony import */ var _services_jwt_interceptor__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./services/jwt.interceptor */ "./src/app/services/jwt.interceptor.ts");
+/* harmony import */ var _services_error_interceptor__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./services/error.interceptor */ "./src/app/services/error.interceptor.ts");
 
 
 
@@ -332,6 +347,7 @@ Object(_angular_common__WEBPACK_IMPORTED_MODULE_14__["registerLocaleData"])(_ang
 
 
 
+
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -346,9 +362,10 @@ var AppModule = /** @class */ (function () {
                 _type_type_component__WEBPACK_IMPORTED_MODULE_23__["TypeComponent"],
                 _eyeglass_eyeglass_component__WEBPACK_IMPORTED_MODULE_22__["EyeglassComponent"],
                 _image_image_component__WEBPACK_IMPORTED_MODULE_24__["ImageComponent"],
-                _navbar_navbar_component__WEBPACK_IMPORTED_MODULE_27__["NavbarComponent"],
-                _profile_profile_component__WEBPACK_IMPORTED_MODULE_28__["ProfileComponent"],
-                _contacts_contacts_component__WEBPACK_IMPORTED_MODULE_29__["ContactsComponent"],
+                _model_model_component__WEBPACK_IMPORTED_MODULE_25__["ModelComponent"],
+                _navbar_navbar_component__WEBPACK_IMPORTED_MODULE_28__["NavbarComponent"],
+                _profile_profile_component__WEBPACK_IMPORTED_MODULE_29__["ProfileComponent"],
+                _contacts_contacts_component__WEBPACK_IMPORTED_MODULE_30__["ContactsComponent"],
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
@@ -367,10 +384,10 @@ var AppModule = /** @class */ (function () {
                 ng_zorro_antd_upload__WEBPACK_IMPORTED_MODULE_13__["NzUploadModule"]
             ],
             providers: [
-                _services_api_service__WEBPACK_IMPORTED_MODULE_25__["APIService"],
-                _services_session_service__WEBPACK_IMPORTED_MODULE_26__["SessionService"],
-                { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HTTP_INTERCEPTORS"], useClass: _services_jwt_interceptor__WEBPACK_IMPORTED_MODULE_30__["JwtInterceptor"], multi: true },
-                { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HTTP_INTERCEPTORS"], useClass: _services_error_interceptor__WEBPACK_IMPORTED_MODULE_31__["ErrorInterceptor"], multi: true },
+                _services_api_service__WEBPACK_IMPORTED_MODULE_26__["APIService"],
+                _services_session_service__WEBPACK_IMPORTED_MODULE_27__["SessionService"],
+                { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HTTP_INTERCEPTORS"], useClass: _services_jwt_interceptor__WEBPACK_IMPORTED_MODULE_31__["JwtInterceptor"], multi: true },
+                { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HTTP_INTERCEPTORS"], useClass: _services_error_interceptor__WEBPACK_IMPORTED_MODULE_32__["ErrorInterceptor"], multi: true },
                 { provide: _ngx_gallery_lightbox__WEBPACK_IMPORTED_MODULE_9__["LIGHTBOX_CONFIG"], useValue: { keyboardShortcuts: false } },
                 { provide: ng_zorro_antd__WEBPACK_IMPORTED_MODULE_12__["NZ_I18N"], useValue: ng_zorro_antd__WEBPACK_IMPORTED_MODULE_12__["en_US"] },
                 { provide: _angular_common__WEBPACK_IMPORTED_MODULE_14__["LocationStrategy"], useClass: _angular_common__WEBPACK_IMPORTED_MODULE_14__["HashLocationStrategy"] },
@@ -1400,6 +1417,244 @@ var LoginComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/model/EnableThreeExamples.js":
+/*!**********************************************!*\
+  !*** ./src/app/model/EnableThreeExamples.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+THREE = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
+
+/***/ }),
+
+/***/ "./src/app/model/model.component.css":
+/*!*******************************************!*\
+  !*** ./src/app/model/model.component.css ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "canvas {\n    width: 100%;\n    height: 100%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbW9kZWwvbW9kZWwuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLFdBQVc7SUFDWCxZQUFZO0FBQ2hCIiwiZmlsZSI6InNyYy9hcHAvbW9kZWwvbW9kZWwuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbImNhbnZhcyB7XG4gICAgd2lkdGg6IDEwMCU7XG4gICAgaGVpZ2h0OiAxMDAlO1xufSJdfQ== */"
+
+/***/ }),
+
+/***/ "./src/app/model/model.component.ts":
+/*!******************************************!*\
+  !*** ./src/app/model/model.component.ts ***!
+  \******************************************/
+/*! exports provided: ModelComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ModelComponent", function() { return ModelComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var three__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
+/* harmony import */ var _EnableThreeExamples__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./EnableThreeExamples */ "./src/app/model/EnableThreeExamples.js");
+/* harmony import */ var _EnableThreeExamples__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_EnableThreeExamples__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var three_examples_js_controls_OrbitControls__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! three/examples/js/controls/OrbitControls */ "./node_modules/three/examples/js/controls/OrbitControls.js");
+/* harmony import */ var three_examples_js_controls_OrbitControls__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(three_examples_js_controls_OrbitControls__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var three_examples_js_loaders_ColladaLoader__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! three/examples/js/loaders/ColladaLoader */ "./node_modules/three/examples/js/loaders/ColladaLoader.js");
+/* harmony import */ var three_examples_js_loaders_ColladaLoader__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(three_examples_js_loaders_ColladaLoader__WEBPACK_IMPORTED_MODULE_5__);
+
+
+
+
+
+
+var ModelComponent = /** @class */ (function () {
+    function ModelComponent() {
+        this.fieldOfView = 60;
+        this.nearClippingPane = 1;
+        this.farClippingPane = 1100;
+        this.render = this.render.bind(this);
+        this.onModelLoadingCompleted = this.onModelLoadingCompleted.bind(this);
+    }
+    Object.defineProperty(ModelComponent.prototype, "canvas", {
+        get: function () {
+            return this.canvasRef.nativeElement;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ModelComponent.prototype.createScene = function () {
+        this.scene = new three__WEBPACK_IMPORTED_MODULE_2__["Scene"]();
+        this.scene.add(new three__WEBPACK_IMPORTED_MODULE_2__["AxesHelper"](200));
+        var loader = new three_examples_js_loaders_ColladaLoader__WEBPACK_IMPORTED_MODULE_5___default.a();
+        loader.load('assets/model/multimaterial.dae', this.onModelLoadingCompleted);
+    };
+    ModelComponent.prototype.onModelLoadingCompleted = function (collada) {
+        var modelScene = collada.scene;
+        this.scene.add(modelScene);
+        this.render();
+    };
+    ModelComponent.prototype.createLight = function () {
+        var light = new three__WEBPACK_IMPORTED_MODULE_2__["PointLight"](0xffffff, 1, 1000);
+        light.position.set(0, 0, 100);
+        this.scene.add(light);
+        var light = new three__WEBPACK_IMPORTED_MODULE_2__["PointLight"](0xffffff, 1, 1000);
+        light.position.set(0, 0, -100);
+        this.scene.add(light);
+    };
+    ModelComponent.prototype.createCamera = function () {
+        var aspectRatio = this.getAspectRatio();
+        this.camera = new three__WEBPACK_IMPORTED_MODULE_2__["PerspectiveCamera"](this.fieldOfView, aspectRatio, this.nearClippingPane, this.farClippingPane);
+        // Set position and look at
+        this.camera.position.x = 10;
+        this.camera.position.y = 10;
+        this.camera.position.z = 100;
+    };
+    ModelComponent.prototype.getAspectRatio = function () {
+        var height = this.canvas.clientHeight;
+        if (height === 0) {
+            return 0;
+        }
+        return this.canvas.clientWidth / this.canvas.clientHeight;
+    };
+    ModelComponent.prototype.startRendering = function () {
+        this.renderer = new three__WEBPACK_IMPORTED_MODULE_2__["WebGLRenderer"]({
+            canvas: this.canvas,
+            antialias: true
+        });
+        this.renderer.setPixelRatio(devicePixelRatio);
+        this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
+        this.renderer.shadowMap.enabled = true;
+        this.renderer.shadowMap.type = three__WEBPACK_IMPORTED_MODULE_2__["PCFSoftShadowMap"];
+        this.renderer.setClearColor(0xffffff, 1);
+        this.renderer.autoClear = true;
+        var component = this;
+        (function render() {
+            //requestAnimationFrame(render);
+            component.render();
+        }());
+    };
+    ModelComponent.prototype.render = function () {
+        this.renderer.render(this.scene, this.camera);
+    };
+    ModelComponent.prototype.addControls = function () {
+        this.controls = new three_examples_js_controls_OrbitControls__WEBPACK_IMPORTED_MODULE_4___default.a(this.camera);
+        this.controls.rotateSpeed = 1.0;
+        this.controls.zoomSpeed = 1.2;
+        this.controls.addEventListener('change', this.render);
+    };
+    /* EVENTS */
+    ModelComponent.prototype.onMouseDown = function (event) {
+        console.log("onMouseDown");
+        event.preventDefault();
+        // Example of mesh selection/pick:
+        var raycaster = new three__WEBPACK_IMPORTED_MODULE_2__["Raycaster"]();
+        var mouse = new three__WEBPACK_IMPORTED_MODULE_2__["Vector2"]();
+        mouse.x = (event.clientX / this.renderer.domElement.clientWidth) * 2 - 1;
+        mouse.y = -(event.clientY / this.renderer.domElement.clientHeight) * 2 + 1;
+        raycaster.setFromCamera(mouse, this.camera);
+        var obj = [];
+        this.findAllObjects(obj, this.scene);
+        var intersects = raycaster.intersectObjects(obj);
+        console.log("Scene has " + obj.length + " objects");
+        console.log(intersects.length + " intersected objects found");
+        intersects.forEach(function (i) {
+            console.log(i.object); // do what you want to do with object
+        });
+    };
+    ModelComponent.prototype.findAllObjects = function (pred, parent) {
+        var _this = this;
+        // NOTE: Better to keep separate array of selected objects
+        if (parent.children.length > 0) {
+            parent.children.forEach(function (i) {
+                pred.push(i);
+                _this.findAllObjects(pred, i);
+            });
+        }
+    };
+    ModelComponent.prototype.onMouseUp = function (event) {
+        console.log("onMouseUp");
+    };
+    ModelComponent.prototype.onResize = function (event) {
+        this.canvas.style.width = "100%";
+        this.canvas.style.height = "100%";
+        console.log("onResize: " + this.canvas.clientWidth + ", " + this.canvas.clientHeight);
+        this.camera.aspect = this.getAspectRatio();
+        this.camera.updateProjectionMatrix();
+        this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
+        this.render();
+    };
+    ModelComponent.prototype.onKeyPress = function (event) {
+        console.log("onKeyPress: " + event.key);
+    };
+    /* LIFECYCLE */
+    ModelComponent.prototype.ngAfterViewInit = function () {
+        this.createScene();
+        this.createLight();
+        this.createCamera();
+        this.startRendering();
+        this.addControls();
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('canvas', { static: false }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"])
+    ], ModelComponent.prototype, "canvasRef", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('window:resize', ['$event']),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Event]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], ModelComponent.prototype, "onResize", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('document:keypress', ['$event']),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [KeyboardEvent]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], ModelComponent.prototype, "onKeyPress", null);
+    ModelComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-model',
+            template: __webpack_require__(/*! raw-loader!./model.component.html */ "./node_modules/raw-loader/index.js!./src/app/model/model.component.html"),
+            styles: [__webpack_require__(/*! ./model.component.css */ "./src/app/model/model.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], ModelComponent);
+    return ModelComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/model/model.model.ts":
+/*!**************************************!*\
+  !*** ./src/app/model/model.model.ts ***!
+  \**************************************/
+/*! exports provided: ModelModel */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ModelModel", function() { return ModelModel; });
+var ModelModel = /** @class */ (function () {
+    function ModelModel(model) {
+        if (model) {
+            this.id = model._id;
+            this.client = model.client;
+            this.eyeglass = model.eyeglass;
+            this.colorupc = model.colorupc;
+            this.uid = model.uid;
+            this.modelName = model.modelName;
+            this.thumbUrl = model.thumbUrl;
+            this.postUrl = model.postUrl;
+        }
+    }
+    ModelModel.ctorParameters = function () { return [
+        null
+    ]; };
+    return ModelModel;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/navbar/navbar.component.styl":
 /*!**********************************************!*\
   !*** ./src/app/navbar/navbar.component.styl ***!
@@ -1601,7 +1856,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _user_user_model__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../user/user.model */ "./src/app/user/user.model.ts");
 /* harmony import */ var _type_type_model__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../type/type.model */ "./src/app/type/type.model.ts");
 /* harmony import */ var _image_image_model__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../image/image.model */ "./src/app/image/image.model.ts");
-/* harmony import */ var _contacts_billing_model__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../contacts/billing.model */ "./src/app/contacts/billing.model.ts");
+/* harmony import */ var _model_model_model__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../model/model.model */ "./src/app/model/model.model.ts");
+/* harmony import */ var _contacts_billing_model__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../contacts/billing.model */ "./src/app/contacts/billing.model.ts");
+
 
 
 
@@ -1728,7 +1985,7 @@ var APIService = /** @class */ (function () {
             .subscribe(function (data) {
             // @ts-ignore
             data.forEach(function (billing) {
-                billings.push(new _contacts_billing_model__WEBPACK_IMPORTED_MODULE_8__["BillingModel"](billing));
+                billings.push(new _contacts_billing_model__WEBPACK_IMPORTED_MODULE_9__["BillingModel"](billing));
             });
         }, function (err) {
             console.error(err);
@@ -1791,6 +2048,34 @@ var APIService = /** @class */ (function () {
         newImage.postUrl = 'www';
         console.log('newImage after: ', newImage);
         return this.http.post(this.URL_BASE + '/images/' + clientId + '/' + eyegalssId + '/' + colorupc, newImage);
+    };
+    APIService.prototype.postModel = function (clientId, eyegalssId, colorupc, datas) {
+        console.log('newModel before: ', datas);
+        var newModel = new _model_model_model__WEBPACK_IMPORTED_MODULE_8__["ModelModel"]();
+        newModel.uid = datas.uid;
+        newModel.thumbUrl = datas.thumbUrl;
+        newModel.modelName = datas.name;
+        newModel.colorupc = colorupc;
+        newModel.client = clientId;
+        newModel.eyeglass = eyegalssId;
+        newModel.postUrl = 'www';
+        console.log('newModel after: ', newModel);
+        return this.http.post(this.URL_BASE + '/models/' + clientId + '/' + eyegalssId + '/' + colorupc, newModel);
+    };
+    APIService.prototype.downloadTypeImages = function (clientId, eyegalssId, colorupc) {
+        console.log('downloading images from gcs...');
+        var downloadedFile;
+        this.http.get(this.URL_BASE + '/gcs/' + clientId + '/' + eyegalssId + '/' + colorupc)
+            .subscribe(function (data) {
+            // @ts-ignore
+            downloadedFile = data;
+        }, function (error) {
+            console.error(error);
+        });
+        return downloadedFile;
+    };
+    APIService.prototype.downloadTypeModel = function () {
+        console.log('downloading type model from gcs...');
     };
     APIService.ctorParameters = function () { return [
         { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] }
@@ -2069,13 +2354,32 @@ var TypeComponent = /** @class */ (function () {
         this.disable = false;
         this.previewImage = '';
         this.previewVisible = false;
+        this.previewVisibleModel = false;
+        this.dummyFileList = [
+            {
+                uid: -1,
+                name: 'xxx.png',
+                status: 'done',
+                url: 'https://storage.cloud.google.com/model-images/1566342712999-5d519c2eb174d281df9660b9-glasses.obj?authuser=2&orgonly=true&supportedpurview=project'
+            }
+        ];
         this.showUploadList = {
             showPreviewIcon: true,
             showRemoveIcon: true,
             hidePreviewIconInNonImage: true
         };
+        this.showUploadListModel = {
+            showPreviewIcon: true,
+            showRemoveIcon: true,
+            hidePreviewIconInNonImage: false
+        };
         this.handlePreview = function (file) {
             _this.previewImage = file.url || file.thumbUrl;
+            _this.previewVisible = true;
+        };
+        this.handlePreviewModel = function (file) {
+            console.log('what inside uploaded file:', file);
+            // this.previewImage = file.url || file.thumbUrl;
             _this.previewVisible = true;
         };
         this.validateForm = this.fb.group({
@@ -2101,8 +2405,8 @@ var TypeComponent = /** @class */ (function () {
         this.type = type;
         this.modalService.open(modal, { centered: true });
     };
-    TypeComponent.prototype.onDownloadTypeImagesOpen = function () {
-        console.log('download images');
+    TypeComponent.prototype.onDownloadTypeImagesOpen = function (type) {
+        this.apiService.downloadTypeImages(this.clientId, this.eyeglassId, type.colorupc);
     };
     TypeComponent.prototype.onDownloadTypeModelOpen = function () {
         console.log('download types');
@@ -2173,23 +2477,23 @@ var TypeComponent = /** @class */ (function () {
     //   console.log(file);
     //   return true;
     // }
-    TypeComponent.prototype.onImagePicked = function (event) {
-        var _this = this;
-        var file = event.target.files[0];
-        console.log(file);
-        this.apiService.postImage("5d519c2eb174d281df9660b9", "5d519c4ab174d281df9660bb", "222222222222", file)
-            .subscribe(function () {
-            _this.modalService.dismissAll();
-        }, function (error) {
-            console.log(error);
-        });
-    };
+    // onImagePicked(event: Event) {
+    //   const file = (event.target as HTMLInputElement).files[0];
+    //   console.log(file);
+    //   this.apiService.postImage("5d519c2eb174d281df9660b9", "5d519c4ab174d281df9660bb", "222222222222", file)
+    //   .subscribe(() => {
+    //       this.modalService.dismissAll();
+    //   }, error => {
+    //       console.log(error)
+    //   });         
+    // }
     TypeComponent.prototype.upLoadChange = function (event, type) {
         var _this = this;
         console.log('event: ', event);
         var file = event ? event.file : null;
         var datas = file && file.uid ? file : file.response && file.response.rlt === 0 && file.response.datas;
         if (datas) {
+            console.log('event type: ', event.type);
             if (event.type === 'success') {
                 type.eventType = 'add';
                 this.apiService.updateType(type.client, type.eyeglass, type.colorupc, type)
@@ -2221,6 +2525,9 @@ var TypeComponent = /** @class */ (function () {
                 });
             }
         }
+    };
+    TypeComponent.prototype.upLoadChangeModel = function () {
+        console.log('upload model information to mongodb, not the model itself!');
     };
     TypeComponent.prototype.onChange = function (input) {
         if (input) {
@@ -2288,6 +2595,7 @@ var TypeModel = /** @class */ (function () {
             this.client = type.client;
             this.eyeglass = type.eyeglass;
             this.images = type.images;
+            this.models = type.models;
         }
     }
     TypeModel.ctorParameters = function () { return [

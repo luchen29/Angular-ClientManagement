@@ -22,7 +22,6 @@ export class EyeglassComponent implements OnInit {
   protected disable = false;
   protected btnState: boolean;
 
-  // public files: UploadFile[] = [];
   public clientId: string;
   public eyeglassId: string;
   public companyName: string;
