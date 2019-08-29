@@ -32,6 +32,7 @@ export class TypeComponent implements OnInit {
   public modelName: string;
   protected previewImage: string | undefined = '';
   protected previewVisible = false;
+  protected previewVisibleModel = false;
 
   dummyFileList = [
     {
@@ -169,7 +170,7 @@ export class TypeComponent implements OnInit {
     this.previewVisible = true;
   };
 
-  handlePreviewModel = (file: UploadFile) => {
+  handlePreviewModel = (file) => {
     console.log('what inside uploaded file:', file);
     // this.previewImage = file.url || file.thumbUrl;
     this.previewVisible = true;
@@ -180,23 +181,24 @@ export class TypeComponent implements OnInit {
   //   return true;
   // }
 
-  onImagePicked(event: Event) {
-    const file = (event.target as HTMLInputElement).files[0];
-    console.log(file);
-    this.apiService.postImage("5d519c2eb174d281df9660b9", "5d519c4ab174d281df9660bb", "222222222222", file)
-    .subscribe(() => {
-        this.modalService.dismissAll();
-    }, error => {
-        console.log(error)
-    });         
-  }
+  // onImagePicked(event: Event) {
+  //   const file = (event.target as HTMLInputElement).files[0];
+  //   console.log(file);
+  //   this.apiService.postImage("5d519c2eb174d281df9660b9", "5d519c4ab174d281df9660bb", "222222222222", file)
+  //   .subscribe(() => {
+  //       this.modalService.dismissAll();
+  //   }, error => {
+  //       console.log(error)
+  //   });         
+  // }
 
   upLoadChange(event, type) {
       console.log('event: ', event);
       const file = event ? event.file : null; 
       const datas = file && file.uid ? file : file.response && file.response.rlt === 0 && file.response.datas;
       if (datas) {
-        if (event.type === 'success' && event.file.type === "image/png") {
+        console.log('event type: ', event.type);
+        if (event.type === 'success') {
             type.eventType = 'add';
             this.apiService.updateType(type.client, type.eyeglass, type.colorupc, type)
                 .subscribe(() => {
@@ -214,24 +216,6 @@ export class TypeComponent implements OnInit {
                 }, error => {
                     console.log(error)
                 });       
-        } else if (event.type === 'success' && event.file.type === "") {
-            type.eventType = 'add';
-            this.apiService.updateType(type.client, type.eyeglass, type.colorupc, type)
-                .subscribe(() => {
-                    console.log('type updated!');
-                    this.showAlert('image uploaded successfully');
-                    this.modalService.dismissAll();
-                }, error => {
-                    console.error(error);
-                    this.showAlert(error);
-                });
-            this.apiService.postModel(type.client, type.eyeglass, type.colorupc, datas)
-                .subscribe(() => {
-                    console.log('model posted!');
-                    this.modalService.dismissAll();
-                }, error => {
-                    console.log(error)
-                })
         } else if (event.type === 'removed') {
           event.file.eventType = 'remove';
           this.apiService.updateType(type.client, type.eyeglass, type.colorupc, event.file)
@@ -245,6 +229,10 @@ export class TypeComponent implements OnInit {
         }
       } 
     }
+  
+  upLoadChangeModel(){
+    console.log('upload model information to mongodb, not the model itself!');
+  }
 
   public onChange(input) {
     if (input) {

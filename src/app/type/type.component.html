@@ -115,15 +115,15 @@
                         [nzShowButton]="dummyFileList.length < 2"
                         [nzShowUploadList]="showUploadListModel"
                         [nzPreview]="handlePreviewModel"
-                        (nzChange)="upLoadChange($event, type)">
+                        (nzChange)="upLoadChangeModel($event, type)">
                         <i nz-icon nzType="plus"></i>
                         <div class="ant-upload-text">Upload</div>
                     </nz-upload>
                     <nz-modal
-                        [nzVisible]="previewVisible"
+                        [nzVisible]="previewVisibleModel"
                         [nzContent]="modalContent3d"
                         [nzFooter]="null"
-                        (nzOnCancel)="previewVisible = false">
+                        (nzOnCancel)="previewVisibleModel = false">
                         <ng-template #modalContent3d>
                             <stl-model-viewer stlModel="https://storage.cloud.google.com/model-images/1566342712999-5d519c2eb174d281df9660b9-glasses.obj?authuser=2&orgonly=true&supportedpurview=project"></stl-model-viewer>
                         </ng-template>
