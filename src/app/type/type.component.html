@@ -111,8 +111,8 @@
                         nzName="def"
                         nzAction="https://jsonplaceholder.typicode.com/posts/"
                         nzListType="picture-card"
-                        [(nzFileList)]="dummyFileList"
-                        [nzShowButton]="dummyFileList.length < 2"
+                        [(nzFileList)]="type.models"
+                        [nzShowButton]="type.models.length < 2"
                         [nzShowUploadList]="showUploadListModel"
                         [nzPreview]="handlePreviewModel"
                         (nzChange)="upLoadChangeModel($event, type)">
