@@ -29,7 +29,7 @@
     "@ngx-gallery/lightbox": "^4.0.3",
     "@nicky-lenaers/ngx-scroll-to": "^2.0.0",
     "@types/three": "^0.103.2",
-    "ajv": "^6.10.2",
+    "ajv": "^6.12.3",
     "angular-stl-model-viewer": "^0.5.0",
     "blueimp-canvas-to-blob": "^3.15.0",
     "bootstrap": "^4.3.1",
